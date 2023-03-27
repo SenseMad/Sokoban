@@ -1,24 +1,29 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
-using LevelManagement;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
+
+using LevelManagement;
 
 namespace Sokoban.UI
 {
   public class PauseManager : MonoBehaviour
   {
+    private static PauseManager _instance;
+
+    //======================================
+
     [SerializeField, Tooltip("Панель паузы")]
     private Panel _pausePanel;
-
-    [SerializeField, Tooltip("PanelController")]
-    private PanelController _panelController;
 
     //--------------------------------------
 
     private LevelManager levelManager;
+
+    private PanelController panelController;
+
+    //======================================
 
     /// <summary>
     /// True, если игра остановлена
@@ -27,13 +32,39 @@ namespace Sokoban.UI
 
     //======================================
 
-
+    public static PauseManager Instance
+    {
+      get
+      {
+        if (_instance == null) { _instance = FindObjectOfType<PauseManager>(); }
+        return _instance;
+      }
+    }
 
     //======================================
 
     private void Awake()
     {
       levelManager = LevelManager.Instance;
+
+      panelController = PanelController.Instance;
+
+      if (_instance != null && _instance != this)
+      {
+        Destroy(this);
+        return;
+      }
+      _instance = this;
+    }
+
+    private void OnEnable()
+    {
+      //levelManager.IsReloadLevel.AddListener(ReloadLevel);
+    }
+
+    private void OnDisable()
+    {
+      //levelManager.IsReloadLevel.RemoveListener(ReloadLevel);
     }
 
     //======================================
@@ -49,18 +80,18 @@ namespace Sokoban.UI
       if (!IsPause)
       {
         IsPause = true;
-        _panelController.ShowPanel(_pausePanel);
+        panelController.ShowPanel(_pausePanel);
       }
-      else if (_panelController.GetCurrentActivePanel() == _pausePanel)
+      else if (panelController.GetCurrentActivePanel() == _pausePanel)
       {
-        if (_panelController.listAllOpenPanels.Count > 1)
+        if (panelController.listAllOpenPanels.Count > 1)
         {
-          _panelController.ClosePanel();
+          panelController.ClosePanel();
         }
         else
         {
           IsPause = false;
-          _panelController.CloseAllPanels();
+          panelController.CloseAllPanels();
         }
       }
 
@@ -70,12 +101,21 @@ namespace Sokoban.UI
     //======================================
 
     /// <summary>
+    /// Перезугрука уровня
+    /// </summary>
+    private void ReloadLevel()
+    {
+      SetIsPause();
+      levelManager.ReloadLevel();
+    }
+
+    /// <summary>
     /// Кнопка продолжить
     /// </summary>
     public void ContinueButton()
     {
-      IsPause = false;
-      _panelController.CloseAllPanels();
+      SetIsPause();
+      panelController.CloseAllPanels();
     }
 
     /// <summary>

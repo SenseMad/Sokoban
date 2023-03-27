@@ -13,7 +13,7 @@ public class DynamicObjects : Block
 
   //--------------------------------------
 
-  private Rigidbody rigidbody;
+  private new Rigidbody rigidbody;
 
   //======================================
 
@@ -63,10 +63,9 @@ public class DynamicObjects : Block
   {
     if (Physics.Raycast(transform.position, direction, out RaycastHit hit, 1))
     {
-      var collider = hit.collider;
-      if (collider)
+      if (hit.collider)
       {
-        if (collider.GetComponent<DynamicObjects>() || collider.GetComponent<StaticObjects>())
+        if (hit.collider.GetComponent<DynamicObjects>() || hit.collider.GetComponent<StaticObjects>())
           return true;
       }
     }

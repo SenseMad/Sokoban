@@ -12,7 +12,7 @@ public class PlayerObjects : Block
 
   //--------------------------------------
 
-  private Rigidbody rigidbody;
+  private new Rigidbody rigidbody;
 
   //======================================
 

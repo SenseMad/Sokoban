@@ -118,16 +118,12 @@ public class PlayerController : MonoBehaviour
 
     if (Physics.Raycast(transform.position, direction, out RaycastHit hit, 1))
     {
-      var collider = hit.collider;
-      if (collider)
+      if (hit.collider)
       {
-        /*if (collider.GetComponent<GridObject>().TypeObject == TypeObject.staticObject)
-          return true;*/
-        if (collider.GetComponent<Block>().GetObjectType() == TypeObject.staticObject)
+        if (hit.collider.GetComponent<Block>().GetObjectType() == TypeObject.staticObject)
           return true;
 
-        var dynamicObject = collider.GetComponent<DynamicObjects>();
-        if (dynamicObject)
+        if (hit.collider.TryGetComponent(out DynamicObjects dynamicObject))
         {
           if (dynamicObject.GetObjectType() == TypeObject.dynamicObject)
           {
@@ -135,16 +131,8 @@ public class PlayerController : MonoBehaviour
           }
         }
 
-        if (collider.GetComponent<Block>().GetObjectType() == TypeObject.interactiveObject)
+        if (hit.collider.GetComponent<Block>().GetObjectType() == TypeObject.interactiveObject)
           return false;
-        /*var box = collider.GetComponent<Box>();
-        if (box)
-        {
-          if (box.GetComponent<GridObject>().TypeObject == TypeObject.dynamicObject)
-          {
-            return !box.Move(direction);
-          }
-        }*/
       }
 
       return true;
@@ -200,17 +188,10 @@ public class PlayerController : MonoBehaviour
   {
     if (Physics.Raycast(origin, Vector3.down, out RaycastHit hit, 1f))
     {
-      var dynamicObject = hit.collider.GetComponent<DynamicObjects>();
-      if (dynamicObject)
+      if (hit.collider.TryGetComponent(out DynamicObjects dynamicObject))
       {
         return dynamicObject.IsObjectFalling();
       }
-
-      /*var box = hit.collider.GetComponent<Box>();
-      if (box)
-      {
-        return box.FallCheck();
-      }*/
     }
 
     return false;

@@ -24,14 +24,14 @@ namespace Sokoban.UI
     private UILevelSelectMenu _uILevelSelectMenu;
 
     [Header("ПАНЕЛЬ")]
-    [SerializeField, Tooltip("PanelController")]
-    private PanelController _panelController;
     [SerializeField, Tooltip("Панель открытия выбора уровней")]
     private Panel _panelOpeningLevelSelection;
 
     //--------------------------------------
 
     private GameManager gameManager;
+
+    private PanelController panelController;
 
     /// <summary>
     /// Список кнопок выбора локаций
@@ -43,6 +43,8 @@ namespace Sokoban.UI
     private void Start()
     {
       gameManager = GameManager.Instance;
+
+      panelController = PanelController.Instance;
 
       DisplayLocationSelectionButtonsUI();
     }
@@ -79,7 +81,7 @@ namespace Sokoban.UI
     /// <param name="parLocation">Локация</param>
     private void SelectLocation(Location parLocation)
     {
-      _panelController.SetActivePanel(_panelOpeningLevelSelection);
+      panelController.SetActivePanel(_panelOpeningLevelSelection);
 
       _uILevelSelectMenu.ClearButtonsUI();
       _uILevelSelectMenu.DisplayLevelSelectionButtonsUI(parLocation);

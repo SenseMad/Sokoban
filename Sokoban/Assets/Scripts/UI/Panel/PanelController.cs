@@ -5,6 +5,10 @@ namespace Sokoban.UI
 {
   public class PanelController : MonoBehaviour
   {
+    private static PanelController _instance;
+
+    //======================================
+
     [SerializeField, Tooltip("Текущая активная панель")]
     private Panel _currentActivePanel;
 
@@ -21,6 +25,29 @@ namespace Sokoban.UI
     /// Получить текущую активную панель
     /// </summary>
     public Panel GetCurrentActivePanel() => _currentActivePanel;
+
+    //--------------------------------------
+
+    public static PanelController Instance
+    {
+      get
+      {
+        if (_instance == null) { _instance = FindObjectOfType<PanelController>(); }
+        return _instance;
+      }
+    }
+
+    //======================================
+
+    private void Awake()
+    {
+      if (_instance != null && _instance != this)
+      {
+        Destroy(this);
+        return;
+      }
+      _instance = this;
+    }
 
     //======================================
 

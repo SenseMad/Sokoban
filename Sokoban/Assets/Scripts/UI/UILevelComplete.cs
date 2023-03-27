@@ -5,6 +5,7 @@ using TMPro;
 
 using LevelManagement;
 using GameManagement;
+using UnityEngine.InputSystem;
 
 namespace Sokoban.UI
 {
@@ -13,8 +14,6 @@ namespace Sokoban.UI
     [Header("ПАНЕЛЬ")]
     [SerializeField, Tooltip("Панель пройденного уровня")]
     private Panel _levelCompletePanel;
-    [SerializeField, Tooltip("PanelController")]
-    private PanelController _panelController;
 
     [Header("ТЕКСТ")]
     [SerializeField, Tooltip("Текст времени прохождения уровня")]
@@ -26,13 +25,15 @@ namespace Sokoban.UI
 
     private LevelManager levelManager;
 
+    private PanelController panelController;
+
     //======================================
 
     private void Awake()
     {
-      _panelController = GetComponent<PanelController>();
-
       levelManager = LevelManager.Instance;
+
+      panelController = PanelController.Instance;
     }
 
     private void OnEnable()
@@ -57,7 +58,7 @@ namespace Sokoban.UI
       UpdateTextTime();
       UodateTextNumberMoves();
 
-      _panelController.ShowPanel(_levelCompletePanel);
+      panelController.ShowPanel(_levelCompletePanel);
     }
 
     /// <summary>
@@ -89,7 +90,7 @@ namespace Sokoban.UI
     /// </summary>
     public void RestartButton()
     {
-      _panelController.CloseAllPanels();
+      panelController.CloseAllPanels();
       levelManager.ReloadLevel();
     }
 
@@ -98,12 +99,24 @@ namespace Sokoban.UI
     /// </summary>
     private void CloseMenu()
     {
-      _panelController.CloseAllPanels();
+      panelController.CloseAllPanels();
     }
 
     //======================================
 
-
+    /// <summary>
+    /// Перезугрузка уровня
+    /// </summary>
+    public void OnReload(InputAction.CallbackContext context)
+    {
+      switch (context.phase)
+      {
+        case InputActionPhase.Performed:
+          panelController.CloseAllPanels();
+          levelManager.ReloadLevel();
+          break;
+      }
+    }
 
     //======================================
   }

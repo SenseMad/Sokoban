@@ -6,6 +6,7 @@ using UnityEngine.Events;
 using GameManagement;
 using Sokoban.GridEditor;
 using Sokoban.UI;
+using UnityEngine.InputSystem;
 
 namespace LevelManagement
 {
@@ -77,6 +78,10 @@ namespace LevelManagement
     /// Событие: Следующий уровень
     /// </summary>
     public UnityEvent IsNextLevel { get; } = new UnityEvent();
+    /// <summary>
+    /// Событие: Перезагрузка уровня
+    /// </summary>
+    public UnityEvent IsReloadLevel { get; } = new UnityEvent();
 
     //======================================
 
@@ -200,6 +205,7 @@ namespace LevelManagement
     /// </summary>
     public void ReloadLevel()
     {
+      IsReloadLevel?.Invoke();
       _gridLevel.CreatingLevelGrid();
 
       TimeOnLevel = 0;
@@ -262,7 +268,6 @@ namespace LevelManagement
       if ((int)_currentLevelData.Location + 1 <= System.Enum.GetValues(typeof(Location)).Length - 1)
       {
         gameManager.ProgressData.OpenLocation(_currentLevelData.Location + 1);
-        Debug.Log("OpenLoc");
         return true;
       }
 
