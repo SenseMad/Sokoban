@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.Events;
 
-namespace LevelManagement
+namespace Sokoban.LevelManagement
 {
   /// <summary>
   /// Данные прогресса на уровне

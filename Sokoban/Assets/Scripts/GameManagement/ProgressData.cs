@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-using LevelManagement;
+using Sokoban.LevelManagement;
 
-namespace GameManagement
+namespace Sokoban.GameManagement
 {
   /// <summary>
   /// Данные о прогрессе игрока

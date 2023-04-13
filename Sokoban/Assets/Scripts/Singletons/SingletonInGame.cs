@@ -12,28 +12,38 @@ public abstract class SingletonInGame<T> : MonoBehaviour where T : MonoBehaviour
     {
       if (_instance == null)
       {
-        var singletonObject = new GameObject();
+        var singletonObject = new GameObject($"{typeof(T)}");
         _instance = singletonObject.AddComponent<T>();
-        singletonObject.name = $"{typeof(T)}(Singleton)";
-
         DontDestroyOnLoad(singletonObject);
       }
 
       return _instance;
     }
-    private set { _instance = value; }
   }
 
   //===========================================
 
   protected void Awake()
   {
-    if (_instance != null)
+    /*if (_instance != null)
     {
       Destroy(this);
+      return;
     }
 
-    _instance = GetComponent<T>();
+    _instance = GetComponent<T>();*/
+
+
+    if (_instance == null)
+    {
+      _instance = GetComponent<T>();
+      DontDestroyOnLoad(gameObject);
+    }
+    else
+    {
+      Destroy(gameObject);
+      return;
+    }
   }
 
   //===========================================

@@ -1,11 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using TMPro;
 
-using LevelManagement;
-using GameManagement;
-using UnityEngine.InputSystem;
+using Sokoban.LevelManagement;
+using Sokoban.GameManagement;
 
 namespace Sokoban.UI
 {
@@ -23,6 +23,8 @@ namespace Sokoban.UI
 
     //--------------------------------------
 
+    private InputHandler inputHandler;
+
     private LevelManager levelManager;
 
     private PanelController panelController;
@@ -31,6 +33,8 @@ namespace Sokoban.UI
 
     private void Awake()
     {
+      inputHandler = InputHandler.Instance;
+
       levelManager = LevelManager.Instance;
 
       panelController = PanelController.Instance;
@@ -38,13 +42,21 @@ namespace Sokoban.UI
 
     private void OnEnable()
     {
-      levelManager.IsNextLevel.AddListener(CloseMenu);
+      inputHandler.AI_Player.UI.Select.performed += OnSelect;
+      inputHandler.AI_Player.UI.Reload.performed += OnReload;
+      inputHandler.AI_Player.UI.Pause.performed += OnExitMenu;
+
+      levelManager.IsNextLevel.AddListener(panelController.CloseAllPanels);
       levelManager.IsLevelCompleted.AddListener(UpdateText);
     }
 
     private void OnDisable()
     {
-      levelManager.IsNextLevel.RemoveListener(CloseMenu);
+      inputHandler.AI_Player.UI.Select.performed -= OnSelect;
+      inputHandler.AI_Player.UI.Reload.performed -= OnReload;
+      inputHandler.AI_Player.UI.Pause.performed -= OnExitMenu;
+
+      levelManager.IsNextLevel.RemoveListener(panelController.CloseAllPanels);
       levelManager.IsLevelCompleted.RemoveListener(UpdateText);
     }
 
@@ -56,7 +68,7 @@ namespace Sokoban.UI
     private void UpdateText()
     {
       UpdateTextTime();
-      UodateTextNumberMoves();
+      UpdateTextNumberMoves();
 
       panelController.ShowPanel(_levelCompletePanel);
     }
@@ -78,7 +90,7 @@ namespace Sokoban.UI
     /// <summary>
     /// Обновить текст количества ходов
     /// </summary>
-    private void UodateTextNumberMoves()
+    private void UpdateTextNumberMoves()
     {
       _textNumberMoves.text = $"КОЛИЧЕСТВО ХОДОВ: {levelManager.NumberMoves}";
     }
@@ -86,36 +98,37 @@ namespace Sokoban.UI
     //======================================
 
     /// <summary>
-    /// Кнопка перезугрузки
+    /// Следующий уровень
     /// </summary>
-    public void RestartButton()
+    public void OnSelect(InputAction.CallbackContext context)
     {
-      panelController.CloseAllPanels();
-      levelManager.ReloadLevel();
-    }
+      if (!levelManager.LevelCompleted)
+        return;
 
-    /// <summary>
-    /// Закрыть меню
-    /// </summary>
-    private void CloseMenu()
-    {
-      panelController.CloseAllPanels();
+      levelManager.UploadNewLevel();
     }
-
-    //======================================
 
     /// <summary>
     /// Перезугрузка уровня
     /// </summary>
     public void OnReload(InputAction.CallbackContext context)
     {
-      switch (context.phase)
-      {
-        case InputActionPhase.Performed:
-          panelController.CloseAllPanels();
-          levelManager.ReloadLevel();
-          break;
-      }
+      if (!levelManager.LevelCompleted)
+        return;
+
+      panelController.CloseAllPanels();
+      levelManager.ReloadLevel();
+    }
+
+    /// <summary>
+    /// Выход в меню
+    /// </summary>
+    public void OnExitMenu(InputAction.CallbackContext context)
+    {
+      if (!levelManager.LevelCompleted)
+        return;
+
+      levelManager.ExitMenu();
     }
 
     //======================================

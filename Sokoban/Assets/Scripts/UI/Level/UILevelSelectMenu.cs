@@ -3,15 +3,15 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
-using LevelManagement;
-using GameManagement;
+using Sokoban.LevelManagement;
+using Sokoban.GameManagement;
 
 namespace Sokoban.UI
 {
   /// <summary>
   /// Пользовательский интерфейс меню выбора уровня
   /// </summary>
-  public class UILevelSelectMenu : MonoBehaviour
+  public class UILevelSelectMenu : SingletonInSceneNoInstance<UILevelSelectMenu>
   {
     [SerializeField, Tooltip("Панель, куда будут создаваться кнопки")]
     private RectTransform _levelSelectPanel;
@@ -31,7 +31,7 @@ namespace Sokoban.UI
 
     //======================================
 
-    private void Awake()
+    private new void Awake()
     {
       gameManager = GameManager.Instance;
     }
@@ -43,6 +43,8 @@ namespace Sokoban.UI
     /// </summary>
     public void DisplayLevelSelectionButtonsUI(Location parLocation)
     {
+      ClearButtonsUI();
+
       foreach (var levelData in Levels.GetListLevelData(parLocation))
       {
         UILevelSelectButton button = Instantiate(_prefabButtonLevelSelect, _levelSelectPanel);
@@ -67,9 +69,9 @@ namespace Sokoban.UI
       if (listUILevelSelectButton.Count < 1)
         return;
 
-      foreach (var levelSelectButton in listUILevelSelectButton)
+      for (int i = 0; i < listUILevelSelectButton.Count; i++)
       {
-        Destroy(levelSelectButton.gameObject);
+        Destroy(listUILevelSelectButton[i].gameObject);
       }
 
       listUILevelSelectButton = new List<UILevelSelectButton>();

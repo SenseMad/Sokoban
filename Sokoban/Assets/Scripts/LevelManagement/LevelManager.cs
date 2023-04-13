@@ -3,19 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-using GameManagement;
+using Sokoban.GameManagement;
 using Sokoban.GridEditor;
-using Sokoban.UI;
-using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
-namespace LevelManagement
+namespace Sokoban.LevelManagement
 {
-  public sealed class LevelManager : MonoBehaviour
+  public sealed class LevelManager : SingletonInSceneNoInstance<LevelManager>
   {
-    private static LevelManager _instance;
-
-    //======================================
-
     [Header("ДАННЫЕ УРОВНЯ")]
     [SerializeField, Tooltip("Данные о текущем уровне")]
     private LevelData _currentLevelData;
@@ -33,15 +28,6 @@ namespace LevelManagement
     //private PauseManager pauseManager;
 
     //======================================
-
-    public static LevelManager Instance
-    {
-      get
-      {
-        if (_instance == null) { _instance = FindObjectOfType<LevelManager>(); }
-        return _instance;
-      }
-    }
 
     /// <summary>
     /// True, если уровень завершен
@@ -125,22 +111,13 @@ namespace LevelManagement
 
     //======================================
 
-    private void Awake()
+    private new void Awake()
     {
       gameManager = GameManager.Instance;
-
-      if (_instance != null && _instance != this)
-      {
-        Destroy(this);
-        return;
-      }
-      _instance = this;
     }
 
     private void Start()
     {
-      //pauseManager = FindObjectOfType<PauseManager>();
-
       _currentLevelData = Levels.CurrentSelectedLevelData;
 
       ReloadLevel();
@@ -211,6 +188,14 @@ namespace LevelManagement
       TimeOnLevel = 0;
       NumberMoves = 0;
       LevelCompleted = false;
+    }
+
+    /// <summary>
+    /// Выход в меню
+    /// </summary>
+    public void ExitMenu()
+    {
+      SceneManager.LoadScene($"MenuScene");
     }
 
     /// <summary>

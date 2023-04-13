@@ -4,7 +4,7 @@ using UnityEditor;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-using LevelManagement;
+using Sokoban.LevelManagement;
 
 namespace Sokoban.GridEditor
 {
@@ -283,14 +283,14 @@ namespace Sokoban.GridEditor
       LevelData levelData = ScriptableObject.CreateInstance<LevelData>();
 
       int numLevel = 1;
-      string path = Levels.GetPathToStarageLevels(_location, numLevel);
+      string path = Levels.GetPathToStorageLevels(_location, numLevel);
 
       // Проверяем, существует ли ScriptableObject
       ScriptableObject scriptable = AssetDatabase.LoadAssetAtPath<ScriptableObject>(path);
       while (scriptable != null)
       {
         numLevel++;
-        path = Levels.GetPathToStarageLevels(_location, numLevel);
+        path = Levels.GetPathToStorageLevels(_location, numLevel);
         scriptable = AssetDatabase.LoadAssetAtPath<ScriptableObject>(path);
       }
 

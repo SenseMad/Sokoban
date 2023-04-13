@@ -3,7 +3,7 @@ using System.IO;
 using UnityEditor;
 using UnityEngine;
 
-namespace LevelManagement
+namespace Sokoban.LevelManagement
 {
   /// <summary>
   /// Класс, который хранит уровни
@@ -37,7 +37,7 @@ namespace LevelManagement
     /// Получить путь до хранения уровней
     /// </summary>
     /// <param name="parLocation">Локация</param>
-    public static string GetPathToStarageLevels(Location parLocation)
+    public static string GetPathToStorageLevels(Location parLocation)
     {
       return $"Assets/Resources/Locations/{parLocation}";
     }
@@ -47,7 +47,7 @@ namespace LevelManagement
     /// </summary>
     /// <param name="parLocation">Локация</param>
     /// <param name="parNumLevel">Номер уровня</param>
-    public static string GetPathToStarageLevels(Location parLocation, int parNumLevel)
+    public static string GetPathToStorageLevels(Location parLocation, int parNumLevel)
     {
       return $"Assets/Resources/Locations/{parLocation}/{parLocation}_{parNumLevel}.asset";
     }
@@ -76,7 +76,7 @@ namespace LevelManagement
     /// <param name="parLocation">Локация</param>
     private static void DetermineNumberLevelsLocation(Location parLocation)
     {
-      string path = GetPathToStarageLevels(parLocation);
+      string path = GetPathToStorageLevels(parLocation);
 
       string[] guids = AssetDatabase.FindAssets("t:ScriptableObject", new[] { path });
 
@@ -106,7 +106,7 @@ namespace LevelManagement
     /// <param name="parNumLevel">Номер уровня</param>
     public static LevelData GetLevelData(Location parLocation, int parNumLevel)
     {
-      string path = GetPathToStarageLevels(parLocation, parNumLevel);
+      string path = GetPathToStorageLevels(parLocation, parNumLevel);
 
       LevelData levelData = AssetDatabase.LoadAssetAtPath<LevelData>(path);
 
@@ -150,7 +150,7 @@ namespace LevelManagement
     public static List<LevelData> GetListLevelData(Location parLocation)
     {
       List<LevelData> levelData = new List<LevelData>();
-      string path = GetPathToStarageLevels(parLocation);
+      string path = GetPathToStorageLevels(parLocation);
 
       string[] assetGuids = AssetDatabase.FindAssets("t:LevelData", new string[] { path });
 

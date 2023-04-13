@@ -23,6 +23,8 @@ namespace Sokoban.GridEditor
 
     //--------------------------------------
 
+    private InputHandler inputHandler;
+
     private CinemachineVirtualCamera virtualCamera;
     private GridEditor gridEditor;
 
@@ -38,6 +40,8 @@ namespace Sokoban.GridEditor
 
     private void Awake()
     {
+      inputHandler = InputHandler.Instance;
+
       virtualCamera = FindObjectOfType<CinemachineVirtualCamera>();
       gridEditor = FindObjectOfType<GridEditor>();
     }
@@ -50,12 +54,17 @@ namespace Sokoban.GridEditor
         return;
 
       RotateCamera();
+
+      slowCamera = inputHandler.GetButtonSlowCamera();
+      fastCamera = inputHandler.GetButtonFastCamera();
     }
 
     //======================================
 
     private void Move()
     {
+      axisMovement = inputHandler.GetMove();
+
       float speed = fastCamera ? _fastCameraSpeed : (!slowCamera ? _normalCameraSpeed : _slowCameraSpeed);
       Vector3 moveDirection = new Vector3(axisMovement.x, 0, axisMovement.y) * speed * Time.deltaTime;
       virtualCamera.transform.Translate(moveDirection, Space.Self);
@@ -65,55 +74,13 @@ namespace Sokoban.GridEditor
     {
       if (Mouse.current.rightButton.IsPressed())
       {
+        axisLook = inputHandler.GetLook();
+
         mouseX += axisLook.x * _rotationSpeed;
         mouseY -= axisLook.y * _rotationSpeed;
         mouseY = Mathf.Clamp(mouseY, -89f, 89f);
 
         virtualCamera.transform.rotation = Quaternion.Euler(mouseY, mouseX, 0f);
-      }
-    }
-
-    //======================================
-
-    /// <summary>
-    /// Поворот камеры
-    /// </summary>
-    public void OnLook(InputAction.CallbackContext context)
-    {
-      axisLook = context.ReadValue<Vector2>();
-    }
-
-    /// <summary>
-    /// Движение
-    /// </summary>
-    public void OnMove(InputAction.CallbackContext context)
-    {
-      axisMovement = context.ReadValue<Vector2>();
-    }
-
-    public void OnSlowCamera(InputAction.CallbackContext context)
-    {
-      switch (context.phase)
-      {
-        case InputActionPhase.Started:
-          slowCamera = true;
-          break;
-        case InputActionPhase.Canceled:
-          slowCamera = false;
-          break;
-      }
-    }
-
-    public void OnFastCamera(InputAction.CallbackContext context)
-    {
-      switch (context.phase)
-      {
-        case InputActionPhase.Started:
-          fastCamera = true;
-          break;
-        case InputActionPhase.Canceled:
-          fastCamera = false;
-          break;
       }
     }
 

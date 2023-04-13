@@ -2,8 +2,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-using LevelManagement;
-using GameManagement;
+using Sokoban.LevelManagement;
+using Sokoban.GameManagement;
 
 namespace Sokoban.UI
 {
@@ -19,10 +19,6 @@ namespace Sokoban.UI
     [SerializeField, Tooltip("Префаб кнопки выбора локации")]
     private UILocationSelectButton _prefabButtonLocationSelect;
 
-    [Header("МЕНЮ ВЫБОРА УРОВНЕЙ")]
-    [SerializeField, Tooltip("Меню выбора уровня пользовательского интерфейса")]
-    private UILevelSelectMenu _uILevelSelectMenu;
-
     [Header("ПАНЕЛЬ")]
     [SerializeField, Tooltip("Панель открытия выбора уровней")]
     private Panel _panelOpeningLevelSelection;
@@ -31,7 +27,15 @@ namespace Sokoban.UI
 
     private GameManager gameManager;
 
+    /// <summary>
+    /// Контроллер панелей
+    /// </summary>
     private PanelController panelController;
+
+    /// <summary>
+    /// Меню выбора уровней
+    /// </summary>
+    private UILevelSelectMenu uILevelSelectMenu;
 
     /// <summary>
     /// Список кнопок выбора локаций
@@ -40,12 +44,17 @@ namespace Sokoban.UI
 
     //======================================
 
-    private void Start()
+    private void Awake()
     {
       gameManager = GameManager.Instance;
 
       panelController = PanelController.Instance;
 
+      uILevelSelectMenu = UILevelSelectMenu.Instance;
+    }
+
+    private void Start()
+    {
       DisplayLocationSelectionButtonsUI();
     }
 
@@ -61,7 +70,7 @@ namespace Sokoban.UI
         UILocationSelectButton button = Instantiate(_prefabButtonLocationSelect, _locationSelectPanel);
 
         button.Button = button.GetComponent<Button>();
-        //Debug.Log(gameManager.ProgressData.GetNumberLevelsCompleted(Location.Winter));
+
         if (gameManager.ProgressData.IsLocationOpen(location))
         {
           button.Button.interactable = true;
@@ -83,8 +92,7 @@ namespace Sokoban.UI
     {
       panelController.SetActivePanel(_panelOpeningLevelSelection);
 
-      _uILevelSelectMenu.ClearButtonsUI();
-      _uILevelSelectMenu.DisplayLevelSelectionButtonsUI(parLocation);
+      uILevelSelectMenu.DisplayLevelSelectionButtonsUI(parLocation);
     }
 
     //======================================

@@ -2,18 +2,29 @@ using UnityEngine;
 
 public abstract class SingletonInSceneNoInstance<T> : MonoBehaviour where T : MonoBehaviour
 {
-  public static T Instance { get; private set; }
+  private static T _instance;
+
+  //===========================================
+
+  public static T Instance
+  {
+    get
+    {
+      return _instance ?? FindObjectOfType<T>();
+    }
+  }
 
   //===========================================
 
   protected void Awake()
   {
-    if (Instance != null)
+    if (_instance != null && _instance != this)
     {
       Destroy(this);
+      return;
     }
 
-    Instance = GetComponent<T>();
+    _instance = GetComponent<T>();
   }
 
   //===========================================

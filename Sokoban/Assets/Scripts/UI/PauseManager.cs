@@ -4,20 +4,18 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 
-using LevelManagement;
+using Sokoban.LevelManagement;
 
 namespace Sokoban.UI
 {
   public class PauseManager : MonoBehaviour
   {
-    private static PauseManager _instance;
-
-    //======================================
-
     [SerializeField, Tooltip("Панель паузы")]
     private Panel _pausePanel;
 
     //--------------------------------------
+
+    private InputHandler inputHandler;
 
     private LevelManager levelManager;
 
@@ -32,38 +30,24 @@ namespace Sokoban.UI
 
     //======================================
 
-    public static PauseManager Instance
-    {
-      get
-      {
-        if (_instance == null) { _instance = FindObjectOfType<PauseManager>(); }
-        return _instance;
-      }
-    }
-
-    //======================================
-
     private void Awake()
     {
+      inputHandler = InputHandler.Instance;
+
       levelManager = LevelManager.Instance;
 
       panelController = PanelController.Instance;
-
-      if (_instance != null && _instance != this)
-      {
-        Destroy(this);
-        return;
-      }
-      _instance = this;
     }
 
     private void OnEnable()
     {
+      inputHandler.AI_Player.UI.Pause.performed += OnPause;
       //levelManager.IsReloadLevel.AddListener(ReloadLevel);
     }
 
     private void OnDisable()
     {
+      inputHandler.AI_Player.UI.Pause.performed -= OnPause;
       //levelManager.IsReloadLevel.RemoveListener(ReloadLevel);
     }
 
@@ -132,7 +116,7 @@ namespace Sokoban.UI
     /// </summary>
     public void ExitMenuButton()
     {
-      SceneManager.LoadScene($"MenuScene");
+      levelManager.ExitMenu();
     }
 
     //======================================
@@ -142,12 +126,7 @@ namespace Sokoban.UI
     /// </summary>
     public void OnPause(InputAction.CallbackContext context)
     {
-      switch (context.phase)
-      {
-        case InputActionPhase.Performed:
-          SetIsPause();
-          break;
-      }
+      SetIsPause();
     }
 
     //======================================

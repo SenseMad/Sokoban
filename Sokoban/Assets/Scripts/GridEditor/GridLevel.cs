@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-using LevelManagement;
+using Sokoban.LevelManagement;
 
 namespace Sokoban.GridEditor
 {

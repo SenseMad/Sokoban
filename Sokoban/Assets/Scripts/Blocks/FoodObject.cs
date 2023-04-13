@@ -2,8 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-using LevelManagement;
-using Unity.VisualScripting;
+using Sokoban.LevelManagement;
+using Sokoban.Player;
 
 /// <summary>
 /// Класс объекта еды
@@ -13,7 +13,7 @@ public class FoodObject : InteractiveObjects
   /// <summary>
   /// True, если еда собрана
   /// </summary>
-  public bool IsFoodCollected { get; set; }
+  public bool IsFoodCollected { get; private set; }
 
   //======================================
 

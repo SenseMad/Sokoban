@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-using LevelManagement;
+using Sokoban.LevelManagement;
 
 namespace Sokoban.UI
 {

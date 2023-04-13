@@ -4,17 +4,17 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-using LevelManagement;
+using Sokoban.LevelManagement;
 
-namespace GameManagement
+namespace Sokoban.GameManagement
 {
-  public sealed class GameManager : MonoBehaviour
+  public sealed class GameManager : SingletonInGame<GameManager>
   {
     private static GameManager _instance;
 
     //======================================
 
-    public static GameManager Instance
+    /*public static GameManager Instance
     {
       get
       {
@@ -27,7 +27,7 @@ namespace GameManagement
 
         return _instance;
       }
-    }
+    }*/
 
     /// <summary>
     /// Данные о прогрессе игрока
@@ -36,7 +36,7 @@ namespace GameManagement
 
     //======================================
 
-    private void Awake()
+    /*private void Awake()
     {
       if (_instance == null)
       {
@@ -48,7 +48,7 @@ namespace GameManagement
         Destroy(gameObject);
         return;
       }
-    }
+    }*/
 
     private void Start()
     {
