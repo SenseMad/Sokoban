@@ -17,40 +17,62 @@ MonoBehaviour:
   _fieldSize: {x: 10, y: 5, z: 10}
   _listLevelObjects:
   - _typeObject: 2
+    _indexObject: 0
     _positionObject: {x: 4, y: 0, z: 3}
   - _typeObject: 2
+    _indexObject: 0
     _positionObject: {x: 5, y: 0, z: 3}
   - _typeObject: 2
+    _indexObject: 0
     _positionObject: {x: 6, y: 0, z: 3}
   - _typeObject: 2
+    _indexObject: 0
     _positionObject: {x: 7, y: 0, z: 3}
   - _typeObject: 2
+    _indexObject: 0
     _positionObject: {x: 4, y: 0, z: 4}
   - _typeObject: 2
+    _indexObject: 0
     _positionObject: {x: 5, y: 0, z: 4}
   - _typeObject: 2
+    _indexObject: 0
     _positionObject: {x: 6, y: 0, z: 4}
   - _typeObject: 2
+    _indexObject: 0
     _positionObject: {x: 7, y: 0, z: 4}
   - _typeObject: 2
+    _indexObject: 0
     _positionObject: {x: 4, y: 0, z: 5}
   - _typeObject: 2
+    _indexObject: 0
     _positionObject: {x: 5, y: 0, z: 5}
   - _typeObject: 2
+    _indexObject: 0
     _positionObject: {x: 6, y: 0, z: 5}
   - _typeObject: 2
+    _indexObject: 0
     _positionObject: {x: 7, y: 0, z: 5}
   - _typeObject: 2
+    _indexObject: 0
     _positionObject: {x: 4, y: 0, z: 6}
   - _typeObject: 2
+    _indexObject: 0
     _positionObject: {x: 5, y: 0, z: 6}
   - _typeObject: 2
+    _indexObject: 0
     _positionObject: {x: 6, y: 0, z: 6}
   - _typeObject: 2
+    _indexObject: 0
     _positionObject: {x: 7, y: 0, z: 6}
   - _typeObject: 0
+    _indexObject: 0
     _positionObject: {x: 6, y: 1, z: 5}
   - _typeObject: 1
+    _indexObject: 0
     _positionObject: {x: 5, y: 1, z: 5}
   - _typeObject: 3
+    _indexObject: 0
     _positionObject: {x: 4, y: 1, z: 3}
+  - _typeObject: 4
+    _indexObject: 0
+    _positionObject: {x: 6, y: 1, z: 4}

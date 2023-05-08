@@ -44,11 +44,7 @@ namespace Sokoban.GridEditor
 
     private void Start()
     {
-      levelManager = (LevelManager)LevelManager.Instance;
-
-      blockObjects = new Block[0, 0, 0];
-
-      //CreatingLevelGrid();
+      levelManager = LevelManager.Instance;
     }
 
     //======================================
@@ -60,20 +56,20 @@ namespace Sokoban.GridEditor
     /// </summary>
     private void FindAllFoodObjects()
     {
+      if (blockObjects == null)
+        return;
+
       listFoodObjects = new List<FoodObject>();
 
-      if (blockObjects != null)
+      foreach (var blockObject in blockObjects)
       {
-        foreach (var blockObject in blockObjects)
-        {
-          if (blockObject == null)
-            continue;
+        if (blockObject == null)
+          continue;
 
-          if (!blockObject.TryGetComponent<FoodObject>(out var foodObject))
-            continue;
+        if (!blockObject.TryGetComponent<FoodObject>(out var foodObject))
+          continue;
 
-          listFoodObjects.Add(foodObject);
-        }
+        listFoodObjects.Add(foodObject);
       }
     }
 
@@ -102,7 +98,7 @@ namespace Sokoban.GridEditor
 
       foreach (var levelObject in levelData.ListLevelObjects)
       {
-        Block newBlockObject = Instantiate(_listBlockObjectTypes.GetBlockObject(levelObject.TypeObject, 0), transform);
+        Block newBlockObject = Instantiate(_listBlockObjectTypes.GetBlockObject(levelObject.TypeObject, levelObject.IndexObject), transform);
         newBlockObject.transform.position = levelObject.PositionObject;
         newBlockObject.SetPositionObject(levelObject.PositionObject);
         blockObjects[levelObject.PositionObject.x, levelObject.PositionObject.y, levelObject.PositionObject.z] = newBlockObject;
@@ -110,8 +106,8 @@ namespace Sokoban.GridEditor
         //yield return new WaitForSeconds(0f);
       }
 
-      OnLevelCreated?.Invoke();
       FindAllFoodObjects();
+      OnLevelCreated?.Invoke();
     }
 
     /// <summary>
@@ -119,18 +115,18 @@ namespace Sokoban.GridEditor
     /// </summary>
     public void DeletingLevelObjects()
     {
-      if (blockObjects != null)
-      {
-        foreach (var blockObject in blockObjects)
-        {
-          if (blockObject != null)
-          {
-            Destroy(blockObject.gameObject);
-          }
-        }
+      if (blockObjects == null)
+        return;
 
-        blockObjects = null;
+      foreach (var blockObject in blockObjects)
+      {
+        if (blockObject == null)
+          continue;
+
+        Destroy(blockObject.gameObject);
       }
+
+      blockObjects = new Block[0, 0, 0];
     }
 
     //======================================

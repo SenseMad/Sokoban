@@ -1,7 +1,7 @@
 public enum TypeObject
 {
   /// <summary>
-  /// Игрок
+  /// Объект игрока
   /// </summary>
   playerObject,
   /// <summary>
@@ -13,9 +13,9 @@ public enum TypeObject
   /// </summary>
   staticObject,
   /// <summary>
-  /// Точка блока
+  /// Объект еды
   /// </summary>
-  interactiveObject,
+  foodObject,
   /// <summary>
   /// Объект шипа
   /// </summary>

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 namespace Sokoban.GridEditor
@@ -7,7 +8,7 @@ namespace Sokoban.GridEditor
   [CreateAssetMenu(fileName = "New Type Block Objects", menuName = "Data/Type Block Objects", order = 51)]
   public class TypeBlockObjects : ScriptableObject
   {
-    [SerializeField, Tooltip("Тип объектов")]
+    [SerializeField, Tooltip("Тип объектов из списка")]
     private TypeObject _typeObjects;
 
     [SerializeField, Tooltip("Список блочных объектов")]
@@ -16,25 +17,25 @@ namespace Sokoban.GridEditor
     //======================================
 
     /// <summary>
-    /// Тип объектов
+    /// Получить тип объектов из списка
     /// </summary>
-    public TypeObject GetTypeObjects { get => _typeObjects; }
+    public TypeObject GetTypeObjects => _typeObjects;
 
     //======================================
 
     /// <summary>
-    /// Получить объект блока по индексу
+    /// Получить объект блока из списка
     /// </summary>
-    /// <param name="parIndex">Индекс блока</param>
-    public Block GetBlockObject(int parIndex)
+    /// <param name="parObjectIndex">Индекс объекта</param>
+    public Block GetBlockObjectFromList(int parObjectIndex)
     {
-      if (parIndex > _listBlockObjects.Count - 1)
+      if (parObjectIndex > _listBlockObjects.Count - 1)
       {
         Debug.LogError("Индекс вышел за пределы массива!");
         return null;
       }
 
-      return _listBlockObjects[parIndex];
+      return _listBlockObjects[parObjectIndex];
     }
 
     //======================================

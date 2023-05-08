@@ -11,6 +11,9 @@ public class PlayerObjects : Block
   [SerializeField, Tooltip("Тип объекта")]
   private TypeObject _typeObject;
 
+  [SerializeField, Tooltip("Индекс объекта")]
+  private int _indexObject;
+
   [SerializeField, Tooltip("Позиция объекта")]
   private Vector3Int _objectPosition;
 
@@ -44,6 +47,8 @@ public class PlayerObjects : Block
   public override TypeObject GetObjectType() => _typeObject;
 
   public override Vector3Int GetObjectPosition() => _objectPosition;
+
+  public override int GetIndexObject() => _indexObject;
 
   //======================================
 
@@ -174,7 +179,7 @@ public class PlayerObjects : Block
 
         #endregion
 
-        if (block.GetObjectType() == TypeObject.interactiveObject)
+        if (block.GetObjectType() == TypeObject.foodObject)
           return false;
       }
 
@@ -250,14 +255,14 @@ public class PlayerObjects : Block
 
   //======================================
 
-  public override void RemoveRigidbody()
-  {
-    Destroy(rigidbody);
-  }
-
   public override void SetPositionObject(Vector3Int parObjectPosition)
   {
     _objectPosition = parObjectPosition;
+  }
+
+  public override void RemoveRigidbody()
+  {
+    Destroy(rigidbody);
   }
 
   //======================================

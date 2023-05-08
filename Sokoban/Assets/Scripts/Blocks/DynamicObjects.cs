@@ -8,6 +8,9 @@ public class DynamicObjects : Block
   [SerializeField, Tooltip("Тип объекта")]
   private TypeObject _typeObject;
 
+  [SerializeField, Tooltip("Индекс объекта")]
+  private int _indexObject;
+
   [SerializeField, Tooltip("Позиция объекта")]
   private Vector3Int _objectPosition;
 
@@ -21,23 +24,13 @@ public class DynamicObjects : Block
 
   public override Vector3Int GetObjectPosition() => _objectPosition;
 
+  public override int GetIndexObject() => _indexObject;
+
   //======================================
 
   private void Awake()
   {
     rigidbody = GetComponent<Rigidbody>();
-  }
-
-  //======================================
-
-  public override void SetPositionObject(Vector3Int parObjectPosition)
-  {
-    _objectPosition = parObjectPosition;
-  }
-
-  public override void RemoveRigidbody()
-  {
-    Destroy(rigidbody);
   }
 
   //======================================
@@ -87,6 +80,18 @@ public class DynamicObjects : Block
   public bool IsObjectFalling()
   {
     return rigidbody.velocity.y < -0.1f;
+  }
+
+  //======================================
+
+  public override void SetPositionObject(Vector3Int parObjectPosition)
+  {
+    _objectPosition = parObjectPosition;
+  }
+
+  public override void RemoveRigidbody()
+  {
+    Destroy(rigidbody);
   }
 
   //======================================

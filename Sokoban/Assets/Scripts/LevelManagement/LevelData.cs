@@ -51,6 +51,9 @@ namespace Sokoban.LevelManagement
       [SerializeField, Tooltip("Тип объекта")]
       private TypeObject _typeObject;
 
+      [SerializeField, Tooltip("Индекс объекта")]
+      private int _indexObject;
+
       [SerializeField, Tooltip("Позиция объекта")]
       private Vector3Int _positionObject;
 
@@ -60,6 +63,11 @@ namespace Sokoban.LevelManagement
       /// Тип объекта
       /// </summary>
       public TypeObject TypeObject { get => _typeObject; set => _typeObject = value; }
+
+      /// <summary>
+      /// Индекс объекта
+      /// </summary>
+      public int IndexObject { get => _indexObject; set => _indexObject = value; }
 
       /// <summary>
       /// Позиция объекта

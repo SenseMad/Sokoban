@@ -10,8 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4e8d257fb3980644dadcf0d84473e3aa, type: 3}
-  m_Name: InteractiveObjects
+  m_Name: SpikeObjects
   m_EditorClassIdentifier: 
-  _typeObjects: 3
+  _typeObjects: 4
   _listBlockObjects:
-  - {fileID: 3564449593172361865, guid: db1bc89eeb649284e91246f5cad6922e, type: 3}
+  - {fileID: 7996772148645010887, guid: ee848fe9a2d9a044fbbb1537a4f17a50, type: 3}

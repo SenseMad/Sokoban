@@ -10,6 +10,9 @@ public class StaticObjects : Block
   [SerializeField, Tooltip("Тип объекта")]
   private TypeObject _typeObject;
 
+  [SerializeField, Tooltip("Индекс объекта")]
+  private int _indexObject;
+
   [SerializeField, Tooltip("Позиция объекта")]
   private Vector3Int _objectPosition;
 
@@ -18,6 +21,8 @@ public class StaticObjects : Block
   public override TypeObject GetObjectType() => _typeObject;
 
   public override Vector3Int GetObjectPosition() => _objectPosition;
+
+  public override int GetIndexObject() => _indexObject;
 
   //======================================
 

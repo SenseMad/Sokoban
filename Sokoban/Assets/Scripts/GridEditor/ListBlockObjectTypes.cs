@@ -15,24 +15,18 @@ namespace Sokoban.GridEditor
     //======================================
 
     /// <summary>
-    /// Получить объект блока по типу и индексу объекта
+    /// Получить объект блока
     /// </summary>
     /// <param name="parTypeObject">Тип объекта</param>
-    /// <param name="parIndex">Индекс объекта</param>
-    public Block GetBlockObject(TypeObject parTypeObject, int parIndex)
+    /// <param name="parObjectIndex">Индекс объекта</param>
+    public Block GetBlockObject(TypeObject parTypeObject, int parObjectIndex)
     {
-      if (parIndex > _listBlockObjectTypes.Count)
-      {
-        Debug.LogError("Индекс вышел за пределы массива!");
-        return null;
-      }
-
       for (int i = 0; i < _listBlockObjectTypes.Count; i++)
       {
         if (_listBlockObjectTypes[i].GetTypeObjects != parTypeObject)
           continue;
 
-        return _listBlockObjectTypes[i].GetBlockObject(parIndex);
+        return _listBlockObjectTypes[i].GetBlockObjectFromList(parObjectIndex);
       }
 
       return null;

@@ -14,6 +14,11 @@ public abstract class Block : MonoBehaviour
   /// </summary>
   public abstract Vector3Int GetObjectPosition();
 
+  /// <summary>
+  /// Получить индекс объекта
+  /// </summary>
+  public abstract int GetIndexObject();
+
   //======================================
 
   /// <summary>
