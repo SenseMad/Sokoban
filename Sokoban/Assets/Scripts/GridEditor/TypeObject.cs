@@ -15,5 +15,9 @@ public enum TypeObject
   /// <summary>
   /// Точка блока
   /// </summary>
-  interactiveObject
+  interactiveObject,
+  /// <summary>
+  /// Объект шипа
+  /// </summary>
+  spikeObject
 }

@@ -30,7 +30,7 @@ namespace Sokoban.LevelManagement
     /// </summary>
     public static string GetPathToStarageLocations()
     {
-      return $"{Application.dataPath}/Resources/Locations";
+      return $"{Application.dataPath}/Locations";
     }
 
     /// <summary>
@@ -39,7 +39,7 @@ namespace Sokoban.LevelManagement
     /// <param name="parLocation">Локация</param>
     public static string GetPathToStorageLevels(Location parLocation)
     {
-      return $"Assets/Resources/Locations/{parLocation}";
+      return $"Assets/Locations/{parLocation}";
     }
 
     /// <summary>
@@ -49,7 +49,7 @@ namespace Sokoban.LevelManagement
     /// <param name="parNumLevel">Номер уровня</param>
     public static string GetPathToStorageLevels(Location parLocation, int parNumLevel)
     {
-      return $"Assets/Resources/Locations/{parLocation}/{parLocation}_{parNumLevel}.asset";
+      return $"Assets/Locations/{parLocation}/{parLocation}_{parNumLevel}.asset";
     }
 
     //======================================
@@ -100,7 +100,7 @@ namespace Sokoban.LevelManagement
     //======================================
 
     /// <summary>
-    /// Получить уровень по локации и номеру
+    /// Получить уровень
     /// </summary>
     /// <param name="parLocation">Локация</param>
     /// <param name="parNumLevel">Номер уровня</param>

@@ -48,7 +48,7 @@ public class DynamicObjects : Block
   /// <param name="direction">Направление движения</param>
   public bool ObjectMove(Vector3 direction)
   {
-    if (IsObjectForwardBlocked(direction))
+    if (IsBlocked(direction))
       return false;
 
     transform.Translate(direction);
@@ -59,7 +59,7 @@ public class DynamicObjects : Block
   /// True, если движение объекта вперед заблокировано
   /// </summary>
   /// <param name="direction">Направление движения</param>
-  private bool IsObjectForwardBlocked(Vector3 direction)
+  private bool IsBlocked(Vector3 direction)
   {
     if (Physics.Raycast(transform.position, direction, out RaycastHit hit, 1))
     {
@@ -67,6 +67,14 @@ public class DynamicObjects : Block
       {
         if (hit.collider.GetComponent<DynamicObjects>() || hit.collider.GetComponent<StaticObjects>())
           return true;
+
+        if (hit.collider.TryGetComponent(out SpikeObject spikeObject))
+        {
+          if (spikeObject.IsSpikeActivated)
+            return true;
+
+          return false;
+        }
       }
     }
 

@@ -25,25 +25,14 @@ public abstract class SingletonInGame<T> : MonoBehaviour where T : MonoBehaviour
 
   protected void Awake()
   {
-    /*if (_instance != null)
-    {
-      Destroy(this);
-      return;
-    }
-
-    _instance = GetComponent<T>();*/
-
-
     if (_instance == null)
     {
       _instance = GetComponent<T>();
-      DontDestroyOnLoad(gameObject);
-    }
-    else
-    {
-      Destroy(gameObject);
+      DontDestroyOnLoad(this);
       return;
     }
+
+    Destroy(this);
   }
 
   //===========================================

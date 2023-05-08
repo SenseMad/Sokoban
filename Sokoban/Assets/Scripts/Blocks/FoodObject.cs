@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 
 using Sokoban.LevelManagement;
-using Sokoban.Player;
 
 /// <summary>
 /// Класс объекта еды
@@ -19,7 +18,7 @@ public class FoodObject : InteractiveObjects
 
   private void OnTriggerEnter(Collider other)
   {
-    if (other.GetComponent<PlayerController>())
+    if (other.GetComponent<PlayerObjects>())
     {
       IsFoodCollected = true;
       LevelManager.Instance.IsFoodCollected();
