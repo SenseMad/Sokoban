@@ -30,7 +30,7 @@ namespace Sokoban.LevelManagement
     /// </summary>
     public static string GetPathToStarageLocations()
     {
-      return $"{Application.dataPath}/Locations";
+      return $"Locations";
     }
 
     /// <summary>
@@ -39,7 +39,7 @@ namespace Sokoban.LevelManagement
     /// <param name="parLocation">Локация</param>
     public static string GetPathToStorageLevels(Location parLocation)
     {
-      return $"Assets/Locations/{parLocation}";
+      return $"Locations/{parLocation}";
     }
 
     /// <summary>
@@ -49,7 +49,7 @@ namespace Sokoban.LevelManagement
     /// <param name="parNumLevel">Номер уровня</param>
     public static string GetPathToStorageLevels(Location parLocation, int parNumLevel)
     {
-      return $"Assets/Locations/{parLocation}/{parLocation}_{parNumLevel}.asset";
+      return $"Locations/{parLocation}/{parLocation}_{parNumLevel}";
     }
 
     //======================================
@@ -78,12 +78,12 @@ namespace Sokoban.LevelManagement
     {
       string path = GetPathToStorageLevels(parLocation);
 
-      string[] guids = AssetDatabase.FindAssets("t:ScriptableObject", new[] { path });
+      LevelData[] levelData = Resources.LoadAll<LevelData>(path);
 
       if (!levelTable.ContainsKey(parLocation))
         levelTable[parLocation] = 0;
 
-      levelTable[parLocation] = guids.Length;
+      levelTable[parLocation] = levelData.Length;
     }
 
     /// <summary>
@@ -91,7 +91,7 @@ namespace Sokoban.LevelManagement
     /// </summary>
     public static void GetFullNumberLevelsLocation()
     {
-      for (int i = 0; i < System.Enum.GetValues(typeof(Location)).Length; i++)
+      for (int i = 0; i < GetLocation.GetNamesAllLocation().Length; i++)
       {
         DetermineNumberLevelsLocation((Location)i);
       }
@@ -108,7 +108,7 @@ namespace Sokoban.LevelManagement
     {
       string path = GetPathToStorageLevels(parLocation, parNumLevel);
 
-      LevelData levelData = AssetDatabase.LoadAssetAtPath<LevelData>(path);
+      LevelData levelData = Resources.Load<LevelData>(path);
 
       if (levelData == null)
       {
@@ -124,7 +124,7 @@ namespace Sokoban.LevelManagement
     /// </summary>
     public static List<Location> GetListLocation()
     {
-      List<Location> listLocations = new List<Location>();
+      /*List<Location> listLocations = new List<Location>();
 
       string path = GetPathToStarageLocations();
       string[] folderNames = Directory.GetDirectories(path);
@@ -140,6 +140,15 @@ namespace Sokoban.LevelManagement
         }
       }
 
+      return listLocations;*/
+
+      List<Location> listLocations = new List<Location>();
+
+      foreach (var location in GetLocation.GetNamesAllLocation())
+      {
+        listLocations.Add(location);
+      }
+
       return listLocations;
     }
 
@@ -150,17 +159,12 @@ namespace Sokoban.LevelManagement
     public static List<LevelData> GetListLevelData(Location parLocation)
     {
       List<LevelData> levelData = new List<LevelData>();
-      string path = GetPathToStorageLevels(parLocation);
 
-      string[] assetGuids = AssetDatabase.FindAssets("t:LevelData", new string[] { path });
+      LevelData[] tempLevelData = Resources.LoadAll<LevelData>(GetPathToStorageLevels(parLocation));
 
-      foreach (var assetGuid in assetGuids)
+      for (int i = 0; i < tempLevelData.Length; i++)
       {
-        string assetPath = AssetDatabase.GUIDToAssetPath(assetGuid);
-
-        LevelData tempLevelData = AssetDatabase.LoadAssetAtPath<LevelData>(assetPath);
-
-        levelData.Add(tempLevelData);
+        levelData.Add(tempLevelData[i]);
       }
 
       return levelData;

@@ -286,13 +286,13 @@ namespace Sokoban.GridEditor
       string path = Levels.GetPathToStorageLevels(_location, numLevel);
 
       // Проверяем, существует ли ScriptableObject
-      ScriptableObject scriptable = AssetDatabase.LoadAssetAtPath<ScriptableObject>(path);
+      /*ScriptableObject scriptable = AssetDatabase.LoadAssetAtPath<ScriptableObject>(path);
       while (scriptable != null)
       {
         numLevel++;
         path = Levels.GetPathToStorageLevels(_location, numLevel);
         scriptable = AssetDatabase.LoadAssetAtPath<ScriptableObject>(path);
-      }
+      }*/
 
       levelData.name = $"{_location}_{numLevel}";
       levelData.LevelNumber = numLevel;
@@ -311,9 +311,9 @@ namespace Sokoban.GridEditor
         }
       }
 
-      AssetDatabase.CreateAsset(levelData, path);
+      /*AssetDatabase.CreateAsset(levelData, path);
       AssetDatabase.SaveAssets();
-      AssetDatabase.Refresh();
+      AssetDatabase.Refresh();*/
     }
 
     //======================================

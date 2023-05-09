@@ -16,7 +16,7 @@ public class DynamicObjects : Block
 
   //--------------------------------------
 
-  private new Rigidbody rigidbody;
+  private Rigidbody rigidbody;
 
   //======================================
 

@@ -209,7 +209,7 @@ namespace Sokoban.LevelManagement
         return Levels.GetLevelData(_currentLevelData.Location, _currentLevelData.LevelNumber + 1);
       }
 
-      if ((int)_currentLevelData.Location + 1 <= System.Enum.GetValues(typeof(Location)).Length - 1)
+      if ((int)_currentLevelData.Location + 1 <= GetLocation.GetNamesAllLocation().Length - 1)
       {
         // ¬ернуть новую локацию и первый уровень
         return Levels.GetLevelData(_currentLevelData.Location + 1, 1);
@@ -250,7 +250,7 @@ namespace Sokoban.LevelManagement
     /// </summary>
     public bool OpenNextLocation()
     {
-      if ((int)_currentLevelData.Location + 1 <= System.Enum.GetValues(typeof(Location)).Length - 1)
+      if ((int)_currentLevelData.Location + 1 <= GetLocation.GetNamesAllLocation().Length - 1)
       {
         gameManager.ProgressData.OpenLocation(_currentLevelData.Location + 1);
         return true;
