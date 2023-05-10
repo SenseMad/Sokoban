@@ -8,6 +8,9 @@ using Sokoban.GridEditor;
 
 public class PlayerObjects : Block
 {
+  [SerializeField, Tooltip("")]
+  private float _speed = 2.0f;
+
   [SerializeField, Tooltip("Тип объекта")]
   private TypeObject _typeObject;
 
@@ -21,6 +24,8 @@ public class PlayerObjects : Block
 
   private new Rigidbody rigidbody;
 
+  private Animator animator;
+
   private InputHandler inputHandler;
 
   private LevelManager levelManager;
@@ -32,6 +37,20 @@ public class PlayerObjects : Block
   /// </summary>
   private bool isPossibleMove = true;
 
+  /// <summary>
+  /// True, если игрок движется
+  /// </summary>
+  private bool isMoving = false;
+
+  /// <summary>
+  /// Новая позиция
+  /// </summary>
+  private Vector3 lastPosition;
+  /// <summary>
+  /// Направление движения
+  /// </summary>
+  private Vector3 direction;
+  
   /// <summary>
   /// Сохраняет значение Time.time, когда была нажата кнопка движения в последний раз
   /// </summary>
@@ -55,6 +74,8 @@ public class PlayerObjects : Block
   private void Awake()
   {
     rigidbody = GetComponent<Rigidbody>();
+
+    animator = GetComponent<Animator>();
 
     inputHandler = InputHandler.Instance;
 
@@ -86,6 +107,14 @@ public class PlayerObjects : Block
       return;
 
     PlayerMovement();
+
+    if (isMoving)
+    {
+      transform.position = Vector3.MoveTowards(transform.position, lastPosition + direction, _speed * Time.deltaTime);
+
+      if (transform.position == lastPosition + direction)
+        isMoving = false;
+    }
   }
 
   //======================================
@@ -116,40 +145,46 @@ public class PlayerObjects : Block
   /// <summary>
   /// Движение
   /// </summary>
-  /// <param name="direction">Направление движения</param>
-  private bool Move(Vector3 direction)
+  /// <param name="parDirection">Направление движения</param>
+  private bool Move(Vector3 parDirection)
   {
-    if (levelManager.LevelCompleted || !isPossibleMove)
+    if (levelManager.LevelCompleted || !isPossibleMove || isMoving)
       return false;
 
-    if (Mathf.Abs(direction.x) < 0.5f)
-      direction.x = 0;
+    if (Mathf.Abs(parDirection.x) < 0.5f)
+      parDirection.x = 0;
     else
-      direction.z = 0;
+      parDirection.z = 0;
 
-    direction.Normalize();
+    parDirection.Normalize();
 
-    if (IsBlocked(direction))
+    if (IsBlocked(parDirection))
       return false;
+
+    isMoving = true;
+    direction = parDirection;
 
     levelManager.NumberMoves++;
-    transform.Translate(direction);
+    //transform.Translate(parDirection);
+
+    lastPosition = transform.position;
+    animator.SetTrigger("Run");
     return true;
   }
 
   /// <summary>
   /// Возвращает True, если перед игроком 2 и более ящика, блок который нельзя двигать, и т.д.
   /// </summary>
-  /// <param name="direction">Направление движения</param>
-  private bool IsBlocked(Vector3 direction)
+  /// <param name="parDirection">Направление движения</param>
+  private bool IsBlocked(Vector3 parDirection)
   {
-    if (!CheckGroundPlayer(direction))
+    if (!CheckGroundPlayer(parDirection))
       return true;
 
-    if (CheckUnevenBlock(direction))
+    if (CheckUnevenBlock(parDirection))
       return true;
 
-    if (Physics.Raycast(transform.position, direction, out RaycastHit hit, 1))
+    if (Physics.Raycast(transform.position, parDirection, out RaycastHit hit, 1))
     {
       if (hit.collider)
       {
@@ -161,7 +196,7 @@ public class PlayerObjects : Block
 
         if (hit.collider.TryGetComponent(out DynamicObjects dynamicObject))
         {
-          return !dynamicObject.ObjectMove(direction);
+          return !dynamicObject.ObjectMove(parDirection);
         }
 
         #endregion
@@ -171,8 +206,8 @@ public class PlayerObjects : Block
         if (hit.collider.TryGetComponent(out SpikeObject spikeObject))
         {
           // Если шип активирован, возвращаем True
-          if (spikeObject.IsSpikeActivated)
-            return true;
+          /*if (spikeObject.IsSpikeActivated)
+            return true;*/
 
           return false;
         }
