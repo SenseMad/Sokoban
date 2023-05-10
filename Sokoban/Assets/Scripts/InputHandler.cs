@@ -70,6 +70,23 @@ public class InputHandler : SingletonInGame<InputHandler>
   #endregion
 
   #region UI
+
+  /// <summary>
+  /// Получить кнопки навигации (По вертикали)
+  /// </summary>
+  public float GetNavigationInput()
+  {
+    return AI_Player != null ? AI_Player.Player.Move.ReadValue<Vector2>().y : 0f;
+  }
+
+  /// <summary>
+  /// Получить кнопки изменения значений (По горизонтали)
+  /// </summary>
+  public float GetChangingValuesInput()
+  {
+    return AI_Player != null ? AI_Player.Player.Move.ReadValue<Vector2>().x : 0f;
+  }
+
   /// <summary>
   /// Получить кнопку паузы
   /// </summary>

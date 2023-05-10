@@ -5,7 +5,6 @@ namespace Sokoban.UI
 {
   public class PanelController : SingletonInSceneNoInstance<PanelController>
   {
-
     [SerializeField, Tooltip("Текущая активная панель")]
     private Panel _currentActivePanel;
 
@@ -53,22 +52,11 @@ namespace Sokoban.UI
     }
 
     /// <summary>
-    /// Скрыть активную панель
-    /// </summary>
-    public void HideActivePanel()
-    {
-      HidePanel(_currentActivePanel);
-
-      listAllOpenPanels.Remove(_currentActivePanel);
-      _currentActivePanel = listAllOpenPanels.Count > 1 ? listAllOpenPanels[listAllOpenPanels.Count - 1] : null;
-    }
-
-    /// <summary>
     /// Скрыть старую и открыть новую панель
     /// </summary>
     public void SetActivePanel(Panel parPanel)
     {
-      HideActivePanel();
+      HidePanel(_currentActivePanel);
 
       ShowPanel(parPanel);
     }
@@ -80,14 +68,16 @@ namespace Sokoban.UI
     /// </summary>
     public void ClosePanel()
     {
-      if (listAllOpenPanels.Count > 1)
-      {
-        listAllOpenPanels.Remove(_currentActivePanel);
-        SetActivePanel(listAllOpenPanels[listAllOpenPanels.Count - 1]);
-        return;
-      }
+      HidePanel(_currentActivePanel);
 
-      HideActivePanel();
+      listAllOpenPanels.Remove(_currentActivePanel);
+
+      _currentActivePanel = listAllOpenPanels[listAllOpenPanels.Count - 1];
+
+      if (_currentActivePanel == null)
+        return;
+
+      _currentActivePanel.ShowPanel();
     }
 
     /// <summary>
