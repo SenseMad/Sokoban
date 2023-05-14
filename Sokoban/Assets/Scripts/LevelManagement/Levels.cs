@@ -26,14 +26,6 @@ namespace Sokoban.LevelManagement
     //======================================
 
     /// <summary>
-    /// Получить путь до хранения локаций
-    /// </summary>
-    public static string GetPathToStarageLocations()
-    {
-      return $"Locations";
-    }
-
-    /// <summary>
     /// Получить путь до хранения уровней
     /// </summary>
     /// <param name="parLocation">Локация</param>
@@ -124,24 +116,6 @@ namespace Sokoban.LevelManagement
     /// </summary>
     public static List<Location> GetListLocation()
     {
-      /*List<Location> listLocations = new List<Location>();
-
-      string path = GetPathToStarageLocations();
-      string[] folderNames = Directory.GetDirectories(path);
-
-      foreach (var location in System.Enum.GetValues(typeof(Location)))
-      {
-        foreach (string folderName in folderNames)
-        {
-          if (location.ToString() != Path.GetFileName(folderName))
-            continue;
-
-          listLocations.Add((Location)location);
-        }
-      }
-
-      return listLocations;*/
-
       List<Location> listLocations = new List<Location>();
 
       foreach (var location in GetLocation.GetNamesAllLocation())

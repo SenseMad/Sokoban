@@ -1,21 +1,24 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.Events;
-using UnityEngine.InputSystem;
-
-using Sokoban.GameManagement;
 
 namespace Sokoban.UI
 {
+  /// <summary>
+  /// Главное меню
+  /// </summary>
   public class MainMenu : MenuUI
   {
 
 
     //======================================
 
-
+    /// <summary>
+    /// Выйти из игры
+    /// </summary>
+    public void ExitGame()
+    {
+      Application.Quit();
+    }
 
     //======================================
   }

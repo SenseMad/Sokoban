@@ -3,6 +3,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.InputSystem;
+using Sokoban.GameManagement;
 
 namespace Sokoban.UI
 {
@@ -38,6 +39,8 @@ namespace Sokoban.UI
 
     //======================================
 
+    protected AudioManager AudioManager { get; private set; }
+
     /// <summary>
     /// True, если кнопка активна
     /// </summary>
@@ -61,9 +64,11 @@ namespace Sokoban.UI
       inputHandler = InputHandler.Instance;
 
       panelController = PanelController.Instance;
+
+      AudioManager = AudioManager.Instance;
     }
 
-    private void OnEnable()
+    protected virtual void OnEnable()
     {
       inputHandler.AI_Player.UI.Select.performed += Select_performed;
       inputHandler.AI_Player.UI.Pause.performed += OnCloseMenu;
@@ -72,7 +77,7 @@ namespace Sokoban.UI
       IsSelected = true;
     }
 
-    private void OnDisable()
+    protected virtual void OnDisable()
     {
       inputHandler.AI_Player.UI.Select.performed -= Select_performed;
       inputHandler.AI_Player.UI.Pause.performed -= OnCloseMenu;
@@ -80,7 +85,7 @@ namespace Sokoban.UI
       IsSelected = false;
     }
 
-    private void Update()
+    protected virtual void Update()
     {
       ChangeActiveButton();
     }
@@ -101,6 +106,17 @@ namespace Sokoban.UI
       panelController.ClosePanel();
     }
 
+    /// <summary>
+    /// Закрыть меню без звука
+    /// </summary>
+    public void CloseMenuNoSound()
+    {
+      if (_menuCannotClosed)
+        return;
+
+      panelController.ClosePanel();
+    }
+
     private void OnCloseMenu(InputAction.CallbackContext context)
     {
       CloseMenu();
@@ -112,16 +128,20 @@ namespace Sokoban.UI
 
     private void Select_performed(InputAction.CallbackContext obj)
     {
+      if (_listButtons.Count == 0)
+        return;
+
       _listButtons[indexActiveButton].onClick?.Invoke();
+      Sound();
     }
 
     #endregion
 
     #region Звуки
 
-    private void Sound()
+    protected void Sound()
     {
-
+      AudioManager.OnPlaySoundInterface?.Invoke();
     }
 
     #endregion
@@ -131,6 +151,9 @@ namespace Sokoban.UI
     /// </summary>
     private void ChangeActiveButton()
     {
+      if (_listButtons.Count == 0)
+        return;
+
       if (Time.time > nextTimeMoveNextValue)
       {
         nextTimeMoveNextValue = Time.time + timeMoveNextValue;
@@ -170,6 +193,9 @@ namespace Sokoban.UI
 
     protected virtual void OnSelected()
     {
+      if (_listButtons.Count == 0)
+        return;
+
       var button = _listButtons[indexActiveButton].GetComponentInChildren<TextMeshProUGUI>();
       if (button != null)
         button.color = ColorsGame.SELECTED_COLOR;
@@ -177,6 +203,9 @@ namespace Sokoban.UI
 
     protected virtual void OnDeselected()
     {
+      if (_listButtons.Count == 0)
+        return;
+
       var button = _listButtons[indexActiveButton].GetComponentInChildren<TextMeshProUGUI>();
       if (button != null)
         button.color = ColorsGame.STANDART_COLOR;

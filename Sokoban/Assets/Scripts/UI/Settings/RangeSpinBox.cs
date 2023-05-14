@@ -17,8 +17,7 @@ namespace Sokoban.UI
     [SerializeField] private int _minValue;
     [SerializeField] private int _maxValue;
 
-    //--------------------------------------
-
+    [Space, SerializeField]
     private RangeSpinBoxEvent _onValueChanged;
 
     //======================================
