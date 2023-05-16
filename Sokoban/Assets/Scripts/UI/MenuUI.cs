@@ -73,7 +73,6 @@ namespace Sokoban.UI
       inputHandler.AI_Player.UI.Select.performed += Select_performed;
       inputHandler.AI_Player.UI.Pause.performed += OnCloseMenu;
 
-      indexActiveButton = 0;
       IsSelected = true;
     }
 

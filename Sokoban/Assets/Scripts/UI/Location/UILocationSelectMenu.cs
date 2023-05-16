@@ -123,6 +123,8 @@ namespace Sokoban.UI
       if (_listButtons.Count != 0)
         return;
 
+      indexActiveButton = -1;
+
       foreach (var location in Levels.GetListLocation())
       {
         UILocationSelectButton button = Instantiate(_prefabButtonLocationSelect, _locationSelectPanel);
@@ -134,6 +136,7 @@ namespace Sokoban.UI
           button.ChangeColor();
           button.Button.interactable = true;
           button.Button.onClick.AddListener(() => SelectLocation(location));
+          indexActiveButton++;
         }
 
         listUILocationSelectButton.Add(button);

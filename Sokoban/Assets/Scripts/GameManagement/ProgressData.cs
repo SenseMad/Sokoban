@@ -18,8 +18,8 @@ namespace Sokoban.GameManagement
     /// </summary>
     public Dictionary<Location, int> tableNumberCompletedLevelsLocation = new Dictionary<Location, int>()
     {
-      { Location.Summer, 2 },
-      { Location.Winter, 1 }
+      { Location.Summer, 1 },
+      { Location.Winter, 0 }
     };
 
     /// <summary>
@@ -82,17 +82,19 @@ namespace Sokoban.GameManagement
         return false;
       }
 
+      int currentNumberLevel = GetNumberLevelsCompleted(parCurrentLocation);
       // ≈сли текущий уровень больше или равен количеству пройденных уровней
-      if (parCurrentLevel >= tableNumberCompletedLevelsLocation[parCurrentLocation])
+      if (parCurrentLevel >= currentNumberLevel)
       {
-        tableNumberCompletedLevelsLocation[parCurrentLocation]++;
+        currentNumberLevel++;
         // ≈сли количество завершенных уровней больше количества уровней
-        if (tableNumberCompletedLevelsLocation[parCurrentLocation] >= Levels.GetNumberLevelsLocation(parCurrentLocation))
+        if (currentNumberLevel >= Levels.GetNumberLevelsLocation(parCurrentLocation))
         {
-          tableNumberCompletedLevelsLocation[parCurrentLocation] = Levels.GetNumberLevelsLocation(parCurrentLocation);
           OpenNextLocation(parCurrentLocation, parCurrentLevel);
           return true;
         }
+
+        tableNumberCompletedLevelsLocation[parCurrentLocation] = currentNumberLevel;
 
         Debug.Log($"”ровень {parCurrentLevel + 1} открыт!");
         return true;

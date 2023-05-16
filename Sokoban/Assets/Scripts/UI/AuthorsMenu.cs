@@ -33,6 +33,8 @@ namespace Sokoban.UI
 
     protected override void OnEnable()
     {
+      indexActiveButton = 0;
+
       base.OnEnable();
 
       _isCreditsRunning = true;

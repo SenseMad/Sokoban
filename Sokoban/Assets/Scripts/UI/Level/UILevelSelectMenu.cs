@@ -98,6 +98,8 @@ namespace Sokoban.UI
     {
       ClearButtonsUI();
 
+      indexActiveButton = -1;
+
       foreach (var levelData in Levels.GetListLevelData(parLocation))
       {
         UILevelSelectButton button = Instantiate(_prefabButtonLevelSelect, _levelSelectPanel);
@@ -108,6 +110,7 @@ namespace Sokoban.UI
           button.ChangeColor();
           button.Button.interactable = true;
           button.Button.onClick.AddListener(() => SelectLevel(levelData));
+          indexActiveButton++;
         }
 
         listUILevelSelectButton.Add(button);
