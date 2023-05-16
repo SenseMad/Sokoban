@@ -112,6 +112,22 @@ namespace Sokoban.LevelManagement
     }
 
     /// <summary>
+    /// Получить данные следующего уровня
+    /// </summary>
+    /// <param name="parCurrentLocation">Текущая локация</param>
+    /// <param name="parCurrentLevel">Текущий уровень</param>
+    public static LevelData GetNextLevelData(Location parCurrentLocation, int parCurrentLevel)
+    {
+      if (parCurrentLevel < GetNumberLevelsLocation(parCurrentLocation))
+        return GetLevelData(parCurrentLocation, parCurrentLevel + 1); // Вернуть текущую локацию и новый уровень
+
+      if ((int)parCurrentLocation + 1 <= GetLocation.GetNamesAllLocation().Length - 1)
+        return GetLevelData(parCurrentLocation + 1, 1); // Вернуть новую локацию и первый уровень
+
+      return GetLevelData(parCurrentLocation, parCurrentLevel); // Вернуть текущую локацию и текущий уровень
+    }
+
+    /// <summary>
     /// Получить список локаций
     /// </summary>
     public static List<Location> GetListLocation()

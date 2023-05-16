@@ -147,7 +147,7 @@ namespace Sokoban.LevelManagement
       LevelCompleted = true;
       IsLevelCompleted?.Invoke();
 
-      OpenNextLevel();
+      OpenNextLevel();      
 
       return true;
     }
@@ -208,20 +208,7 @@ namespace Sokoban.LevelManagement
     /// </summary>
     private LevelData GetNextLevelData()
     {
-      if (_currentLevelData.LevelNumber < Levels.GetNumberLevelsLocation(_currentLevelData.Location))
-      {
-        // Вернуть текущую локацию и новый уровень
-        return Levels.GetLevelData(_currentLevelData.Location, _currentLevelData.LevelNumber + 1);
-      }
-
-      if ((int)_currentLevelData.Location + 1 <= GetLocation.GetNamesAllLocation().Length - 1)
-      {
-        // Вернуть новую локацию и первый уровень
-        return Levels.GetLevelData(_currentLevelData.Location + 1, 1);
-      }
-
-      // Вернуть текущую локацию и текущий уровень
-      return Levels.GetLevelData(_currentLevelData.Location, _currentLevelData.LevelNumber);
+      return Levels.GetNextLevelData(_currentLevelData.Location, _currentLevelData.LevelNumber);
     }
 
     /// <summary>
@@ -231,37 +218,9 @@ namespace Sokoban.LevelManagement
     {
       gameManager.ProgressData.SaveProgressLevelData(_currentLevelProgressData, _currentLevelData.Location, _currentLevelData.LevelNumber);
 
-      if (_currentLevelData.LevelNumber <= Levels.GetNumberLevelsLocation(_currentLevelData.Location))
-      {
-        if (_currentLevelData.LevelNumber > gameManager.ProgressData.GetNumberLevelsCompleted(_currentLevelData.Location))
-        {
-          gameManager.ProgressData.OpenNextLevel(_currentLevelData.Location);
+      gameManager.ProgressData.OpenNextLevel(_currentLevelData.Location, _currentLevelData.LevelNumber);
 
-          if (_currentLevelData.LevelNumber >= Levels.GetNumberLevelsLocation(_currentLevelData.Location))
-            OpenNextLocation();
-
-          return true;
-        }
-
-        return false;
-      }
-
-      OpenNextLocation();
-      return false;
-    }
-
-    /// <summary>
-    /// Открыть следующую локацию
-    /// </summary>
-    public bool OpenNextLocation()
-    {
-      if ((int)_currentLevelData.Location + 1 <= GetLocation.GetNamesAllLocation().Length - 1)
-      {
-        gameManager.ProgressData.OpenLocation(_currentLevelData.Location + 1);
-        return true;
-      }
-
-      return false;
+      return true;
     }
 
     //======================================

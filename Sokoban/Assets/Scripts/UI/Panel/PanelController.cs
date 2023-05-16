@@ -72,6 +72,12 @@ namespace Sokoban.UI
 
       listAllOpenPanels.Remove(_currentActivePanel);
 
+      if (listAllOpenPanels.Count == 0)
+      {
+        _currentActivePanel = null;
+        return;
+      }
+
       _currentActivePanel = listAllOpenPanels[listAllOpenPanels.Count - 1];
 
       if (_currentActivePanel == null)

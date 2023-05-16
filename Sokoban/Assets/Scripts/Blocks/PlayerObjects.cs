@@ -46,11 +46,10 @@ public class PlayerObjects : Block
   /// Сохраняет значение Time.time, когда была нажата кнопка движения в последний раз
   /// </summary>
   private float lastTime = 0;
-
   /// <summary>
   /// Время задержки перед следующим нажатием кнопки
   /// </summary>
-  private float delayTimeNextButtonPress = 0.25f;
+  private float delayTimeNextButtonPress = 0f;
 
   //======================================
 
@@ -93,13 +92,13 @@ public class PlayerObjects : Block
 
     PlayerMovement();
 
-    if (isMoving)
-    {
-      transform.position = Vector3.MoveTowards(transform.position, lastPosition + direction, _speed * Time.deltaTime);
+    if (!isMoving)
+      return;
 
-      if (transform.position == lastPosition + direction)
-        isMoving = false;
-    }
+    transform.position = Vector3.MoveTowards(transform.position, lastPosition + direction, _speed * Time.deltaTime);
+
+    if (transform.position == lastPosition + direction)
+      isMoving = false;
   }
 
   //======================================
@@ -114,17 +113,17 @@ public class PlayerObjects : Block
 
     if (axisMovement.sqrMagnitude > 0.5f)
     {
-      if (Time.time - lastTime >= delayTimeNextButtonPress)
+      if (Time.time > lastTime)
       {
+        lastTime = Time.time + delayTimeNextButtonPress;
         Vector3 direction = new Vector3(axisMovement.x, 0.0f, axisMovement.y);
         Move(direction);
-        lastTime = Time.time;
       }
 
       return;
     }
 
-    lastTime = 0;
+    lastTime = Time.time;
   }
 
   /// <summary>
@@ -148,11 +147,11 @@ public class PlayerObjects : Block
 
     isMoving = true;
     direction = parDirection;
+    lastPosition = transform.position;
 
     levelManager.NumberMoves++;
     //transform.Translate(parDirection);
 
-    lastPosition = transform.position;
     animator.SetTrigger("Run");
     return true;
   }
@@ -184,7 +183,7 @@ public class PlayerObjects : Block
 
         if (hit.collider.TryGetComponent(out DynamicObjects dynamicObject))
         {
-          return !dynamicObject.ObjectMove(parDirection);
+          return !dynamicObject.ObjectMove(parDirection, _speed);
         }
 
         #endregion

@@ -10,6 +10,23 @@ public class DynamicObjects : Block
 
   private new Rigidbody rigidbody;
 
+  /// <summary>
+  /// True, если объект движется
+  /// </summary>
+  private bool isMoving = false;
+  /// <summary>
+  /// Скорость объекта
+  /// </summary>
+  private float speed = 2.0f;
+  /// <summary>
+  /// Новая позиция
+  /// </summary>
+  private Vector3 lastPosition;
+  /// <summary>
+  /// Направление движения
+  /// </summary>
+  private Vector3 direction;
+
   //======================================
 
   private void Awake()
@@ -22,18 +39,32 @@ public class DynamicObjects : Block
     typeObject = TypeObject.dynamicObject;
   }
 
+  private void Update()
+  {
+    if (!isMoving)
+      return;
+
+    transform.position = Vector3.MoveTowards(transform.position, lastPosition + direction, speed * Time.deltaTime);
+
+    if (transform.position == lastPosition + direction)
+      isMoving = false;
+  }
+
   //======================================
 
   /// <summary>
   /// Движение объекта
   /// </summary>
-  /// <param name="direction">Направление движения</param>
-  public bool ObjectMove(Vector3 direction)
+  /// <param name="parDirection">Направление движения</param>
+  public bool ObjectMove(Vector3 parDirection, float parSpeed)
   {
-    if (IsBlocked(direction))
+    if (IsBlocked(parDirection))
       return false;
 
-    transform.Translate(direction);
+    isMoving = true;
+    lastPosition = transform.position;
+    direction = parDirection;
+    speed = parSpeed;
     return true;
   }
 

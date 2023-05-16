@@ -18,7 +18,8 @@ namespace Sokoban.GameManagement
     /// </summary>
     public Dictionary<Location, int> tableNumberCompletedLevelsLocation = new Dictionary<Location, int>()
     {
-      { Location.Summer, 1 }
+      { Location.Summer, 2 },
+      { Location.Winter, 1 }
     };
 
     /// <summary>
@@ -44,6 +45,62 @@ namespace Sokoban.GameManagement
       return true;
     }
 
+
+    /// <summary>
+    /// Открыть следующую локацию
+    /// </summary>
+    /// <param name="parCurrentLocation">Текущая локация</param>
+    /// <param name="parCurrentLevel">Текущий уровнь локации</param>
+    /// <returns></returns>
+    public bool OpenNextLocation(Location parCurrentLocation, int parCurrentLevel)
+    {
+      if (parCurrentLevel >= Levels.GetNumberLevelsLocation(parCurrentLocation))
+      {
+        if ((int)parCurrentLocation + 1 <= GetLocation.GetNamesAllLocation().Length - 1)
+        {
+          if (OpenLocation(parCurrentLocation + 1))
+          {
+            Debug.Log($"Локация {parCurrentLocation + 1} открыта!");
+            return true;
+          }
+        }
+      }
+
+      return false;
+    }
+
+    /// <summary>
+    /// Открыть следующий уровень
+    /// </summary>
+    /// <param name="parCurrentLocation">Текущая локация</param>
+    /// <param name="parCurrentLevel">Текущий уровень</param>
+    public bool OpenNextLevel(Location parCurrentLocation, int parCurrentLevel)
+    {
+      if (!tableNumberCompletedLevelsLocation.ContainsKey(parCurrentLocation))
+      {
+        Debug.Log($"Локация {parCurrentLocation} еще не открыта!");
+        return false;
+      }
+
+      // Если текущий уровень больше или равен количеству пройденных уровней
+      if (parCurrentLevel >= tableNumberCompletedLevelsLocation[parCurrentLocation])
+      {
+        tableNumberCompletedLevelsLocation[parCurrentLocation]++;
+        // Если количество завершенных уровней больше количества уровней
+        if (tableNumberCompletedLevelsLocation[parCurrentLocation] >= Levels.GetNumberLevelsLocation(parCurrentLocation))
+        {
+          tableNumberCompletedLevelsLocation[parCurrentLocation] = Levels.GetNumberLevelsLocation(parCurrentLocation);
+          OpenNextLocation(parCurrentLocation, parCurrentLevel);
+          return true;
+        }
+
+        Debug.Log($"Уровень {parCurrentLevel + 1} открыт!");
+        return true;
+      }
+
+      return false;
+    }
+
     /// <summary>
     /// Получить количество пройденных уровней на локации
     /// </summary>
@@ -52,27 +109,11 @@ namespace Sokoban.GameManagement
     {
       if (!tableNumberCompletedLevelsLocation.ContainsKey(parLocation))
       {
-        Debug.Log($"Локация {parLocation} не открыта!");
+        Debug.Log($"Локация {parLocation} еще не открыта!");
         return 0;
       }
 
       return tableNumberCompletedLevelsLocation[parLocation];
-    }
-
-    /// <summary>
-    /// Открыть следующий уровень
-    /// </summary>
-    /// <param name="parLocation">Локация</param>
-    public bool OpenNextLevel(Location parLocation)
-    {
-      if (!tableNumberCompletedLevelsLocation.ContainsKey(parLocation))
-      {
-        Debug.Log($"Локация {parLocation} не открыта!");
-        return false;
-      }
-
-      tableNumberCompletedLevelsLocation[parLocation]++;
-      return true;
     }
 
     /// <summary>

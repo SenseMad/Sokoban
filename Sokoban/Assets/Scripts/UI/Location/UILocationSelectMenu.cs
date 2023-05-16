@@ -86,7 +86,7 @@ namespace Sokoban.UI
 
           if (indexActiveButton > _listButtons.Count - 1) indexActiveButton = 0;
           if (!gameManager.ProgressData.IsLocationOpen(listUILocationSelectButton[indexActiveButton].Location))
-            indexActiveButton--;
+            indexActiveButton = 0;
 
           Sound();
           IsSelected = true;
