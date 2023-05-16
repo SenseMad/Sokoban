@@ -9,10 +9,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6477405371023894020}
-  - component: {fileID: 1159208738379249951}
   - component: {fileID: 5108133463697593079}
+  - component: {fileID: -2449021619368749842}
   m_Layer: 0
-  m_Name: Ground
+  m_Name: ButtonDoor
   m_TagString: Obstacles
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -26,7 +26,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6477405371023894021}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -1, y: 0, z: 2}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -34,21 +34,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1159208738379249951
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6477405371023894021}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 49f373d2945c49f47afcd2e07f7f1b32, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _indexObject: 0
-  _objectPosition: {x: 0, y: 0, z: 0}
-  _typeGround: 0
 --- !u!65 &5108133463697593079
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -64,12 +49,27 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.99, y: 0.99, z: 0.99}
+  m_Size: {x: 0.9, y: 0.9, z: 0.9}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &-2449021619368749842
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6477405371023894021}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7f8e8783b9050ac479031408e6f29617, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _indexObject: 0
+  _objectPosition: {x: 0, y: 0, z: 0}
+  _buttonDoorColor: 0
 --- !u!1 &6477405371046548371
 GameObject:
   m_ObjectHideFlags: 0
@@ -131,7 +131,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 74907cf3a3c5f38468544ed140953043, type: 2}
+  - {fileID: 2100000, guid: 2b12820916f56ee4db330025936accac, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

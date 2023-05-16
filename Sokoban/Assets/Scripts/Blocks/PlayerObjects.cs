@@ -11,15 +11,6 @@ public class PlayerObjects : Block
   [SerializeField, Tooltip("")]
   private float _speed = 2.0f;
 
-  [SerializeField, Tooltip("Тип объекта")]
-  private TypeObject _typeObject;
-
-  [SerializeField, Tooltip("Индекс объекта")]
-  private int _indexObject;
-
-  [SerializeField, Tooltip("Позиция объекта")]
-  private Vector3Int _objectPosition;
-
   //--------------------------------------
 
   private new Rigidbody rigidbody;
@@ -63,14 +54,6 @@ public class PlayerObjects : Block
 
   //======================================
 
-  public override TypeObject GetObjectType() => _typeObject;
-
-  public override Vector3Int GetObjectPosition() => _objectPosition;
-
-  public override int GetIndexObject() => _indexObject;
-
-  //======================================
-
   private void Awake()
   {
     rigidbody = GetComponent<Rigidbody>();
@@ -89,6 +72,8 @@ public class PlayerObjects : Block
   {
     if (cinemachineVirtual != null)
       cinemachineVirtual.Follow = transform;
+
+    typeObject = TypeObject.playerObject;
   }
 
   private void OnEnable()
@@ -189,8 +174,11 @@ public class PlayerObjects : Block
       if (hit.collider)
       {
         var block = hit.collider.GetComponent<Block>();
-        if (block.GetObjectType() == TypeObject.staticObject)
+        if (block.GetTypeObject() == TypeObject.staticObject)
           return true;
+
+        if (block.GetTypeObject() == TypeObject.buttonDoorObject)
+          return false;
 
         #region Проверка движущихся объектов
 
@@ -214,7 +202,7 @@ public class PlayerObjects : Block
 
         #endregion
 
-        if (block.GetObjectType() == TypeObject.foodObject)
+        if (block.GetTypeObject() == TypeObject.foodObject)
           return false;
       }
 
@@ -289,11 +277,6 @@ public class PlayerObjects : Block
   }
 
   //======================================
-
-  public override void SetPositionObject(Vector3Int parObjectPosition)
-  {
-    _objectPosition = parObjectPosition;
-  }
 
   public override void RemoveRigidbody()
   {

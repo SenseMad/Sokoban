@@ -9,12 +9,27 @@ using Sokoban.LevelManagement;
 /// </summary>
 public class FoodObject : InteractiveObjects
 {
+  [SerializeField, Tooltip("Вид еды")]
+  private TypesFood _typeFood;
+
+  //======================================
+
+  /// <summary>
+  /// Получить вид еды
+  /// </summary>
+  public TypesFood GetTypeFood() => _typeFood;
+
   /// <summary>
   /// True, если еда собрана
   /// </summary>
   public bool IsFoodCollected { get; private set; }
 
   //======================================
+
+  private void Start()
+  {
+    typeObject = TypeObject.foodObject;
+  }
 
   private void OnTriggerEnter(Collider other)
   {
@@ -27,4 +42,19 @@ public class FoodObject : InteractiveObjects
   }
 
   //======================================
+}
+
+/// <summary>
+/// Виды еды
+/// </summary>
+public enum TypesFood
+{
+  /// <summary>
+  /// Гамбергер
+  /// </summary>
+  Hamburger,
+  /// <summary>
+  /// Хот-дог
+  /// </summary>
+  HotDog
 }

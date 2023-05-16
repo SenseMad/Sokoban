@@ -35,6 +35,11 @@ namespace Sokoban.LevelManagement
     public bool LevelCompleted { get; set; }
 
     /// <summary>
+    /// Сетка уровня
+    /// </summary>
+    public GridLevel GridLevel => _gridLevel;
+
+    /// <summary>
     /// True, если игра остановлена
     /// </summary>
     //public bool IsPause { get => pauseManager.IsPause; }

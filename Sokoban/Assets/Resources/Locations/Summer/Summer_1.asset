@@ -73,6 +73,12 @@ MonoBehaviour:
   - _typeObject: 3
     _indexObject: 0
     _positionObject: {x: 4, y: 1, z: 3}
-  - _typeObject: 4
+  - _typeObject: 5
     _indexObject: 0
-    _positionObject: {x: 6, y: 1, z: 4}
+    _positionObject: {x: 4, y: 1, z: 4}
+  - _typeObject: 6
+    _indexObject: 0
+    _positionObject: {x: 7, y: 1, z: 4}
+  - _typeObject: 5
+    _indexObject: 1
+    _positionObject: {x: 5, y: 1, z: 3}

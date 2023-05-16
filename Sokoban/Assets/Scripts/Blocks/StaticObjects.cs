@@ -7,31 +7,34 @@ using UnityEngine;
 /// </summary>
 public class StaticObjects : Block
 {
-  [SerializeField, Tooltip("Тип объекта")]
+  /*[SerializeField, Tooltip("Тип объекта")]
   private TypeObject _typeObject;
 
   [SerializeField, Tooltip("Индекс объекта")]
   private int _indexObject;
 
   [SerializeField, Tooltip("Позиция объекта")]
-  private Vector3Int _objectPosition;
+  private Vector3Int _objectPosition;*/
 
   //======================================
 
-  public override TypeObject GetObjectType() => _typeObject;
+  private void Start()
+  {
+    typeObject = TypeObject.staticObject;
+  }
+
+  /*public override TypeObject GetObjectType() => _typeObject;
 
   public override Vector3Int GetObjectPosition() => _objectPosition;
 
-  public override int GetIndexObject() => _indexObject;
+  public override int GetIndexObject() => _indexObject;*/
 
   //======================================
 
-  public override void SetPositionObject(Vector3Int parObjectPosition)
+  /*public override void SetPositionObject(Vector3Int parObjectPosition)
   {
     _objectPosition = parObjectPosition;
-  }
-
-  public override void RemoveRigidbody() { }
+  }*/
 
   //======================================
 }

@@ -26,6 +26,11 @@ namespace Sokoban.GridEditor
     /// </summary>
     private List<FoodObject> listFoodObjects = new List<FoodObject>();
 
+    /// <summary>
+    /// Список объектов дверей
+    /// </summary>
+    private List<DoorObject> listDoorObjects = new List<DoorObject>();
+
     //======================================
 
     /// <summary>
@@ -83,6 +88,40 @@ namespace Sokoban.GridEditor
 
     #endregion
 
+    #region Поиск объектов еды на уровне
+    
+    /// <summary>
+    /// Найти все объекты дверей на уровне
+    /// </summary>
+    private void FindAllDoorObjects()
+    {
+      if (blockObjects == null)
+        return;
+
+      listDoorObjects = new List<DoorObject>();
+
+      foreach (var blockObject in blockObjects)
+      {
+        if (blockObject == null)
+          continue;
+
+        if (!blockObject.TryGetComponent<DoorObject>(out var doorObject))
+          continue;
+
+        listDoorObjects.Add(doorObject);
+      }
+    }
+
+    /// <summary>
+    /// Получить список объектов дверей на уровне
+    /// </summary>
+    public List<DoorObject> GetListDoorObjects()
+    {
+      return listDoorObjects;
+    }
+
+    #endregion
+
     //======================================
 
     /// <summary>
@@ -107,6 +146,7 @@ namespace Sokoban.GridEditor
       }
 
       FindAllFoodObjects();
+      FindAllDoorObjects();
       OnLevelCreated?.Invoke();
     }
 

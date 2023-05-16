@@ -9,10 +9,10 @@ namespace Sokoban.GameManagement
   public sealed class SettingsData
   {
     [SerializeField, Tooltip("Громкость музыка")]
-    private int _musicValue = 25;
+    private int _musicValue = 0;
 
     [SerializeField, Tooltip("Громкость звуков")]
-    private int _soundVolume = 25;
+    private int _soundVolume = 0;
 
     //======================================
 

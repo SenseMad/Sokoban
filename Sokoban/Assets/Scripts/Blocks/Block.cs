@@ -4,32 +4,43 @@ using UnityEngine;
 
 public abstract class Block : MonoBehaviour
 {
+  [SerializeField, Tooltip("Индекс объекта")]
+  protected int _indexObject;
+
+  [SerializeField, Tooltip("Позиция объекта")]
+  protected Vector3Int _objectPosition;
+
+  /// <summary>
+  /// Тип объекта
+  /// </summary>
+  protected TypeObject typeObject;
+
+  //======================================
+
   /// <summary>
   /// Получить тип объекта
   /// </summary>
-  public abstract TypeObject GetObjectType();
+  public TypeObject GetTypeObject() => typeObject;
 
   /// <summary>
   /// Получить позицию объекта
   /// </summary>
-  public abstract Vector3Int GetObjectPosition();
-
-  /// <summary>
-  /// Получить индекс объекта
-  /// </summary>
-  public abstract int GetIndexObject();
+  public Vector3Int GetObjectPosition() => _objectPosition;
 
   //======================================
 
   /// <summary>
   /// Установить позицию объекта
   /// </summary>
-  public abstract void SetPositionObject(Vector3Int parObjectPosition);
+  public void SetPositionObject(Vector3Int parObjectPosition)
+  {
+    _objectPosition = parObjectPosition;
+  }
 
   /// <summary>
   /// Удалить Rigidbody у объектов которые могут падать
   /// </summary>
-  public abstract void RemoveRigidbody();
+  public virtual void RemoveRigidbody() { }
 
   //======================================
 }

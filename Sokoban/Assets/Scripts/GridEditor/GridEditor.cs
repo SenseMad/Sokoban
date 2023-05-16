@@ -294,7 +294,7 @@ namespace Sokoban.GridEditor
         scriptable = AssetDatabase.LoadAssetAtPath<ScriptableObject>(path);
       }*/
 
-      levelData.name = $"{_location}_{numLevel}";
+      /*levelData.name = $"{_location}_{numLevel}";
       levelData.LevelNumber = numLevel;
 
       levelData.ListLevelObjects = new List<LevelData.GridData>();
@@ -309,7 +309,7 @@ namespace Sokoban.GridEditor
             PositionObject = blockObject.GetObjectPosition()
           });
         }
-      }
+      }*/
 
       /*AssetDatabase.CreateAsset(levelData, path);
       AssetDatabase.SaveAssets();

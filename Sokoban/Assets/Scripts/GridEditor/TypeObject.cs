@@ -19,5 +19,13 @@ public enum TypeObject
   /// <summary>
   /// Объект шипа
   /// </summary>
-  spikeObject
+  spikeObject,
+  /// <summary>
+  /// Объект двери
+  /// </summary>
+  doorObject,
+  /// <summary>
+  /// Объект кнопки для двери
+  /// </summary>
+  buttonDoorObject
 }

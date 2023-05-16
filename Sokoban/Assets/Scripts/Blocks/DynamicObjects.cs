@@ -5,32 +5,21 @@ using UnityEngine;
 /// </summary>
 public class DynamicObjects : Block
 {
-  [SerializeField, Tooltip("Тип объекта")]
-  private TypeObject _typeObject;
-
-  [SerializeField, Tooltip("Индекс объекта")]
-  private int _indexObject;
-
-  [SerializeField, Tooltip("Позиция объекта")]
-  private Vector3Int _objectPosition;
 
   //--------------------------------------
 
-  private Rigidbody rigidbody;
-
-  //======================================
-
-  public override TypeObject GetObjectType() => _typeObject;
-
-  public override Vector3Int GetObjectPosition() => _objectPosition;
-
-  public override int GetIndexObject() => _indexObject;
+  private new Rigidbody rigidbody;
 
   //======================================
 
   private void Awake()
   {
     rigidbody = GetComponent<Rigidbody>();
+  }
+
+  private void Start()
+  {
+    typeObject = TypeObject.dynamicObject;
   }
 
   //======================================
@@ -68,6 +57,9 @@ public class DynamicObjects : Block
 
           return false;
         }
+
+        if (hit.collider.GetComponent<ButtonDoorObject>())
+          return false;
       }
     }
 
@@ -83,11 +75,6 @@ public class DynamicObjects : Block
   }
 
   //======================================
-
-  public override void SetPositionObject(Vector3Int parObjectPosition)
-  {
-    _objectPosition = parObjectPosition;
-  }
 
   public override void RemoveRigidbody()
   {

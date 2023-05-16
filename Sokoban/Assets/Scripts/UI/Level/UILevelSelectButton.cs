@@ -16,9 +16,25 @@ namespace Sokoban.UI
     [SerializeField, Tooltip("Текст названия уровня")]
     private TextMeshProUGUI _textLevelName;
 
+    //--------------------------------------
+
+    private Image imageButton;
+
     //======================================
 
     public Button Button { get; set; }
+
+    /// <summary>
+    /// True, если уровень открыт
+    /// </summary>
+    public bool IsLevelOpen { get; private set; }
+
+    //======================================
+
+    private void Awake()
+    {
+      imageButton = GetComponent<Image>();
+    }
 
     //======================================
 
@@ -29,6 +45,17 @@ namespace Sokoban.UI
     {
       Button.name = $"{levelData.LevelNumber}";
       _textLevelName.text = $"{levelData.LevelNumber}";
+    }
+
+    /// <summary>
+    /// Изменить цвет
+    /// </summary>
+    public void ChangeColor()
+    {
+      _textLevelName.color = ColorsGame.STANDART_COLOR;
+      imageButton.color = ColorsGame.STANDART_COLOR;
+
+      IsLevelOpen = true;
     }
 
     //======================================

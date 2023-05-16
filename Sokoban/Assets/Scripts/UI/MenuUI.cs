@@ -17,9 +17,11 @@ namespace Sokoban.UI
 
     //--------------------------------------
 
-    private InputHandler inputHandler;
+    protected InputHandler inputHandler;
 
-    private PanelController panelController;
+    protected PanelController panelController;
+
+    protected AudioManager audioManager;
 
     /// <summary>
     /// True, если кнопка активна
@@ -34,12 +36,10 @@ namespace Sokoban.UI
     /// <summary>
     /// Время перехода к следующему значения
     /// </summary>
-    private readonly float timeMoveNextValue = 0.2f;
-    private float nextTimeMoveNextValue = 0.0f;
+    protected readonly float timeMoveNextValue = 0.2f;
+    protected float nextTimeMoveNextValue = 0.0f;
 
     //======================================
-
-    protected AudioManager AudioManager { get; private set; }
 
     /// <summary>
     /// True, если кнопка активна
@@ -65,7 +65,7 @@ namespace Sokoban.UI
 
       panelController = PanelController.Instance;
 
-      AudioManager = AudioManager.Instance;
+      audioManager = AudioManager.Instance;
     }
 
     protected virtual void OnEnable()
@@ -87,7 +87,7 @@ namespace Sokoban.UI
 
     protected virtual void Update()
     {
-      ChangeActiveButton();
+      MoveMenuVertically(1);
     }
 
     //======================================
@@ -141,15 +141,15 @@ namespace Sokoban.UI
 
     protected void Sound()
     {
-      AudioManager.OnPlaySoundInterface?.Invoke();
+      audioManager.OnPlaySoundInterface?.Invoke();
     }
 
     #endregion
 
     /// <summary>
-    /// Изменить активную кнопку
+    /// Перемещение в меню по вертикали
     /// </summary>
-    private void ChangeActiveButton()
+    protected virtual void MoveMenuVertically(int parValue)
     {
       if (_listButtons.Count == 0)
         return;
@@ -162,7 +162,7 @@ namespace Sokoban.UI
         {
           IsSelected = false;
 
-          indexActiveButton--;
+          indexActiveButton -= parValue;
 
           if (indexActiveButton < 0) indexActiveButton = _listButtons.Count - 1;
 
@@ -174,7 +174,7 @@ namespace Sokoban.UI
         {
           IsSelected = false;
 
-          indexActiveButton++;
+          indexActiveButton += parValue;
 
           if (indexActiveButton > _listButtons.Count - 1) indexActiveButton = 0;
 
@@ -184,6 +184,49 @@ namespace Sokoban.UI
       }
 
       if (inputHandler.GetNavigationInput() == 0)
+      {
+        nextTimeMoveNextValue = Time.time;
+      }
+    }
+
+    /// <summary>
+    /// Перемещение в меню по горизонтали
+    /// </summary>
+    protected virtual void MoveMenuHorizontally()
+    {
+      if (_listButtons.Count == 0)
+        return;
+
+      if (Time.time > nextTimeMoveNextValue)
+      {
+        nextTimeMoveNextValue = Time.time + timeMoveNextValue;
+
+        if (inputHandler.GetChangingValuesInput() > 0)
+        {
+          IsSelected = false;
+
+          indexActiveButton++;
+
+          if (indexActiveButton > _listButtons.Count - 1) indexActiveButton = 0;
+
+          Sound();
+          IsSelected = true;
+        }
+
+        if (inputHandler.GetChangingValuesInput() < 0)
+        {
+          IsSelected = false;
+
+          indexActiveButton--;
+
+          if (indexActiveButton < 0) indexActiveButton = _listButtons.Count - 1;
+
+          Sound();
+          IsSelected = true;
+        }
+      }
+
+      if (inputHandler.GetChangingValuesInput() == 0)
       {
         nextTimeMoveNextValue = Time.time;
       }

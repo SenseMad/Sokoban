@@ -13,7 +13,7 @@ public class SpikeObject : InteractiveObjects
 
   private void OnTriggerExit(Collider other)
   {
-    if (other.GetComponent<Block>().GetObjectType() != TypeObject.playerObject)
+    if (other.GetComponent<Block>().GetTypeObject() != TypeObject.playerObject)
       return;
 
     IsSpikeActivated = true;
