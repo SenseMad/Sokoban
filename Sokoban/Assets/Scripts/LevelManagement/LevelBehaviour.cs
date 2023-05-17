@@ -5,7 +5,7 @@ using UnityEngine;
 namespace Sokoban.LevelManagement
 {
   /// <summary>
-  /// Поведение на уровне
+  /// РџРѕРІРµРґРµРЅРёРµ РЅР° СѓСЂРѕРІРЅРµ
   /// </summary>
   public abstract class LevelBehaviour : SingletonInSceneNoInstance<LevelBehaviour>
   {
@@ -27,12 +27,12 @@ namespace Sokoban.LevelManagement
     //======================================
 
     /// <summary>
-    /// Возвращает данные уровня
+    /// Р’РѕР·РІСЂР°С‰Р°РµС‚ РґР°РЅРЅС‹Рµ СѓСЂРѕРІРЅСЏ
     /// </summary>
     public abstract LevelData GetCurrentLevelData();
 
     /// <summary>
-    /// Возвращает прогресс на уровне
+    /// Р’РѕР·РІСЂР°С‰Р°РµС‚ РїСЂРѕРіСЂРµСЃСЃ РЅР° СѓСЂРѕРІРЅРµ
     /// </summary>
     public abstract LevelProgressData GetCurrentLevelProgressData();
 
@@ -41,7 +41,7 @@ namespace Sokoban.LevelManagement
     public abstract bool IsFoodCollected();
 
     /// <summary>
-    /// Добавить коробку в список
+    /// Р”РѕР±Р°РІРёС‚СЊ РєРѕСЂРѕР±РєСѓ РІ СЃРїРёСЃРѕРє
     /// </summary>
     /// <param name="box"></param>
    // public abstract void AddBoxToList(Box box);

@@ -5,11 +5,11 @@ using UnityEngine;
 using Sokoban.LevelManagement;
 
 /// <summary>
-/// Объект кнопки для двери
+/// РћР±СЉРµРєС‚ РєРЅРѕРїРєРё РґР»СЏ РґРІРµСЂРё
 /// </summary>
 public class ButtonDoorObject : InteractiveObjects
 {
-  [SerializeField, Tooltip("Цвет кнопки двери")]
+  [SerializeField, Tooltip("Р¦РІРµС‚ РєРЅРѕРїРєРё РґРІРµСЂРё")]
   private DoorColor _buttonDoorColor;
 
   //--------------------------------------

@@ -11,28 +11,28 @@ namespace Sokoban.GridEditor
   public class GridEditor : MonoBehaviour
   {
     /// <summary>
-    /// True, если включен редактор сетки
+    /// True, РµСЃР»Рё РІРєР»СЋС‡РµРЅ СЂРµРґР°РєС‚РѕСЂ СЃРµС‚РєРё
     /// </summary>
     public static bool GridEditorEnabled = false;
 
-    [Header("НАСТРОЙКИ")]
-    [SerializeField, Tooltip("Размер поля")]
+    [Header("РќРђРЎРўР РћР™РљР")]
+    [SerializeField, Tooltip("Р Р°Р·РјРµСЂ РїРѕР»СЏ")]
     private Vector3Int _fieldSize;
-    [SerializeField, Tooltip("Размер клетки")]
+    [SerializeField, Tooltip("Р Р°Р·РјРµСЂ РєР»РµС‚РєРё")]
     private int _gridSize = 1;
-    [SerializeField, Tooltip("Уровень поля")]
+    [SerializeField, Tooltip("РЈСЂРѕРІРµРЅСЊ РїРѕР»СЏ")]
     private int _gridLevel = 0;
 
-    [Header("ОБЪЕКТЫ")]
-    [SerializeField, Tooltip("Текущий выбранный тип объекта")]
+    [Header("РћР‘РЄР•РљРўР«")]
+    [SerializeField, Tooltip("РўРµРєСѓС‰РёР№ РІС‹Р±СЂР°РЅРЅС‹Р№ С‚РёРї РѕР±СЉРµРєС‚Р°")]
     private TypeObject _typeObject;
-    [SerializeField, Tooltip("Индекс выбранного объекта")]
+    [SerializeField, Tooltip("РРЅРґРµРєСЃ РІС‹Р±СЂР°РЅРЅРѕРіРѕ РѕР±СЉРµРєС‚Р°")]
     private int _indexObject = 0;
-    [SerializeField, Tooltip("Список типов блочных объектов")]
+    [SerializeField, Tooltip("РЎРїРёСЃРѕРє С‚РёРїРѕРІ Р±Р»РѕС‡РЅС‹С… РѕР±СЉРµРєС‚РѕРІ")]
     private ListBlockObjectTypes _listBlockObjectsTypes;
 
-    [Header("НАСТРОЙКИ УРОВНЯ")]
-    [SerializeField, Tooltip("Локация для которой создать уровень")]
+    [Header("РќРђРЎРўР РћР™РљР РЈР РћР’РќРЇ")]
+    [SerializeField, Tooltip("Р›РѕРєР°С†РёСЏ РґР»СЏ РєРѕС‚РѕСЂРѕР№ СЃРѕР·РґР°С‚СЊ СѓСЂРѕРІРµРЅСЊ")]
     private Location _location;
 
     //--------------------------------------
@@ -40,21 +40,21 @@ namespace Sokoban.GridEditor
     private Block[,,] blockObjects;
 
     /// <summary>
-    /// True, если сетка скрыта
+    /// True, РµСЃР»Рё СЃРµС‚РєР° СЃРєСЂС‹С‚Р°
     /// </summary>
     public bool hideGrid;
 
     /// <summary>
-    /// True, если отображать по одному уровню
+    /// True, РµСЃР»Рё РѕС‚РѕР±СЂР°Р¶Р°С‚СЊ РїРѕ РѕРґРЅРѕРјСѓ СѓСЂРѕРІРЅСЋ
     /// </summary>
     public bool DisplayLevel { get; set; }
 
     /// <summary>
-    /// Режим редактирования
+    /// Р РµР¶РёРј СЂРµРґР°РєС‚РёСЂРѕРІР°РЅРёСЏ
     /// </summary>
     public bool EditingMode;
     /// <summary>
-    /// Режим перемещения камеры
+    /// Р РµР¶РёРј РїРµСЂРµРјРµС‰РµРЅРёСЏ РєР°РјРµСЂС‹
     /// </summary>
     public bool CameraMovementMode;
 
@@ -63,12 +63,12 @@ namespace Sokoban.GridEditor
     //======================================
 
     /// <summary>
-    /// Получить размер поля
+    /// РџРѕР»СѓС‡РёС‚СЊ СЂР°Р·РјРµСЂ РїРѕР»СЏ
     /// </summary>
     public Vector3Int GetFieldSize() => _fieldSize;
 
     /// <summary>
-    /// Получить уровень поля
+    /// РџРѕР»СѓС‡РёС‚СЊ СѓСЂРѕРІРµРЅСЊ РїРѕР»СЏ
     /// </summary>
     public int GetGridLevel() => _gridLevel;
 
@@ -118,7 +118,7 @@ namespace Sokoban.GridEditor
     //======================================
 
     /// <summary>
-    /// Добавить объект
+    /// Р”РѕР±Р°РІРёС‚СЊ РѕР±СЉРµРєС‚
     /// </summary>
     private void AddObject(Vector3Int position, Block blockObject)
     {
@@ -133,7 +133,7 @@ namespace Sokoban.GridEditor
     }
 
     /// <summary>
-    /// Удалить объект
+    /// РЈРґР°Р»РёС‚СЊ РѕР±СЉРµРєС‚
     /// </summary>
     private void RemoveObject(Vector3Int position)
     {
@@ -145,10 +145,10 @@ namespace Sokoban.GridEditor
     }
 
     /// <summary>
-    /// Получить локальные координаты XYZ
+    /// РџРѕР»СѓС‡РёС‚СЊ Р»РѕРєР°Р»СЊРЅС‹Рµ РєРѕРѕСЂРґРёРЅР°С‚С‹ XYZ
     /// </summary>
-    /// <param name="worldPosition">Мировая позиция мыши</param>
-    /// <param name="vector3Int">Локальная позиция мыши</param>
+    /// <param name="worldPosition">РњРёСЂРѕРІР°СЏ РїРѕР·РёС†РёСЏ РјС‹С€Рё</param>
+    /// <param name="vector3Int">Р›РѕРєР°Р»СЊРЅР°СЏ РїРѕР·РёС†РёСЏ РјС‹С€Рё</param>
     private void GetXYZ(Vector3 worldPosition, out Vector3Int vector3Int)
     {
       vector3Int = new Vector3Int
@@ -170,7 +170,7 @@ namespace Sokoban.GridEditor
     }
 
     /// <summary>
-    /// Изменить размер поля
+    /// РР·РјРµРЅРёС‚СЊ СЂР°Р·РјРµСЂ РїРѕР»СЏ
     /// </summary>
     public void ChangeFieldSize(Vector3Int fieldSize)
     {
@@ -212,7 +212,7 @@ namespace Sokoban.GridEditor
     }
 
     /// <summary>
-    /// Изменить уровень поля
+    /// РР·РјРµРЅРёС‚СЊ СѓСЂРѕРІРµРЅСЊ РїРѕР»СЏ
     /// </summary>
     public void ChangeGridLevel(bool parValue)
     {
@@ -229,7 +229,7 @@ namespace Sokoban.GridEditor
     }
 
     /// <summary>
-    /// Отобразить/Скрыть подуровень
+    /// РћС‚РѕР±СЂР°Р·РёС‚СЊ/РЎРєСЂС‹С‚СЊ РїРѕРґСѓСЂРѕРІРµРЅСЊ
     /// </summary>
     public void ShowHideSublevels(bool parValue)
     {
@@ -247,7 +247,7 @@ namespace Sokoban.GridEditor
     }
 
     /// <summary>
-    /// Отобразить/Скрыть все подуровни
+    /// РћС‚РѕР±СЂР°Р·РёС‚СЊ/РЎРєСЂС‹С‚СЊ РІСЃРµ РїРѕРґСѓСЂРѕРІРЅРё
     /// </summary>
     public void ShowHideAllSublevels(bool parValue)
     {
@@ -276,7 +276,7 @@ namespace Sokoban.GridEditor
     //======================================
 
     /// <summary>
-    /// Создание данных уровня
+    /// РЎРѕР·РґР°РЅРёРµ РґР°РЅРЅС‹С… СѓСЂРѕРІРЅСЏ
     /// </summary>
     public void CreateLevelData()
     {
@@ -285,7 +285,7 @@ namespace Sokoban.GridEditor
       int numLevel = 1;
       string path = Levels.GetPathToStorageLevels(_location, numLevel);
 
-      // Проверяем, существует ли ScriptableObject
+      // РџСЂРѕРІРµСЂСЏРµРј, СЃСѓС‰РµСЃС‚РІСѓРµС‚ Р»Рё ScriptableObject
       /*ScriptableObject scriptable = AssetDatabase.LoadAssetAtPath<ScriptableObject>(path);
       while (scriptable != null)
       {

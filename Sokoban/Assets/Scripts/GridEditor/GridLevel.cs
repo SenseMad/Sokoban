@@ -9,7 +9,7 @@ namespace Sokoban.GridEditor
 {
   public class GridLevel : MonoBehaviour
   {
-    [SerializeField, Tooltip("Список типов блочных объектов")]
+    [SerializeField, Tooltip("РЎРїРёСЃРѕРє С‚РёРїРѕРІ Р±Р»РѕС‡РЅС‹С… РѕР±СЉРµРєС‚РѕРІ")]
     private ListBlockObjectTypes _listBlockObjectTypes;
 
     //======================================
@@ -17,31 +17,31 @@ namespace Sokoban.GridEditor
     private LevelManager levelManager;
 
     /// <summary>
-    /// Объекты блоков
+    /// РћР±СЉРµРєС‚С‹ Р±Р»РѕРєРѕРІ
     /// </summary>
     private Block[,,] blockObjects;
 
     /// <summary>
-    /// Список объектов еды
+    /// РЎРїРёСЃРѕРє РѕР±СЉРµРєС‚РѕРІ РµРґС‹
     /// </summary>
     private List<FoodObject> listFoodObjects = new List<FoodObject>();
 
     /// <summary>
-    /// Список объектов дверей
+    /// РЎРїРёСЃРѕРє РѕР±СЉРµРєС‚РѕРІ РґРІРµСЂРµР№
     /// </summary>
     private List<DoorObject> listDoorObjects = new List<DoorObject>();
 
     //======================================
 
     /// <summary>
-    /// Получение объектов сетки
+    /// РџРѕР»СѓС‡РµРЅРёРµ РѕР±СЉРµРєС‚РѕРІ СЃРµС‚РєРё
     /// </summary>
     public Block[,,] GetBlockObjects() => blockObjects;
 
     //======================================
 
     /// <summary>
-    /// Событие: Уровень создан
+    /// РЎРѕР±С‹С‚РёРµ: РЈСЂРѕРІРµРЅСЊ СЃРѕР·РґР°РЅ
     /// </summary>
     public UnityEvent OnLevelCreated { get; } = new UnityEvent();
 
@@ -54,10 +54,10 @@ namespace Sokoban.GridEditor
 
     //======================================
 
-    #region Поиск еды на уровне
+    #region РџРѕРёСЃРє РµРґС‹ РЅР° СѓСЂРѕРІРЅРµ
 
     /// <summary>
-    /// Найти всю еду на уровне
+    /// РќР°Р№С‚Рё РІСЃСЋ РµРґСѓ РЅР° СѓСЂРѕРІРЅРµ
     /// </summary>
     private void FindAllFoodObjects()
     {
@@ -79,7 +79,7 @@ namespace Sokoban.GridEditor
     }
 
     /// <summary>
-    /// Получить список объектов еды на уровне
+    /// РџРѕР»СѓС‡РёС‚СЊ СЃРїРёСЃРѕРє РѕР±СЉРµРєС‚РѕРІ РµРґС‹ РЅР° СѓСЂРѕРІРЅРµ
     /// </summary>
     public List<FoodObject> GetListFoodObjects()
     {
@@ -88,10 +88,10 @@ namespace Sokoban.GridEditor
 
     #endregion
 
-    #region Поиск объектов еды на уровне
+    #region РџРѕРёСЃРє РѕР±СЉРµРєС‚РѕРІ РµРґС‹ РЅР° СѓСЂРѕРІРЅРµ
     
     /// <summary>
-    /// Найти все объекты дверей на уровне
+    /// РќР°Р№С‚Рё РІСЃРµ РѕР±СЉРµРєС‚С‹ РґРІРµСЂРµР№ РЅР° СѓСЂРѕРІРЅРµ
     /// </summary>
     private void FindAllDoorObjects()
     {
@@ -113,7 +113,7 @@ namespace Sokoban.GridEditor
     }
 
     /// <summary>
-    /// Получить список объектов дверей на уровне
+    /// РџРѕР»СѓС‡РёС‚СЊ СЃРїРёСЃРѕРє РѕР±СЉРµРєС‚РѕРІ РґРІРµСЂРµР№ РЅР° СѓСЂРѕРІРЅРµ
     /// </summary>
     public List<DoorObject> GetListDoorObjects()
     {
@@ -125,11 +125,11 @@ namespace Sokoban.GridEditor
     //======================================
 
     /// <summary>
-    /// Создание сетки уровня
+    /// РЎРѕР·РґР°РЅРёРµ СЃРµС‚РєРё СѓСЂРѕРІРЅСЏ
     /// </summary>
     public void CreatingLevelGrid()
     {
-      // Если сетка уровня уже создана, удаляем её
+      // Р•СЃР»Рё СЃРµС‚РєР° СѓСЂРѕРІРЅСЏ СѓР¶Рµ СЃРѕР·РґР°РЅР°, СѓРґР°Р»СЏРµРј РµС‘
       DeletingLevelObjects();
 
       LevelData levelData = levelManager.GetCurrentLevelData();
@@ -151,7 +151,7 @@ namespace Sokoban.GridEditor
     }
 
     /// <summary>
-    /// Удаление объектов уровня
+    /// РЈРґР°Р»РµРЅРёРµ РѕР±СЉРµРєС‚РѕРІ СѓСЂРѕРІРЅСЏ
     /// </summary>
     public void DeletingLevelObjects()
     {

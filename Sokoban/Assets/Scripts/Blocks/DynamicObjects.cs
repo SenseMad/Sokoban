@@ -1,7 +1,7 @@
 using UnityEngine;
 
 /// <summary>
-/// Класс динамических объектов, которые можно двигать
+/// РљР»Р°СЃСЃ РґРёРЅР°РјРёС‡РµСЃРєРёС… РѕР±СЉРµРєС‚РѕРІ, РєРѕС‚РѕСЂС‹Рµ РјРѕР¶РЅРѕ РґРІРёРіР°С‚СЊ
 /// </summary>
 public class DynamicObjects : Block
 {
@@ -11,19 +11,19 @@ public class DynamicObjects : Block
   private new Rigidbody rigidbody;
 
   /// <summary>
-  /// True, если объект движется
+  /// True, РµСЃР»Рё РѕР±СЉРµРєС‚ РґРІРёР¶РµС‚СЃСЏ
   /// </summary>
   private bool isMoving = false;
   /// <summary>
-  /// Скорость объекта
+  /// РЎРєРѕСЂРѕСЃС‚СЊ РѕР±СЉРµРєС‚Р°
   /// </summary>
   private float speed = 2.0f;
   /// <summary>
-  /// Новая позиция
+  /// РќРѕРІР°СЏ РїРѕР·РёС†РёСЏ
   /// </summary>
   private Vector3 lastPosition;
   /// <summary>
-  /// Направление движения
+  /// РќР°РїСЂР°РІР»РµРЅРёРµ РґРІРёР¶РµРЅРёСЏ
   /// </summary>
   private Vector3 direction;
 
@@ -53,9 +53,9 @@ public class DynamicObjects : Block
   //======================================
 
   /// <summary>
-  /// Движение объекта
+  /// Р”РІРёР¶РµРЅРёРµ РѕР±СЉРµРєС‚Р°
   /// </summary>
-  /// <param name="parDirection">Направление движения</param>
+  /// <param name="parDirection">РќР°РїСЂР°РІР»РµРЅРёРµ РґРІРёР¶РµРЅРёСЏ</param>
   public bool ObjectMove(Vector3 parDirection, float parSpeed)
   {
     if (IsBlocked(parDirection))
@@ -69,9 +69,9 @@ public class DynamicObjects : Block
   }
 
   /// <summary>
-  /// True, если движение объекта вперед заблокировано
+  /// True, РµСЃР»Рё РґРІРёР¶РµРЅРёРµ РѕР±СЉРµРєС‚Р° РІРїРµСЂРµРґ Р·Р°Р±Р»РѕРєРёСЂРѕРІР°РЅРѕ
   /// </summary>
-  /// <param name="direction">Направление движения</param>
+  /// <param name="direction">РќР°РїСЂР°РІР»РµРЅРёРµ РґРІРёР¶РµРЅРёСЏ</param>
   private bool IsBlocked(Vector3 direction)
   {
     if (Physics.Raycast(transform.position, direction, out RaycastHit hit, 1))
@@ -98,7 +98,7 @@ public class DynamicObjects : Block
   }
 
   /// <summary>
-  /// True, если объект падает
+  /// True, РµСЃР»Рё РѕР±СЉРµРєС‚ РїР°РґР°РµС‚
   /// </summary>
   public bool IsObjectFalling()
   {

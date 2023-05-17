@@ -4,14 +4,14 @@ using UnityEngine;
 
 public class GroundObject : StaticObjects
 {
-  [SerializeField, Tooltip("Тип земли")]
+  [SerializeField, Tooltip("РўРёРї Р·РµРјР»Рё")]
   private TypesGround _typeGround;
 
   //======================================
 }
 
 /// <summary>
-/// Типы земли
+/// РўРёРїС‹ Р·РµРјР»Рё
 /// </summary>
 public enum TypesGround
 {

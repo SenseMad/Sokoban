@@ -4,7 +4,7 @@ using UnityEngine.Events;
 namespace Sokoban.GameManagement
 {
   /// <summary>
-  /// Данные настроек
+  /// „анные настроек
   /// </summary>
   public sealed class SettingsData
   {
@@ -17,7 +17,7 @@ namespace Sokoban.GameManagement
     //======================================
 
     /// <summary>
-    /// Громкость музыка
+    /// ѓромкость музыка
     /// </summary>
     public int MusicValue
     {
@@ -30,7 +30,7 @@ namespace Sokoban.GameManagement
     }
 
     /// <summary>
-    /// Громкость звуков
+    /// ѓромкость звуков
     /// </summary>
     public int SoundVolume
     {
@@ -45,12 +45,12 @@ namespace Sokoban.GameManagement
     //======================================
 
     /// <summary>
-    /// Событие: Изменение громкости музыки
+    /// ‘обытие: €зменение громкости музыки
     /// </summary>
     public UnityEvent<int> ChangeMusicValue { get; } = new UnityEvent<int>();
 
     /// <summary>
-    /// Событие: Изменение громкости звуков
+    /// ‘обытие: €зменение громкости звуков
     /// </summary>
     public UnityEvent<int> ChangeSoundValue { get; } = new UnityEvent<int>();
 

@@ -1,5 +1,5 @@
 /// <summary>
-/// Φβεςΰ δβεπει
+/// Π¦Π²ΠµΡ‚Π° Π΄Π²ΠµΡ€ΠµΠΉ
 /// </summary>
 public enum DoorColor
 {

@@ -24,30 +24,30 @@ public class PlayerObjects : Block
   private CinemachineVirtualCamera cinemachineVirtual;
 
   /// <summary>
-  /// True, если можно двигаться
+  /// True, РµСЃР»Рё РјРѕР¶РЅРѕ РґРІРёРіР°С‚СЊСЃСЏ
   /// </summary>
   private bool isPossibleMove = true;
 
   /// <summary>
-  /// True, если игрок движется
+  /// True, РµСЃР»Рё РёРіСЂРѕРє РґРІРёР¶РµС‚СЃСЏ
   /// </summary>
   private bool isMoving = false;
 
   /// <summary>
-  /// Новая позиция
+  /// РќРѕРІР°СЏ РїРѕР·РёС†РёСЏ
   /// </summary>
   private Vector3 lastPosition;
   /// <summary>
-  /// Направление движения
+  /// РќР°РїСЂР°РІР»РµРЅРёРµ РґРІРёР¶РµРЅРёСЏ
   /// </summary>
   private Vector3 direction;
   
   /// <summary>
-  /// Сохраняет значение Time.time, когда была нажата кнопка движения в последний раз
+  /// РЎРѕС…СЂР°РЅСЏРµС‚ Р·РЅР°С‡РµРЅРёРµ Time.time, РєРѕРіРґР° Р±С‹Р»Р° РЅР°Р¶Р°С‚Р° РєРЅРѕРїРєР° РґРІРёР¶РµРЅРёСЏ РІ РїРѕСЃР»РµРґРЅРёР№ СЂР°Р·
   /// </summary>
   private float lastTime = 0;
   /// <summary>
-  /// Время задержки перед следующим нажатием кнопки
+  /// Р’СЂРµРјСЏ Р·Р°РґРµСЂР¶РєРё РїРµСЂРµРґ СЃР»РµРґСѓСЋС‰РёРј РЅР°Р¶Р°С‚РёРµРј РєРЅРѕРїРєРё
   /// </summary>
   private float delayTimeNextButtonPress = 0f;
 
@@ -104,7 +104,7 @@ public class PlayerObjects : Block
   //======================================
 
   /// <summary>
-  /// Движение игрока
+  /// Р”РІРёР¶РµРЅРёРµ РёРіСЂРѕРєР°
   /// </summary>
   private void PlayerMovement()
   {
@@ -127,9 +127,9 @@ public class PlayerObjects : Block
   }
 
   /// <summary>
-  /// Движение
+  /// Р”РІРёР¶РµРЅРёРµ
   /// </summary>
-  /// <param name="parDirection">Направление движения</param>
+  /// <param name="parDirection">РќР°РїСЂР°РІР»РµРЅРёРµ РґРІРёР¶РµРЅРёСЏ</param>
   private bool Move(Vector3 parDirection)
   {
     if (levelManager.LevelCompleted || !isPossibleMove || isMoving)
@@ -157,9 +157,9 @@ public class PlayerObjects : Block
   }
 
   /// <summary>
-  /// Возвращает True, если перед игроком 2 и более ящика, блок который нельзя двигать, и т.д.
+  /// Р’РѕР·РІСЂР°С‰Р°РµС‚ True, РµСЃР»Рё РїРµСЂРµРґ РёРіСЂРѕРєРѕРј 2 Рё Р±РѕР»РµРµ СЏС‰РёРєР°, Р±Р»РѕРє РєРѕС‚РѕСЂС‹Р№ РЅРµР»СЊР·СЏ РґРІРёРіР°С‚СЊ, Рё С‚.Рґ.
   /// </summary>
-  /// <param name="parDirection">Направление движения</param>
+  /// <param name="parDirection">РќР°РїСЂР°РІР»РµРЅРёРµ РґРІРёР¶РµРЅРёСЏ</param>
   private bool IsBlocked(Vector3 parDirection)
   {
     if (!CheckGroundPlayer(parDirection))
@@ -179,7 +179,7 @@ public class PlayerObjects : Block
         if (block.GetTypeObject() == TypeObject.buttonDoorObject)
           return false;
 
-        #region Проверка движущихся объектов
+        #region РџСЂРѕРІРµСЂРєР° РґРІРёР¶СѓС‰РёС…СЃСЏ РѕР±СЉРµРєС‚РѕРІ
 
         if (hit.collider.TryGetComponent(out DynamicObjects dynamicObject))
         {
@@ -188,11 +188,11 @@ public class PlayerObjects : Block
 
         #endregion
 
-        #region Проверка шипов
+        #region РџСЂРѕРІРµСЂРєР° С€РёРїРѕРІ
 
         if (hit.collider.TryGetComponent(out SpikeObject spikeObject))
         {
-          // Если шип активирован, возвращаем True
+          // Р•СЃР»Рё С€РёРї Р°РєС‚РёРІРёСЂРѕРІР°РЅ, РІРѕР·РІСЂР°С‰Р°РµРј True
           /*if (spikeObject.IsSpikeActivated)
             return true;*/
 
@@ -212,21 +212,21 @@ public class PlayerObjects : Block
   }
 
   /// <summary>
-  /// True, если перед игроком есть земля
+  /// True, РµСЃР»Рё РїРµСЂРµРґ РёРіСЂРѕРєРѕРј РµСЃС‚СЊ Р·РµРјР»СЏ
   /// </summary>
-  /// <param name="direction">Направление движения</param>
+  /// <param name="direction">РќР°РїСЂР°РІР»РµРЅРёРµ РґРІРёР¶РµРЅРёСЏ</param>
   private bool CheckGroundPlayer(Vector3 direction)
   {
-    // Проверяем позицию клетки впереди игрока
+    // РџСЂРѕРІРµСЂСЏРµРј РїРѕР·РёС†РёСЋ РєР»РµС‚РєРё РІРїРµСЂРµРґРё РёРіСЂРѕРєР°
     if (direction.z > 0f && !Physics.Raycast(transform.position + transform.forward, Vector3.down, 1f))
       return false;
-    // Проверяем позицию клетки слева от игрока
+    // РџСЂРѕРІРµСЂСЏРµРј РїРѕР·РёС†РёСЋ РєР»РµС‚РєРё СЃР»РµРІР° РѕС‚ РёРіСЂРѕРєР°
     else if (direction.x < 0f && !Physics.Raycast(transform.position - transform.right, Vector3.down, 1f))
       return false;
-    // Проверяем позицию клетки справа от игрока
+    // РџСЂРѕРІРµСЂСЏРµРј РїРѕР·РёС†РёСЋ РєР»РµС‚РєРё СЃРїСЂР°РІР° РѕС‚ РёРіСЂРѕРєР°
     else if (direction.x > 0f && !Physics.Raycast(transform.position + transform.right, Vector3.down, 1f))
       return false;
-    // Проверяем позицию клетки позади игрока
+    // РџСЂРѕРІРµСЂСЏРµРј РїРѕР·РёС†РёСЋ РєР»РµС‚РєРё РїРѕР·Р°РґРё РёРіСЂРѕРєР°
     else if (direction.z < 0f && !Physics.Raycast(transform.position - transform.forward, Vector3.down, 1f))
       return false;
 
@@ -234,9 +234,9 @@ public class PlayerObjects : Block
   }
 
   /// <summary>
-  /// Проверить неровный блок
+  /// РџСЂРѕРІРµСЂРёС‚СЊ РЅРµСЂРѕРІРЅС‹Р№ Р±Р»РѕРє
   /// </summary>
-  /// <param name="direction">Направление движения</param>
+  /// <param name="direction">РќР°РїСЂР°РІР»РµРЅРёРµ РґРІРёР¶РµРЅРёСЏ</param>
   private bool CheckUnevenBlock(Vector3 direction)
   {
     if (direction.z > 0f && IsUnevenBlock(transform.position + transform.forward))
@@ -252,7 +252,7 @@ public class PlayerObjects : Block
   }
 
   /// <summary>
-  /// True, если перед игроком неровный блок
+  /// True, РµСЃР»Рё РїРµСЂРµРґ РёРіСЂРѕРєРѕРј РЅРµСЂРѕРІРЅС‹Р№ Р±Р»РѕРє
   /// </summary>
   private bool IsUnevenBlock(Vector3 origin)
   {
@@ -268,7 +268,7 @@ public class PlayerObjects : Block
   }
 
   /// <summary>
-  /// Можно ли двигаться
+  /// РњРѕР¶РЅРѕ Р»Рё РґРІРёРіР°С‚СЊСЃСЏ
   /// </summary>
   private void PossibleMove(bool parValue)
   {

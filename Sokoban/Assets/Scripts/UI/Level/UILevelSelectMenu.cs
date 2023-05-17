@@ -9,15 +9,15 @@ using Sokoban.GameManagement;
 namespace Sokoban.UI
 {
   /// <summary>
-  /// Пользовательский интерфейс меню выбора уровня
+  /// РџРѕР»СЊР·РѕРІР°С‚РµР»СЊСЃРєРёР№ РёРЅС‚РµСЂС„РµР№СЃ РјРµРЅСЋ РІС‹Р±РѕСЂР° СѓСЂРѕРІРЅСЏ
   /// </summary>
   public class UILevelSelectMenu : MenuUI
   {
-    [SerializeField, Tooltip("Панель, куда будут создаваться кнопки")]
+    [SerializeField, Tooltip("РџР°РЅРµР»СЊ, РєСѓРґР° Р±СѓРґСѓС‚ СЃРѕР·РґР°РІР°С‚СЊСЃСЏ РєРЅРѕРїРєРё")]
     private RectTransform _levelSelectPanel;
 
-    [Header("ПРЕФАБ")]
-    [SerializeField, Tooltip("Префаб кнопки выбора уровня")]
+    [Header("РџР Р•Р¤РђР‘")]
+    [SerializeField, Tooltip("РџСЂРµС„Р°Р± РєРЅРѕРїРєРё РІС‹Р±РѕСЂР° СѓСЂРѕРІРЅСЏ")]
     private UILevelSelectButton _prefabButtonLevelSelect;
 
     //--------------------------------------
@@ -25,7 +25,7 @@ namespace Sokoban.UI
     private GameManager gameManager;
 
     /// <summary>
-    /// Список кнопок выбора уровней
+    /// РЎРїРёСЃРѕРє РєРЅРѕРїРѕРє РІС‹Р±РѕСЂР° СѓСЂРѕРІРЅРµР№
     /// </summary>
     private List<UILevelSelectButton> listUILevelSelectButton = new List<UILevelSelectButton>();
 
@@ -92,7 +92,7 @@ namespace Sokoban.UI
     }
 
     /// <summary>
-    /// Отобразить кнопки выбора уровня в интерфейсе
+    /// РћС‚РѕР±СЂР°Р·РёС‚СЊ РєРЅРѕРїРєРё РІС‹Р±РѕСЂР° СѓСЂРѕРІРЅСЏ РІ РёРЅС‚РµСЂС„РµР№СЃРµ
     /// </summary>
     public void DisplayLevelSelectionButtonsUI(Location parLocation)
     {
@@ -124,7 +124,7 @@ namespace Sokoban.UI
     }
 
     /// <summary>
-    /// Очистить список кнопок
+    /// РћС‡РёСЃС‚РёС‚СЊ СЃРїРёСЃРѕРє РєРЅРѕРїРѕРє
     /// </summary>
     private void ClearButtonsUI()
     {
@@ -140,7 +140,7 @@ namespace Sokoban.UI
     //======================================
 
     /// <summary>
-    /// Выбрать уровень
+    /// Р’С‹Р±СЂР°С‚СЊ СѓСЂРѕРІРµРЅСЊ
     /// </summary>
     private void SelectLevel(LevelData levelData)
     {

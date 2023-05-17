@@ -8,36 +8,38 @@ using Sokoban.LevelManagement;
 namespace Sokoban.GameManagement
 {
   /// <summary>
-  /// Данные о прогрессе игрока
+  /// Р”Р°РЅРЅС‹Рµ Рѕ РїСЂРѕРіСЂРµСЃСЃРµ РёРіСЂРѕРєР°
   /// </summary>
   [System.Serializable]
   public sealed class ProgressData
   {
     /// <summary>
-    /// Таблица количества пройденных уровней на локации
+    /// РўР°Р±Р»РёС†Р° РєРѕР»РёС‡РµСЃС‚РІР° РїСЂРѕР№РґРµРЅРЅС‹С… СѓСЂРѕРІРЅРµР№ РЅР° Р»РѕРєР°С†РёРё
     /// </summary>
     public Dictionary<Location, int> tableNumberCompletedLevelsLocation = new Dictionary<Location, int>()
     {
-      { Location.Summer, 1 },
-      { Location.Winter, 0 }
+      { Location.Summer, 0 }
     };
 
     /// <summary>
-    /// Прогресс на уровнях
+    /// РџСЂРѕРіСЂРµСЃСЃ РЅР° СѓСЂРѕРІРЅСЏС…
     /// </summary>
     public Dictionary<Location, Dictionary<int, LevelProgressData>> levelProgressData = new Dictionary<Location, Dictionary<int, LevelProgressData>>();
 
     //======================================
 
     /// <summary>
-    /// Открыть локацию
+    /// РћС‚РєСЂС‹С‚СЊ Р»РѕРєР°С†РёСЋ
     /// </summary>
-    /// <param name="parLocation">Локация</param>
+    /// <param name="parLocation">Р›РѕРєР°С†РёСЏ</param>
     public bool OpenLocation(Location parLocation)
     {
+      if (!Levels.GetLocationTable(parLocation))
+        return false;
+
       if (tableNumberCompletedLevelsLocation.ContainsKey(parLocation))
       {
-        Debug.Log($"Локация {parLocation} уже открыта!");
+        Debug.Log($"Р›РѕРєР°С†РёСЏ {parLocation} СѓР¶Рµ РѕС‚РєСЂС‹С‚Р°!");
         return false;
       }
 
@@ -45,12 +47,11 @@ namespace Sokoban.GameManagement
       return true;
     }
 
-
     /// <summary>
-    /// Открыть следующую локацию
+    /// РћС‚РєСЂС‹С‚СЊ СЃР»РµРґСѓСЋС‰СѓСЋ Р»РѕРєР°С†РёСЋ
     /// </summary>
-    /// <param name="parCurrentLocation">Текущая локация</param>
-    /// <param name="parCurrentLevel">Текущий уровнь локации</param>
+    /// <param name="parCurrentLocation">РўРµРєСѓС‰Р°СЏ Р»РѕРєР°С†РёСЏ</param>
+    /// <param name="parCurrentLevel">РўРµРєСѓС‰РёР№ СѓСЂРѕРІРЅСЊ Р»РѕРєР°С†РёРё</param>
     /// <returns></returns>
     public bool OpenNextLocation(Location parCurrentLocation, int parCurrentLevel)
     {
@@ -60,7 +61,7 @@ namespace Sokoban.GameManagement
         {
           if (OpenLocation(parCurrentLocation + 1))
           {
-            Debug.Log($"Локация {parCurrentLocation + 1} открыта!");
+            Debug.Log($"Р›РѕРєР°С†РёСЏ {parCurrentLocation + 1} РѕС‚РєСЂС‹С‚Р°!");
             return true;
           }
         }
@@ -70,24 +71,24 @@ namespace Sokoban.GameManagement
     }
 
     /// <summary>
-    /// Открыть следующий уровень
+    /// РћС‚РєСЂС‹С‚СЊ СЃР»РµРґСѓСЋС‰РёР№ СѓСЂРѕРІРµРЅСЊ
     /// </summary>
-    /// <param name="parCurrentLocation">Текущая локация</param>
-    /// <param name="parCurrentLevel">Текущий уровень</param>
+    /// <param name="parCurrentLocation">РўРµРєСѓС‰Р°СЏ Р»РѕРєР°С†РёСЏ</param>
+    /// <param name="parCurrentLevel">РўРµРєСѓС‰РёР№ СѓСЂРѕРІРµРЅСЊ</param>
     public bool OpenNextLevel(Location parCurrentLocation, int parCurrentLevel)
     {
       if (!tableNumberCompletedLevelsLocation.ContainsKey(parCurrentLocation))
       {
-        Debug.Log($"Локация {parCurrentLocation} еще не открыта!");
+        Debug.Log($"Р›РѕРєР°С†РёСЏ {parCurrentLocation} РµС‰Рµ РЅРµ РѕС‚РєСЂС‹С‚Р°!");
         return false;
       }
 
       int currentNumberLevel = GetNumberLevelsCompleted(parCurrentLocation);
-      // Если текущий уровень больше или равен количеству пройденных уровней
+      // Р•СЃР»Рё С‚РµРєСѓС‰РёР№ СѓСЂРѕРІРµРЅСЊ Р±РѕР»СЊС€Рµ РёР»Рё СЂР°РІРµРЅ РєРѕР»РёС‡РµСЃС‚РІСѓ РїСЂРѕР№РґРµРЅРЅС‹С… СѓСЂРѕРІРЅРµР№
       if (parCurrentLevel >= currentNumberLevel)
       {
         currentNumberLevel++;
-        // Если количество завершенных уровней больше количества уровней
+        // Р•СЃР»Рё РєРѕР»РёС‡РµСЃС‚РІРѕ Р·Р°РІРµСЂС€РµРЅРЅС‹С… СѓСЂРѕРІРЅРµР№ Р±РѕР»СЊС€Рµ РєРѕР»РёС‡РµСЃС‚РІР° СѓСЂРѕРІРЅРµР№
         if (currentNumberLevel >= Levels.GetNumberLevelsLocation(parCurrentLocation))
         {
           OpenNextLocation(parCurrentLocation, parCurrentLevel);
@@ -96,7 +97,7 @@ namespace Sokoban.GameManagement
 
         tableNumberCompletedLevelsLocation[parCurrentLocation] = currentNumberLevel;
 
-        Debug.Log($"Уровень {parCurrentLevel + 1} открыт!");
+        Debug.Log($"РЈСЂРѕРІРµРЅСЊ {parCurrentLevel + 1} РѕС‚РєСЂС‹С‚!");
         return true;
       }
 
@@ -104,14 +105,14 @@ namespace Sokoban.GameManagement
     }
 
     /// <summary>
-    /// Получить количество пройденных уровней на локации
+    /// РџРѕР»СѓС‡РёС‚СЊ РєРѕР»РёС‡РµСЃС‚РІРѕ РїСЂРѕР№РґРµРЅРЅС‹С… СѓСЂРѕРІРЅРµР№ РЅР° Р»РѕРєР°С†РёРё
     /// </summary>
-    /// <param name="parLocation">Локация</param>
+    /// <param name="parLocation">Р›РѕРєР°С†РёСЏ</param>
     public int GetNumberLevelsCompleted(Location parLocation)
     {
       if (!tableNumberCompletedLevelsLocation.ContainsKey(parLocation))
       {
-        Debug.Log($"Локация {parLocation} еще не открыта!");
+        Debug.Log($"Р›РѕРєР°С†РёСЏ {parLocation} РµС‰Рµ РЅРµ РѕС‚РєСЂС‹С‚Р°!");
         return 0;
       }
 
@@ -119,11 +120,11 @@ namespace Sokoban.GameManagement
     }
 
     /// <summary>
-    /// Сохранение прогресса на уровне
+    /// РЎРѕС…СЂР°РЅРµРЅРёРµ РїСЂРѕРіСЂРµСЃСЃР° РЅР° СѓСЂРѕРІРЅРµ
     /// </summary>
     /// <param name="parLevelProgressData"></param>
-    /// <param name="parLocation">Локация</param>
-    /// <param name="parLevelNumber">Номер уровня</param>
+    /// <param name="parLocation">Р›РѕРєР°С†РёСЏ</param>
+    /// <param name="parLevelNumber">РќРѕРјРµСЂ СѓСЂРѕРІРЅСЏ</param>
     public void SaveProgressLevelData(LevelProgressData parLevelProgressData, Location parLocation, int parLevelNumber)
     {
       if (!levelProgressData.ContainsKey(parLocation))
@@ -137,9 +138,9 @@ namespace Sokoban.GameManagement
     //======================================
 
     /// <summary>
-    /// True, если локация открыта
+    /// True, РµСЃР»Рё Р»РѕРєР°С†РёСЏ РѕС‚РєСЂС‹С‚Р°
     /// </summary>
-    /// <param name="parLocation">Локация</param>
+    /// <param name="parLocation">Р›РѕРєР°С†РёСЏ</param>
     public bool IsLocationOpen(Location parLocation)
     {
       return tableNumberCompletedLevelsLocation.ContainsKey(parLocation);

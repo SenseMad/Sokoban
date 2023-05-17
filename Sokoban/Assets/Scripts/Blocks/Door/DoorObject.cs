@@ -3,17 +3,17 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
-/// Объект двери
+/// РћР±СЉРµРєС‚ РґРІРµСЂРё
 /// </summary>
 public class DoorObject : StaticObjects
 {
-  [SerializeField, Tooltip("Цвет двери")]
+  [SerializeField, Tooltip("Р¦РІРµС‚ РґРІРµСЂРё")]
   private DoorColor _doorColor;
 
   //======================================
 
   /// <summary>
-  /// Получить цвет двери
+  /// РџРѕР»СѓС‡РёС‚СЊ С†РІРµС‚ РґРІРµСЂРё
   /// </summary>
   public DoorColor GetDoorColor() => _doorColor;
 

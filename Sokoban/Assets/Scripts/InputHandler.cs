@@ -26,7 +26,7 @@ public class InputHandler : SingletonInGame<InputHandler>
   //======================================
 
   /// <summary>
-  /// True, если можно использовать ввод данных
+  /// True, РµСЃР»Рё РјРѕР¶РЅРѕ РёСЃРїРѕР»СЊР·РѕРІР°С‚СЊ РІРІРѕРґ РґР°РЅРЅС‹С…
   /// </summary>
   public bool CanProcessInput()
   {
@@ -36,7 +36,7 @@ public class InputHandler : SingletonInGame<InputHandler>
   //======================================
 
   /// <summary>
-  /// Получит движение
+  /// РџРѕР»СѓС‡РёС‚ РґРІРёР¶РµРЅРёРµ
   /// </summary>
   public Vector2 GetMove()
   {
@@ -44,16 +44,16 @@ public class InputHandler : SingletonInGame<InputHandler>
   }
 
   /// <summary>
-  /// Получить поворот
+  /// РџРѕР»СѓС‡РёС‚СЊ РїРѕРІРѕСЂРѕС‚
   /// </summary>
   public Vector2 GetLook()
   {
     return CanProcessInput() ? AI_Player.Camera.Look.ReadValue<Vector2>() : Vector2.zero;
   }
 
-  #region Камера
+  #region РљР°РјРµСЂР°
   /// <summary>
-  /// Получить кнопку меделеного полета камеры
+  /// РџРѕР»СѓС‡РёС‚СЊ РєРЅРѕРїРєСѓ РјРµРґРµР»РµРЅРѕРіРѕ РїРѕР»РµС‚Р° РєР°РјРµСЂС‹
   /// </summary>
   public bool GetButtonSlowCamera()
   {
@@ -61,7 +61,7 @@ public class InputHandler : SingletonInGame<InputHandler>
   }
 
   /// <summary>
-  /// Получить кнопку быстрого полета камеры
+  /// РџРѕР»СѓС‡РёС‚СЊ РєРЅРѕРїРєСѓ Р±С‹СЃС‚СЂРѕРіРѕ РїРѕР»РµС‚Р° РєР°РјРµСЂС‹
   /// </summary>
   public bool GetButtonFastCamera()
   {
@@ -72,7 +72,7 @@ public class InputHandler : SingletonInGame<InputHandler>
   #region UI
 
   /// <summary>
-  /// Получить кнопки навигации (По вертикали)
+  /// РџРѕР»СѓС‡РёС‚СЊ РєРЅРѕРїРєРё РЅР°РІРёРіР°С†РёРё (РџРѕ РІРµСЂС‚РёРєР°Р»Рё)
   /// </summary>
   public float GetNavigationInput()
   {
@@ -80,7 +80,7 @@ public class InputHandler : SingletonInGame<InputHandler>
   }
 
   /// <summary>
-  /// Получить кнопки изменения значений (По горизонтали)
+  /// РџРѕР»СѓС‡РёС‚СЊ РєРЅРѕРїРєРё РёР·РјРµРЅРµРЅРёСЏ Р·РЅР°С‡РµРЅРёР№ (РџРѕ РіРѕСЂРёР·РѕРЅС‚Р°Р»Рё)
   /// </summary>
   public float GetChangingValuesInput()
   {
@@ -88,7 +88,7 @@ public class InputHandler : SingletonInGame<InputHandler>
   }
 
   /// <summary>
-  /// Получить кнопку паузы
+  /// РџРѕР»СѓС‡РёС‚СЊ РєРЅРѕРїРєСѓ РїР°СѓР·С‹
   /// </summary>
   /*public bool GetButtonPause()
   {
@@ -96,7 +96,7 @@ public class InputHandler : SingletonInGame<InputHandler>
   }
 
   /// <summary>
-  /// Получить кнопку перезагрузки
+  /// РџРѕР»СѓС‡РёС‚СЊ РєРЅРѕРїРєСѓ РїРµСЂРµР·Р°РіСЂСѓР·РєРё
   /// </summary>
   public bool GetButtonReload()
   {

@@ -4,26 +4,26 @@ using UnityEngine.Events;
 namespace Sokoban.LevelManagement
 {
   /// <summary>
-  /// Данные прогресса на уровне
+  /// Р”Р°РЅРЅС‹Рµ РїСЂРѕРіСЂРµСЃСЃР° РЅР° СѓСЂРѕРІРЅРµ
   /// </summary>
   [System.Serializable]
   public sealed class LevelProgressData
   {
-    [SerializeField, Tooltip("Количество ходов")]
+    [SerializeField, Tooltip("РљРѕР»РёС‡РµСЃС‚РІРѕ С…РѕРґРѕРІ")]
     private int _numberMoves;
 
-    [SerializeField, Tooltip("Время проведенное на уровне")]
+    [SerializeField, Tooltip("Р’СЂРµРјСЏ РїСЂРѕРІРµРґРµРЅРЅРѕРµ РЅР° СѓСЂРѕРІРЅРµ")]
     private float _timeOnLevel;
 
     //======================================
 
     /// <summary>
-    /// Количество ходов
+    /// РљРѕР»РёС‡РµСЃС‚РІРѕ С…РѕРґРѕРІ
     /// </summary>
     internal int NumberMoves { get => _numberMoves; set => _numberMoves = value; }
 
     /// <summary>
-    /// Время проведенное на уровне
+    /// Р’СЂРµРјСЏ РїСЂРѕРІРµРґРµРЅРЅРѕРµ РЅР° СѓСЂРѕРІРЅРµ
     /// </summary>
     internal float TimeOnLevel { get => _timeOnLevel; set => _timeOnLevel = value; }
 

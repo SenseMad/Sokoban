@@ -7,30 +7,30 @@ namespace Sokoban.GridEditor
   [CreateAssetMenu(fileName = "New Type Block Objects", menuName = "Data/Type Block Objects", order = 51)]
   public class TypeBlockObjects : ScriptableObject
   {
-    [SerializeField, Tooltip("Тип объектов из списка")]
+    [SerializeField, Tooltip("РўРёРї РѕР±СЉРµРєС‚РѕРІ РёР· СЃРїРёСЃРєР°")]
     private TypeObject _typeObjects;
 
-    [SerializeField, Tooltip("Список блочных объектов")]
+    [SerializeField, Tooltip("РЎРїРёСЃРѕРє Р±Р»РѕС‡РЅС‹С… РѕР±СЉРµРєС‚РѕРІ")]
     private List<Block> _listBlockObjects = new List<Block>();
 
     //======================================
 
     /// <summary>
-    /// Получить тип объектов из списка
+    /// РџРѕР»СѓС‡РёС‚СЊ С‚РёРї РѕР±СЉРµРєС‚РѕРІ РёР· СЃРїРёСЃРєР°
     /// </summary>
     public TypeObject GetTypeObjects => _typeObjects;
 
     //======================================
 
     /// <summary>
-    /// Получить объект блока из списка
+    /// РџРѕР»СѓС‡РёС‚СЊ РѕР±СЉРµРєС‚ Р±Р»РѕРєР° РёР· СЃРїРёСЃРєР°
     /// </summary>
-    /// <param name="parObjectIndex">Индекс объекта</param>
+    /// <param name="parObjectIndex">РРЅРґРµРєСЃ РѕР±СЉРµРєС‚Р°</param>
     public Block GetBlockObjectFromList(int parObjectIndex)
     {
       if (parObjectIndex > _listBlockObjects.Count - 1)
       {
-        Debug.LogError("Индекс вышел за пределы массива!");
+        Debug.LogError("РРЅРґРµРєСЃ РІС‹С€РµР» Р·Р° РїСЂРµРґРµР»С‹ РјР°СЃСЃРёРІР°!");
         return null;
       }
 

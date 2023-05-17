@@ -8,19 +8,19 @@ using Sokoban.GameManagement;
 namespace Sokoban.UI
 {
   /// <summary>
-  /// Пользовательский интерфейс меню выбора локации
+  /// РџРѕР»СЊР·РѕРІР°С‚РµР»СЊСЃРєРёР№ РёРЅС‚РµСЂС„РµР№СЃ РјРµРЅСЋ РІС‹Р±РѕСЂР° Р»РѕРєР°С†РёРё
   /// </summary>
   public class UILocationSelectMenu : MenuUI
   {
-    [SerializeField, Tooltip("Панель, куда будут создаваться кнопки")]
+    [SerializeField, Tooltip("РџР°РЅРµР»СЊ, РєСѓРґР° Р±СѓРґСѓС‚ СЃРѕР·РґР°РІР°С‚СЊСЃСЏ РєРЅРѕРїРєРё")]
     private RectTransform _locationSelectPanel;
 
-    [Header("ПРЕФАБ")]
-    [SerializeField, Tooltip("Префаб кнопки выбора локации")]
+    [Header("РџР Р•Р¤РђР‘")]
+    [SerializeField, Tooltip("РџСЂРµС„Р°Р± РєРЅРѕРїРєРё РІС‹Р±РѕСЂР° Р»РѕРєР°С†РёРё")]
     private UILocationSelectButton _prefabButtonLocationSelect;
 
-    [Header("ПАНЕЛЬ")]
-    [SerializeField, Tooltip("Панель выбора уровней")]
+    [Header("РџРђРќР•Р›Р¬")]
+    [SerializeField, Tooltip("РџР°РЅРµР»СЊ РІС‹Р±РѕСЂР° СѓСЂРѕРІРЅРµР№")]
     private Panel _panelLevelSelection;
 
     //--------------------------------------
@@ -28,12 +28,12 @@ namespace Sokoban.UI
     private GameManager gameManager;
 
     /// <summary>
-    /// Меню выбора уровней
+    /// РњРµРЅСЋ РІС‹Р±РѕСЂР° СѓСЂРѕРІРЅРµР№
     /// </summary>
     private UILevelSelectMenu uILevelSelectMenu;
 
     /// <summary>
-    /// Список кнопок выбора локаций
+    /// РЎРїРёСЃРѕРє РєРЅРѕРїРѕРє РІС‹Р±РѕСЂР° Р»РѕРєР°С†РёР№
     /// </summary>
     private List<UILocationSelectButton> listUILocationSelectButton = new List<UILocationSelectButton>();
 
@@ -116,7 +116,7 @@ namespace Sokoban.UI
     //======================================
 
     /// <summary>
-    /// Отобразить кнопки выбора локации в интерфейсе
+    /// РћС‚РѕР±СЂР°Р·РёС‚СЊ РєРЅРѕРїРєРё РІС‹Р±РѕСЂР° Р»РѕРєР°С†РёРё РІ РёРЅС‚РµСЂС„РµР№СЃРµ
     /// </summary>
     private void DisplayLocationSelectionButtonsUI()
     {
@@ -127,6 +127,9 @@ namespace Sokoban.UI
 
       foreach (var location in Levels.GetListLocation())
       {
+        if (!Levels.GetLocationTable(location))
+          continue;
+
         UILocationSelectButton button = Instantiate(_prefabButtonLocationSelect, _locationSelectPanel);
 
         button.Button = button.GetComponent<Button>();
@@ -146,7 +149,7 @@ namespace Sokoban.UI
     }
 
     /// <summary>
-    /// Очистить список
+    /// РћС‡РёСЃС‚РёС‚СЊ СЃРїРёСЃРѕРє
     /// </summary>
     public void ClearButtonsUI()
     {
@@ -162,9 +165,9 @@ namespace Sokoban.UI
     //======================================
 
     /// <summary>
-    /// Выбрать локацию
+    /// Р’С‹Р±СЂР°С‚СЊ Р»РѕРєР°С†РёСЋ
     /// </summary>
-    /// <param name="parLocation">Локация</param>
+    /// <param name="parLocation">Р›РѕРєР°С†РёСЏ</param>
     private void SelectLocation(Location parLocation)
     {
       panelController.SetActivePanel(_panelLevelSelection);

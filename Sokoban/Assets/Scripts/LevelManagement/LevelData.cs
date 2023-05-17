@@ -1,45 +1,46 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace Sokoban.LevelManagement
 {
   /// <summary>
-  /// Класс хранящий данные об уровне
+  /// РљР»Р°СЃСЃ С…СЂР°РЅСЏС‰РёР№ РґР°РЅРЅС‹Рµ РѕР± СѓСЂРѕРІРЅРµ
   /// </summary>
   [System.Serializable]
   [CreateAssetMenu(fileName = "New Level Data", menuName = "Data/Level Data", order = 51)]
   public class LevelData : ScriptableObject
   {
-    [SerializeField, Tooltip("Номер уровня")]
+    [SerializeField, Tooltip("РќРѕРјРµСЂ СѓСЂРѕРІРЅСЏ")]
     private int _levelNumber;
-    [SerializeField, Tooltip("Локация уровня")]
+    [SerializeField, Tooltip("Р›РѕРєР°С†РёСЏ СѓСЂРѕРІРЅСЏ")]
     private Location _location;
 
-    [SerializeField, Tooltip("Размер поля")]
+    [SerializeField, Tooltip("Р Р°Р·РјРµСЂ РїРѕР»СЏ")]
     private Vector3Int _fieldSize;
 
-    [SerializeField, Tooltip("Список объектов уровня")]
+    [SerializeField, Tooltip("РЎРїРёСЃРѕРє РѕР±СЉРµРєС‚РѕРІ СѓСЂРѕРІРЅСЏ")]
     private List<GridData> _listLevelObjects;
 
     //======================================
 
     /// <summary>
-    /// Номер уровня
+    /// РќРѕРјРµСЂ СѓСЂРѕРІРЅСЏ
     /// </summary>
     public int LevelNumber { get => _levelNumber; set => _levelNumber = value; }
     /// <summary>
-    /// Локация уровня
+    /// Р›РѕРєР°С†РёСЏ СѓСЂРѕРІРЅСЏ
     /// </summary>
     public Location Location { get => _location; set => _location = value; }
 
     /// <summary>
-    /// Список объектов уровня
+    /// РЎРїРёСЃРѕРє РѕР±СЉРµРєС‚РѕРІ СѓСЂРѕРІРЅСЏ
     /// </summary>
     public List<GridData> ListLevelObjects { get => _listLevelObjects; set => _listLevelObjects = value; }
 
     /// <summary>
-    /// Размер поля
+    /// Р Р°Р·РјРµСЂ РїРѕР»СЏ
     /// </summary>
     public Vector3Int FieldSize { get => _fieldSize; set => _fieldSize = value; }
 
@@ -48,29 +49,29 @@ namespace Sokoban.LevelManagement
     [System.Serializable]
     public class GridData
     {
-      [SerializeField, Tooltip("Тип объекта")]
+      [SerializeField, Tooltip("РўРёРї РѕР±СЉРµРєС‚Р°")]
       private TypeObject _typeObject;
 
-      [SerializeField, Tooltip("Индекс объекта")]
+      [SerializeField, Tooltip("РРЅРґРµРєСЃ РѕР±СЉРµРєС‚Р°")]
       private int _indexObject;
 
-      [SerializeField, Tooltip("Позиция объекта")]
+      [SerializeField, Tooltip("РџРѕР·РёС†РёСЏ РѕР±СЉРµРєС‚Р°")]
       private Vector3Int _positionObject;
 
       //======================================
 
       /// <summary>
-      /// Тип объекта
+      /// РўРёРї РѕР±СЉРµРєС‚Р°
       /// </summary>
       public TypeObject TypeObject { get => _typeObject; set => _typeObject = value; }
 
       /// <summary>
-      /// Индекс объекта
+      /// РРЅРґРµРєСЃ РѕР±СЉРµРєС‚Р°
       /// </summary>
       public int IndexObject { get => _indexObject; set => _indexObject = value; }
 
       /// <summary>
-      /// Позиция объекта
+      /// РџРѕР·РёС†РёСЏ РѕР±СЉРµРєС‚Р°
       /// </summary>
       public Vector3Int PositionObject { get => _positionObject; set => _positionObject = value; }
 

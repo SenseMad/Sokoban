@@ -10,10 +10,10 @@ namespace Sokoban.GameManagement
 
     //======================================
 
-    [SerializeField, Tooltip("Игровые музыкальные клипы")]
+    [SerializeField, Tooltip("РРіСЂРѕРІС‹Рµ РјСѓР·С‹РєР°Р»СЊРЅС‹Рµ РєР»РёРїС‹")]
     private List<AudioClip> _gameMusicClips;
 
-    [SerializeField, Tooltip("Звук интерфейса")]
+    [SerializeField, Tooltip("Р—РІСѓРє РёРЅС‚РµСЂС„РµР№СЃР°")]
     private AudioClip _interfaceSound;
 
     //--------------------------------------
@@ -35,12 +35,12 @@ namespace Sokoban.GameManagement
     //======================================
 
     /// <summary>
-    /// Событие: Проиграть звук интерфейса
+    /// РЎРѕР±С‹С‚РёРµ: РџСЂРѕРёРіСЂР°С‚СЊ Р·РІСѓРє РёРЅС‚РµСЂС„РµР№СЃР°
     /// </summary>
     public UnityEvent OnPlaySoundInterface { get; } = new UnityEvent();
 
     /// <summary>
-    /// Событие: Проиграть звук
+    /// РЎРѕР±С‹С‚РёРµ: РџСЂРѕРёРіСЂР°С‚СЊ Р·РІСѓРє
     /// </summary>
     public UnityEvent<AudioClip> OnPlaySFX { get; } = new UnityEvent<AudioClip>();
 
@@ -104,7 +104,7 @@ namespace Sokoban.GameManagement
     //======================================
 
     /// <summary>
-    /// Рандомная музыка без повторов
+    /// Р Р°РЅРґРѕРјРЅР°СЏ РјСѓР·С‹РєР° Р±РµР· РїРѕРІС‚РѕСЂРѕРІ
     /// </summary>
     private AudioClip GetRandomClip()
     {
@@ -119,7 +119,7 @@ namespace Sokoban.GameManagement
     }
 
     /// <summary>
-    /// Воспроизвести звук
+    /// Р’РѕСЃРїСЂРѕРёР·РІРµСЃС‚Рё Р·РІСѓРє
     /// </summary>
     private AudioSource PlaySound(AudioClip parAudioClip)
     {
@@ -138,7 +138,7 @@ namespace Sokoban.GameManagement
     //======================================
 
     /// <summary>
-    /// Проиграть звук интерфейса
+    /// РџСЂРѕРёРіСЂР°С‚СЊ Р·РІСѓРє РёРЅС‚РµСЂС„РµР№СЃР°
     /// </summary>
     private void PlaySoundInterface()
     {
@@ -146,7 +146,7 @@ namespace Sokoban.GameManagement
     }
 
     /// <summary>
-    /// Проиграть звук
+    /// РџСЂРѕРёРіСЂР°С‚СЊ Р·РІСѓРє
     /// </summary>
     private void PlaySFX(AudioClip parAudioClip)
     {

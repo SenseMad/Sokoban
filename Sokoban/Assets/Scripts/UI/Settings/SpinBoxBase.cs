@@ -19,7 +19,7 @@ namespace Sokoban.UI
     private InputHandler inputHandler;
 
     /// <summary>
-    /// Время перехода к следующему значения
+    /// В¬СЂРµРјВ¤ РїРµСЂРµС…РѕРґР° Рє СЃР»РµРґСѓСЋС‰РµРјСѓ Р·РЅР°С‡РµРЅРёВ¤
     /// </summary>
     private readonly float timeMoveNextValue = 0.2f;
     private float nextTimeMoveNextValue = 0.0f;
@@ -77,7 +77,7 @@ namespace Sokoban.UI
     //======================================
 
     /// <summary>
-    /// Изменить значение
+    /// В»Р·РјРµРЅРёС‚СЊ Р·РЅР°С‡РµРЅРёРµ
     /// </summary>
     private void ChangeValue()
     {

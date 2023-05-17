@@ -4,16 +4,21 @@ using UnityEngine.UI;
 namespace Sokoban.UI
 {
   /// <summary>
-  /// Главное меню
+  /// Р“Р»Р°РІРЅРѕРµ РјРµРЅСЋ
   /// </summary>
   public class MainMenu : MenuUI
   {
+    protected override void OnEnable()
+    {
+      indexActiveButton = 0;
 
+      base.OnEnable();
+    }
 
     //======================================
 
     /// <summary>
-    /// Выйти из игры
+    /// Р’С‹Р№С‚Рё РёР· РёРіСЂС‹
     /// </summary>
     public void ExitGame()
     {

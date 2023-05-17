@@ -10,7 +10,7 @@ namespace Sokoban.UI
 {
   public class PauseManager : MonoBehaviour
   {
-    [SerializeField, Tooltip("Панель паузы")]
+    [SerializeField, Tooltip("С•Р°РЅРµР»СЊ РїР°СѓР·С‹")]
     private Panel _pausePanel;
 
     //--------------------------------------
@@ -24,7 +24,7 @@ namespace Sokoban.UI
     //======================================
 
     /// <summary>
-    /// True, если игра остановлена
+    /// True, РµСЃР»Рё РёРіСЂР° РѕСЃС‚Р°РЅРѕРІР»РµРЅР°
     /// </summary>
     public bool IsPause { get; set; }
 
@@ -54,7 +54,7 @@ namespace Sokoban.UI
     //======================================
 
     /// <summary>
-    /// Включить/Выключить паузу
+    /// В¬РєР»СЋС‡РёС‚СЊ/В¬С‹РєР»СЋС‡РёС‚СЊ РїР°СѓР·Сѓ
     /// </summary>
     private void SetIsPause()
     {
@@ -85,7 +85,7 @@ namespace Sokoban.UI
     //======================================
 
     /// <summary>
-    /// Перезугрука уровня
+    /// С•РµСЂРµР·СѓРіСЂСѓРєР° СѓСЂРѕРІРЅВ¤
     /// </summary>
     private void ReloadLevel()
     {
@@ -94,7 +94,7 @@ namespace Sokoban.UI
     }
 
     /// <summary>
-    /// Кнопка продолжить
+    /// В РЅРѕРїРєР° РїСЂРѕРґРѕР»Р¶РёС‚СЊ
     /// </summary>
     public void ContinueButton()
     {
@@ -103,7 +103,7 @@ namespace Sokoban.UI
     }
 
     /// <summary>
-    /// Кнопка перезагрузки
+    /// В РЅРѕРїРєР° РїРµСЂРµР·Р°РіСЂСѓР·РєРё
     /// </summary>
     public void RestartButton()
     {
@@ -112,7 +112,7 @@ namespace Sokoban.UI
     }
 
     /// <summary>
-    /// Кнопка выхода в меню
+    /// В РЅРѕРїРєР° РІС‹С…РѕРґР° РІ РјРµРЅСЋ
     /// </summary>
     public void ExitMenuButton()
     {
@@ -122,7 +122,7 @@ namespace Sokoban.UI
     //======================================
 
     /// <summary>
-    /// Пауза
+    /// С•Р°СѓР·Р°
     /// </summary>
     public void OnPause(InputAction.CallbackContext context)
     {

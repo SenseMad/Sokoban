@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
-/// Класс взаимодействия с объектами
+/// РљР»Р°СЃСЃ РІР·Р°РёРјРѕРґРµР№СЃС‚РІРёСЏ СЃ РѕР±СЉРµРєС‚Р°РјРё
 /// </summary>
 public class InteractiveObjects : Block
 {
@@ -20,7 +20,7 @@ public class InteractiveObjects : Block
   //======================================
 
   /// <summary>
-  /// True, если взаимодействуем с объектом
+  /// True, РµСЃР»Рё РІР·Р°РёРјРѕРґРµР№СЃС‚РІСѓРµРј СЃ РѕР±СЉРµРєС‚РѕРј
   /// </summary>
   public bool IsInteractObject()
   {

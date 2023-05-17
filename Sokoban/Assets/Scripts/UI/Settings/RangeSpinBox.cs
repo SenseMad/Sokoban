@@ -81,7 +81,7 @@ namespace Sokoban.UI
     }
 
     /// <summary>
-    /// Установить значение без оповещения
+    /// вЂќСЃС‚Р°РЅРѕРІРёС‚СЊ Р·РЅР°С‡РµРЅРёРµ Р±РµР· РѕРїРѕРІРµС‰РµРЅРёВ¤
     /// </summary>
     public void SetValueWithoutNotify(int parValue)
     {

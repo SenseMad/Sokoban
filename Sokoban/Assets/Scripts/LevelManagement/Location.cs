@@ -3,7 +3,7 @@ using System;
 public class GetLocation
 {
   /// <summary>
-  /// Получить названия всех локаций
+  /// РџРѕР»СѓС‡РёС‚СЊ РЅР°Р·РІР°РЅРёСЏ РІСЃРµС… Р»РѕРєР°С†РёР№
   /// </summary>
   public static Location[] GetNamesAllLocation()
   {
@@ -12,11 +12,12 @@ public class GetLocation
 }
 
 /// <summary>
-/// Локации
+/// Р›РѕРєР°С†РёРё
 /// </summary>
 [Serializable]
 public enum Location
 {
   Summer,
-  Winter
+  Winter,
+  T
 }

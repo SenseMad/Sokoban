@@ -4,33 +4,33 @@ using UnityEngine;
 
 public abstract class Block : MonoBehaviour
 {
-  [SerializeField, Tooltip("Индекс объекта")]
+  [SerializeField, Tooltip("РРЅРґРµРєСЃ РѕР±СЉРµРєС‚Р°")]
   protected int _indexObject;
 
-  [SerializeField, Tooltip("Позиция объекта")]
+  [SerializeField, Tooltip("РџРѕР·РёС†РёСЏ РѕР±СЉРµРєС‚Р°")]
   protected Vector3Int _objectPosition;
 
   /// <summary>
-  /// Тип объекта
+  /// РўРёРї РѕР±СЉРµРєС‚Р°
   /// </summary>
   protected TypeObject typeObject;
 
   //======================================
 
   /// <summary>
-  /// Получить тип объекта
+  /// РџРѕР»СѓС‡РёС‚СЊ С‚РёРї РѕР±СЉРµРєС‚Р°
   /// </summary>
   public TypeObject GetTypeObject() => typeObject;
 
   /// <summary>
-  /// Получить позицию объекта
+  /// РџРѕР»СѓС‡РёС‚СЊ РїРѕР·РёС†РёСЋ РѕР±СЉРµРєС‚Р°
   /// </summary>
   public Vector3Int GetObjectPosition() => _objectPosition;
 
   //======================================
 
   /// <summary>
-  /// Установить позицию объекта
+  /// РЈСЃС‚Р°РЅРѕРІРёС‚СЊ РїРѕР·РёС†РёСЋ РѕР±СЉРµРєС‚Р°
   /// </summary>
   public void SetPositionObject(Vector3Int parObjectPosition)
   {
@@ -38,7 +38,7 @@ public abstract class Block : MonoBehaviour
   }
 
   /// <summary>
-  /// Удалить Rigidbody у объектов которые могут падать
+  /// РЈРґР°Р»РёС‚СЊ Rigidbody Сѓ РѕР±СЉРµРєС‚РѕРІ РєРѕС‚РѕСЂС‹Рµ РјРѕРіСѓС‚ РїР°РґР°С‚СЊ
   /// </summary>
   public virtual void RemoveRigidbody() { }
 

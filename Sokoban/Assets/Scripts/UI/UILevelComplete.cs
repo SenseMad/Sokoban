@@ -11,14 +11,14 @@ namespace Sokoban.UI
 {
   public class UILevelComplete : MonoBehaviour
   {
-    [Header("ПАНЕЛЬ")]
-    [SerializeField, Tooltip("Панель пройденного уровня")]
+    [Header("С•СРЊв‰€Р‹в„–")]
+    [SerializeField, Tooltip("С•Р°РЅРµР»СЊ РїСЂРѕР№РґРµРЅРЅРѕРіРѕ СѓСЂРѕРІРЅВ¤")]
     private Panel _levelCompletePanel;
 
-    [Header("ТЕКСТ")]
-    [SerializeField, Tooltip("Текст времени прохождения уровня")]
+    [Header("вЂњв‰€В вЂ”вЂњ")]
+    [SerializeField, Tooltip("вЂњРµРєСЃС‚ РІСЂРµРјРµРЅРё РїСЂРѕС…РѕР¶РґРµРЅРёВ¤ СѓСЂРѕРІРЅВ¤")]
     private TextMeshProUGUI _textLevelCompletedTime;
-    [SerializeField, Tooltip("Текст количества ходов")]
+    [SerializeField, Tooltip("вЂњРµРєСЃС‚ РєРѕР»РёС‡РµСЃС‚РІР° С…РѕРґРѕРІ")]
     private TextMeshProUGUI _textNumberMoves;
 
     //--------------------------------------
@@ -63,7 +63,7 @@ namespace Sokoban.UI
     //======================================
 
     /// <summary>
-    /// Обновить текст при завершении уровня
+    /// СњР±РЅРѕРІРёС‚СЊ С‚РµРєСЃС‚ РїСЂРё Р·Р°РІРµСЂС€РµРЅРёРё СѓСЂРѕРІРЅВ¤
     /// </summary>
     private void UpdateText()
     {
@@ -74,7 +74,7 @@ namespace Sokoban.UI
     }
 
     /// <summary>
-    /// Обновить текст времени проведенного на уровне
+    /// СњР±РЅРѕРІРёС‚СЊ С‚РµРєСЃС‚ РІСЂРµРјРµРЅРё РїСЂРѕРІРµРґРµРЅРЅРѕРіРѕ РЅР° СѓСЂРѕРІРЅРµ
     /// </summary>
     private void UpdateTextTime()
     {
@@ -84,21 +84,21 @@ namespace Sokoban.UI
       string min = $"{(int)formatedTime / 1000 / 60}";
       string sec = ((int)formatedTime / 1000f % 60f).ToString("f3");
 
-      _textLevelCompletedTime.text = $"ВРЕМЯ ПРОХОЖДЕНИЯ УРОВНЯ: {min}:{sec}";
+      _textLevelCompletedTime.text = $"В¬вЂ“в‰€С›СЏ С•вЂ“СњвЂ™Сњв€†Ж’в‰€РЊВ»СЏ вЂќвЂ“СњВ¬РЊСЏ: {min}:{sec}";
     }
 
     /// <summary>
-    /// Обновить текст количества ходов
+    /// СњР±РЅРѕРІРёС‚СЊ С‚РµРєСЃС‚ РєРѕР»РёС‡РµСЃС‚РІР° С…РѕРґРѕРІ
     /// </summary>
     private void UpdateTextNumberMoves()
     {
-      _textNumberMoves.text = $"КОЛИЧЕСТВО ХОДОВ: {levelManager.NumberMoves}";
+      _textNumberMoves.text = $"В СњР‹В»вЂћв‰€вЂ”вЂњВ¬Сњ вЂ™СњЖ’СњВ¬: {levelManager.NumberMoves}";
     }
 
     //======================================
 
     /// <summary>
-    /// Следующий уровень
+    /// вЂ”Р»РµРґСѓСЋС‰РёР№ СѓСЂРѕРІРµРЅСЊ
     /// </summary>
     public void OnSelect(InputAction.CallbackContext context)
     {
@@ -109,7 +109,7 @@ namespace Sokoban.UI
     }
 
     /// <summary>
-    /// Перезугрузка уровня
+    /// С•РµСЂРµР·СѓРіСЂСѓР·РєР° СѓСЂРѕРІРЅВ¤
     /// </summary>
     public void OnReload(InputAction.CallbackContext context)
     {
@@ -121,7 +121,7 @@ namespace Sokoban.UI
     }
 
     /// <summary>
-    /// Выход в меню
+    /// В¬С‹С…РѕРґ РІ РјРµРЅСЋ
     /// </summary>
     public void OnExitMenu(InputAction.CallbackContext context)
     {

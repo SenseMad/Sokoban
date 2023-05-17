@@ -8,28 +8,28 @@ namespace Sokoban.GridEditor
 {
   public class GridEditorUI : MonoBehaviour
   {
-    [Header("УРОВЕНЬ ПОЛЯ")]
-    [SerializeField, Tooltip("Кнопка повышения уровня поля")]
+    [Header("РЈР РћР’Р•РќР¬ РџРћР›РЇ")]
+    [SerializeField, Tooltip("РљРЅРѕРїРєР° РїРѕРІС‹С€РµРЅРёСЏ СѓСЂРѕРІРЅСЏ РїРѕР»СЏ")]
     private Button _gridLevelUpButton;
-    [SerializeField, Tooltip("Текст уровня поля")]
+    [SerializeField, Tooltip("РўРµРєСЃС‚ СѓСЂРѕРІРЅСЏ РїРѕР»СЏ")]
     private TextMeshProUGUI _gridLevelText;
-    [SerializeField, Tooltip("Кнопка понижения уровня поля")]
+    [SerializeField, Tooltip("РљРЅРѕРїРєР° РїРѕРЅРёР¶РµРЅРёСЏ СѓСЂРѕРІРЅСЏ РїРѕР»СЏ")]
     private Button _gridLevelDownButton;
-    [SerializeField, Tooltip("Отобразить все подуровни")]
+    [SerializeField, Tooltip("РћС‚РѕР±СЂР°Р·РёС‚СЊ РІСЃРµ РїРѕРґСѓСЂРѕРІРЅРё")]
     private Toggle _displayAllSubLevelToogle;
 
-    [Header("РАЗМЕР ПОЛЯ")]
-    [SerializeField, Tooltip("Размер поля X")]
+    [Header("Р РђР—РњР•Р  РџРћР›РЇ")]
+    [SerializeField, Tooltip("Р Р°Р·РјРµСЂ РїРѕР»СЏ X")]
     private TMP_InputField _fieldSizeX;
-    [SerializeField, Tooltip("Размер поля Y")]
+    [SerializeField, Tooltip("Р Р°Р·РјРµСЂ РїРѕР»СЏ Y")]
     private TMP_InputField _fieldSizeY;
-    [SerializeField, Tooltip("Размер поля Z")]
+    [SerializeField, Tooltip("Р Р°Р·РјРµСЂ РїРѕР»СЏ Z")]
     private TMP_InputField _fieldSizeZ;
 
-    [Header("КНОПКИ")]
-    [SerializeField, Tooltip("Кнопка сохранить")]
+    [Header("РљРќРћРџРљР")]
+    [SerializeField, Tooltip("РљРЅРѕРїРєР° СЃРѕС…СЂР°РЅРёС‚СЊ")]
     private Button _saveButton;
-    [SerializeField, Tooltip("Кнопка загрузить уровень")]
+    [SerializeField, Tooltip("РљРЅРѕРїРєР° Р·Р°РіСЂСѓР·РёС‚СЊ СѓСЂРѕРІРµРЅСЊ")]
     private Button _loadButton;
 
     //--------------------------------------
@@ -74,10 +74,10 @@ namespace Sokoban.GridEditor
 
     //======================================
 
-    #region Размер поля
+    #region Р Р°Р·РјРµСЂ РїРѕР»СЏ
 
     /// <summary>
-    /// Изменить размер поля
+    /// РР·РјРµРЅРёС‚СЊ СЂР°Р·РјРµСЂ РїРѕР»СЏ
     /// </summary>
     private void ChangeFieldSize()
     {
@@ -90,7 +90,7 @@ namespace Sokoban.GridEditor
     }
 
     /// <summary>
-    /// Обновить текст размера поля
+    /// РћР±РЅРѕРІРёС‚СЊ С‚РµРєСЃС‚ СЂР°Р·РјРµСЂР° РїРѕР»СЏ
     /// </summary>
     private void UpdateTextFieldSize(Vector3Int fieldSize)
     {
@@ -101,10 +101,10 @@ namespace Sokoban.GridEditor
 
     #endregion
 
-    #region Уровень поля
+    #region РЈСЂРѕРІРµРЅСЊ РїРѕР»СЏ
 
     /// <summary>
-    /// Изменить уровень поля
+    /// РР·РјРµРЅРёС‚СЊ СѓСЂРѕРІРµРЅСЊ РїРѕР»СЏ
     /// </summary>
     private void ChangeGridLevel(bool parValue)
     {
@@ -113,7 +113,7 @@ namespace Sokoban.GridEditor
       UpdateTextGridLevel(gridEditor.GetGridLevel());
     }
     /// <summary>
-    /// Обновить текст уровня поля
+    /// РћР±РЅРѕРІРёС‚СЊ С‚РµРєСЃС‚ СѓСЂРѕРІРЅСЏ РїРѕР»СЏ
     /// </summary>
     private void UpdateTextGridLevel(int gridLevel)
     {

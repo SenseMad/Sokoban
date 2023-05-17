@@ -6,39 +6,39 @@ using UnityEngine;
 namespace Sokoban.LevelManagement
 {
   /// <summary>
-  /// Класс, который хранит уровни
+  /// РљР»Р°СЃСЃ, РєРѕС‚РѕСЂС‹Р№ С…СЂР°РЅРёС‚ СѓСЂРѕРІРЅРё
   /// </summary>
   [System.Serializable]
   public sealed class Levels
   {
     /// <summary>
-    /// Таблица количества уровней на локации
+    /// РўР°Р±Р»РёС†Р° РєРѕР»РёС‡РµСЃС‚РІР° СѓСЂРѕРІРЅРµР№ РЅР° Р»РѕРєР°С†РёРё
     /// </summary>
     private readonly static Dictionary<Location, int> levelTable = new Dictionary<Location, int>();
 
     //======================================
 
     /// <summary>
-    /// Текущие данные выбранного уровня
+    /// РўРµРєСѓС‰РёРµ РґР°РЅРЅС‹Рµ РІС‹Р±СЂР°РЅРЅРѕРіРѕ СѓСЂРѕРІРЅСЏ
     /// </summary>
     public static LevelData CurrentSelectedLevelData;
 
     //======================================
 
     /// <summary>
-    /// Получить путь до хранения уровней
+    /// РџРѕР»СѓС‡РёС‚СЊ РїСѓС‚СЊ РґРѕ С…СЂР°РЅРµРЅРёСЏ СѓСЂРѕРІРЅРµР№
     /// </summary>
-    /// <param name="parLocation">Локация</param>
+    /// <param name="parLocation">Р›РѕРєР°С†РёСЏ</param>
     public static string GetPathToStorageLevels(Location parLocation)
     {
       return $"Locations/{parLocation}";
     }
 
     /// <summary>
-    /// Получить путь до хранения уровней
+    /// РџРѕР»СѓС‡РёС‚СЊ РїСѓС‚СЊ РґРѕ С…СЂР°РЅРµРЅРёСЏ СѓСЂРѕРІРЅРµР№
     /// </summary>
-    /// <param name="parLocation">Локация</param>
-    /// <param name="parNumLevel">Номер уровня</param>
+    /// <param name="parLocation">Р›РѕРєР°С†РёСЏ</param>
+    /// <param name="parNumLevel">РќРѕРјРµСЂ СѓСЂРѕРІРЅСЏ</param>
     public static string GetPathToStorageLevels(Location parLocation, int parNumLevel)
     {
       return $"Locations/{parLocation}/{parLocation}_{parNumLevel}";
@@ -47,117 +47,122 @@ namespace Sokoban.LevelManagement
     //======================================
 
     /// <summary>
-    /// Получить количество уровней на локации
+    /// РџРѕР»СѓС‡РёС‚СЊ РєРѕР»РёС‡РµСЃС‚РІРѕ СѓСЂРѕРІРЅРµР№ РЅР° Р»РѕРєР°С†РёРё
     /// </summary>
     public static int GetNumberLevelsLocation(Location parLocation)
     {
       if (!levelTable.ContainsKey(parLocation))
       {
-        Debug.LogError($"Локация {parLocation} не найдена!");
+        Debug.LogError($"Р›РѕРєР°С†РёСЏ {parLocation} РЅРµ РЅР°Р№РґРµРЅР°!");
         return 0;
       }
 
       return levelTable[parLocation];
     }
 
+    /// <summary>
+    /// РџРѕР»СѓС‡РёС‚СЊ Р»РѕРєР°С†РёСЋ РІ С‚Р°Р±Р»РёС†Рµ
+    /// </summary>
+    /// <param name="parLocation">Р›РѕРєР°С†РёСЏ</param>
+    public static bool GetLocationTable(Location parLocation)
+    {
+      if (!levelTable.ContainsKey(parLocation))
+        return false;
+
+      return true;
+    }
+
     //======================================
 
     /// <summary>
-    /// Определить количество уровней на локации при старте игры
-    /// </summary>
-    /// <param name="parLocation">Локация</param>
-    private static void DetermineNumberLevelsLocation(Location parLocation)
-    {
-      string path = GetPathToStorageLevels(parLocation);
-
-      LevelData[] levelData = Resources.LoadAll<LevelData>(path);
-
-      if (!levelTable.ContainsKey(parLocation))
-        levelTable[parLocation] = 0;
-
-      levelTable[parLocation] = levelData.Length;
-    }
-
-    /// <summary>
-    /// Получить все количество уровней на каждой локации
+    /// РџРѕР»СѓС‡РёС‚СЊ РІСЃРµ РєРѕР»РёС‡РµСЃС‚РІРѕ СѓСЂРѕРІРЅРµР№ РЅР° РєР°Р¶РґРѕР№ Р»РѕРєР°С†РёРё
     /// </summary>
     public static void GetFullNumberLevelsLocation()
     {
-      for (int i = 0; i < GetLocation.GetNamesAllLocation().Length; i++)
+      foreach (var location in GetLocation.GetNamesAllLocation())
       {
-        DetermineNumberLevelsLocation((Location)i);
+        var levelData = Resources.LoadAll<LevelData>(GetPathToStorageLevels(location));
+
+        if (levelData.Length == 0)
+          continue;
+
+        if (!levelTable.ContainsKey(location))
+          levelTable[location] = 0;
+
+        levelTable[location] = levelData.Length;
       }
     }
 
     //======================================
 
     /// <summary>
-    /// Получить уровень
+    /// РџРѕР»СѓС‡РёС‚СЊ РґР°РЅРЅС‹Рµ СѓСЂРѕРІРµРЅСЏ
     /// </summary>
-    /// <param name="parLocation">Локация</param>
-    /// <param name="parNumLevel">Номер уровня</param>
+    /// <param name="parLocation">Р›РѕРєР°С†РёСЏ</param>
+    /// <param name="parNumLevel">РќРѕРјРµСЂ СѓСЂРѕРІРЅСЏ</param>
     public static LevelData GetLevelData(Location parLocation, int parNumLevel)
     {
-      string path = GetPathToStorageLevels(parLocation, parNumLevel);
+      if (!GetLocationTable(parLocation))
+        return null;
 
-      LevelData levelData = Resources.Load<LevelData>(path);
+      var retLevelData = Resources.Load<LevelData>(GetPathToStorageLevels(parLocation, parNumLevel));
 
-      if (levelData == null)
+      if (retLevelData == null)
       {
-        Debug.LogError($"Локация {parLocation} с номером {parNumLevel} не найдена!");
+        Debug.LogError($"Р›РѕРєР°С†РёСЏ {parLocation} СЃ РЅРѕРјРµСЂРѕРј {parNumLevel} РЅРµ РЅР°Р№РґРµРЅР°!");
         return null;
       }
 
-      return levelData;
+      return retLevelData;
     }
 
     /// <summary>
-    /// Получить данные следующего уровня
+    /// РџРѕР»СѓС‡РёС‚СЊ РґР°РЅРЅС‹Рµ СЃР»РµРґСѓСЋС‰РµРіРѕ СѓСЂРѕРІРЅСЏ
     /// </summary>
-    /// <param name="parCurrentLocation">Текущая локация</param>
-    /// <param name="parCurrentLevel">Текущий уровень</param>
+    /// <param name="parCurrentLocation">РўРµРєСѓС‰Р°СЏ Р»РѕРєР°С†РёСЏ</param>
+    /// <param name="parCurrentLevel">РўРµРєСѓС‰РёР№ СѓСЂРѕРІРµРЅСЊ</param>
     public static LevelData GetNextLevelData(Location parCurrentLocation, int parCurrentLevel)
     {
       if (parCurrentLevel < GetNumberLevelsLocation(parCurrentLocation))
-        return GetLevelData(parCurrentLocation, parCurrentLevel + 1); // Вернуть текущую локацию и новый уровень
+        return GetLevelData(parCurrentLocation, parCurrentLevel + 1); // Р’РµСЂРЅСѓС‚СЊ С‚РµРєСѓС‰СѓСЋ Р»РѕРєР°С†РёСЋ Рё РЅРѕРІС‹Р№ СѓСЂРѕРІРµРЅСЊ
 
       if ((int)parCurrentLocation + 1 <= GetLocation.GetNamesAllLocation().Length - 1)
-        return GetLevelData(parCurrentLocation + 1, 1); // Вернуть новую локацию и первый уровень
+        return GetLevelData(parCurrentLocation + 1, 1); // Р’РµСЂРЅСѓС‚СЊ РЅРѕРІСѓСЋ Р»РѕРєР°С†РёСЋ Рё РїРµСЂРІС‹Р№ СѓСЂРѕРІРµРЅСЊ
 
-      return GetLevelData(parCurrentLocation, parCurrentLevel); // Вернуть текущую локацию и текущий уровень
+      return GetLevelData(parCurrentLocation, parCurrentLevel); // Р’РµСЂРЅСѓС‚СЊ С‚РµРєСѓС‰СѓСЋ Р»РѕРєР°С†РёСЋ Рё С‚РµРєСѓС‰РёР№ СѓСЂРѕРІРµРЅСЊ
     }
 
     /// <summary>
-    /// Получить список локаций
+    /// РџРѕР»СѓС‡РёС‚СЊ СЃРїРёСЃРѕРє РґР°РЅРЅС‹С… РѕР± СѓСЂРѕРІРЅСЏС…
+    /// </summary>
+    /// <param name="parLocation">Р›РѕРєР°С†РёСЏ</param>
+    public static List<LevelData> GetListLevelData(Location parLocation)
+    {
+      var retLevelData = new List<LevelData>();
+
+      LevelData[] listDataLevels = Resources.LoadAll<LevelData>(GetPathToStorageLevels(parLocation));
+
+      for (int i = 0; i < listDataLevels.Length; i++)
+      {
+        retLevelData.Add(listDataLevels[i]);
+      }
+
+      return retLevelData;
+    }
+
+    /// <summary>
+    /// РџРѕР»СѓС‡РёС‚СЊ СЃРїРёСЃРѕРє Р»РѕРєР°С†РёР№
     /// </summary>
     public static List<Location> GetListLocation()
     {
-      List<Location> listLocations = new List<Location>();
+      var retLocations = new List<Location>();
 
       foreach (var location in GetLocation.GetNamesAllLocation())
       {
-        listLocations.Add(location);
+        retLocations.Add(location);
       }
 
-      return listLocations;
-    }
-
-    /// <summary>
-    /// Получить список данных об уровнях
-    /// </summary>
-    /// <param name="parLocation">Локация</param>
-    public static List<LevelData> GetListLevelData(Location parLocation)
-    {
-      List<LevelData> levelData = new List<LevelData>();
-
-      LevelData[] tempLevelData = Resources.LoadAll<LevelData>(GetPathToStorageLevels(parLocation));
-
-      for (int i = 0; i < tempLevelData.Length; i++)
-      {
-        levelData.Add(tempLevelData[i]);
-      }
-
-      return levelData;
+      return retLocations;
     }
 
     //======================================

@@ -11,14 +11,14 @@ namespace Sokoban.LevelManagement
 {
   public sealed class LevelManager : SingletonInSceneNoInstance<LevelManager>
   {
-    [Header("ДАННЫЕ УРОВНЯ")]
-    [SerializeField, Tooltip("Данные о текущем уровне")]
+    [Header("Р”РђРќРќР«Р• РЈР РћР’РќРЇ")]
+    [SerializeField, Tooltip("Р”Р°РЅРЅС‹Рµ Рѕ С‚РµРєСѓС‰РµРј СѓСЂРѕРІРЅРµ")]
     private LevelData _currentLevelData;
-    [SerializeField, Tooltip("Данные о прогрессе на текущем уровне")]
+    [SerializeField, Tooltip("Р”Р°РЅРЅС‹Рµ Рѕ РїСЂРѕРіСЂРµСЃСЃРµ РЅР° С‚РµРєСѓС‰РµРј СѓСЂРѕРІРЅРµ")]
     private LevelProgressData _currentLevelProgressData;
 
-    [Header("СЕТКА УРОВНЯ")]
-    [SerializeField, Tooltip("Сетка уровня")]
+    [Header("РЎР•РўРљРђ РЈР РћР’РќРЇ")]
+    [SerializeField, Tooltip("РЎРµС‚РєР° СѓСЂРѕРІРЅСЏ")]
     private GridLevel _gridLevel;
 
     //--------------------------------------
@@ -30,66 +30,66 @@ namespace Sokoban.LevelManagement
     //======================================
 
     /// <summary>
-    /// True, если уровень завершен
+    /// True, РµСЃР»Рё СѓСЂРѕРІРµРЅСЊ Р·Р°РІРµСЂС€РµРЅ
     /// </summary>
     public bool LevelCompleted { get; set; }
 
     /// <summary>
-    /// Сетка уровня
+    /// РЎРµС‚РєР° СѓСЂРѕРІРЅСЏ
     /// </summary>
     public GridLevel GridLevel => _gridLevel;
 
     /// <summary>
-    /// True, если игра остановлена
+    /// True, РµСЃР»Рё РёРіСЂР° РѕСЃС‚Р°РЅРѕРІР»РµРЅР°
     /// </summary>
     //public bool IsPause { get => pauseManager.IsPause; }
 
     //======================================
 
     /// <summary>
-    /// Событие: Изменение параметра "Время проведенное на уровне"
+    /// РЎРѕР±С‹С‚РёРµ: РР·РјРµРЅРµРЅРёРµ РїР°СЂР°РјРµС‚СЂР° "Р’СЂРµРјСЏ РїСЂРѕРІРµРґРµРЅРЅРѕРµ РЅР° СѓСЂРѕРІРЅРµ"
     /// </summary>
     public UnityEvent<float> ChangeTimeOnLevel { get; } = new UnityEvent<float>();
 
     /// <summary>
-    /// Событие: Изменение параметра "Количество ходов"
+    /// РЎРѕР±С‹С‚РёРµ: РР·РјРµРЅРµРЅРёРµ РїР°СЂР°РјРµС‚СЂР° "РљРѕР»РёС‡РµСЃС‚РІРѕ С…РѕРґРѕРІ"
     /// </summary>
     public UnityEvent<int> ChangeNumberMoves { get; } = new UnityEvent<int>();
 
     /// <summary>
-    /// Событие: Пауза
+    /// РЎРѕР±С‹С‚РёРµ: РџР°СѓР·Р°
     /// </summary>
     public UnityEvent<bool> IsPause { get; } = new UnityEvent<bool>();
 
     /// <summary>
-    /// Событие: Уровень завершен
+    /// РЎРѕР±С‹С‚РёРµ: РЈСЂРѕРІРµРЅСЊ Р·Р°РІРµСЂС€РµРЅ
     /// </summary>
     public UnityEvent IsLevelCompleted { get; } = new UnityEvent();
     /// <summary>
-    /// Событие: Следующий уровень
+    /// РЎРѕР±С‹С‚РёРµ: РЎР»РµРґСѓСЋС‰РёР№ СѓСЂРѕРІРµРЅСЊ
     /// </summary>
     public UnityEvent IsNextLevel { get; } = new UnityEvent();
     /// <summary>
-    /// Событие: Перезагрузка уровня
+    /// РЎРѕР±С‹С‚РёРµ: РџРµСЂРµР·Р°РіСЂСѓР·РєР° СѓСЂРѕРІРЅСЏ
     /// </summary>
     public UnityEvent IsReloadLevel { get; } = new UnityEvent();
 
     //======================================
 
     /// <summary>
-    /// Получить данные о текущем уровне
+    /// РџРѕР»СѓС‡РёС‚СЊ РґР°РЅРЅС‹Рµ Рѕ С‚РµРєСѓС‰РµРј СѓСЂРѕРІРЅРµ
     /// </summary>
     public LevelData GetCurrentLevelData() => _currentLevelData;
 
     /// <summary>
-    /// Получить данные о прогрессе на текущем уровне
+    /// РџРѕР»СѓС‡РёС‚СЊ РґР°РЅРЅС‹Рµ Рѕ РїСЂРѕРіСЂРµСЃСЃРµ РЅР° С‚РµРєСѓС‰РµРј СѓСЂРѕРІРЅРµ
     /// </summary>
     public LevelProgressData GetCurrentLevelProgressData() => _currentLevelProgressData;
 
     //======================================
 
     /// <summary>
-    /// Время проведенное на уровне
+    /// Р’СЂРµРјСЏ РїСЂРѕРІРµРґРµРЅРЅРѕРµ РЅР° СѓСЂРѕРІРЅРµ
     /// </summary>
     public float TimeOnLevel
     {
@@ -102,7 +102,7 @@ namespace Sokoban.LevelManagement
     }
 
     /// <summary>
-    /// Количество ходов
+    /// РљРѕР»РёС‡РµСЃС‚РІРѕ С…РѕРґРѕРІ
     /// </summary>
     public int NumberMoves
     {
@@ -137,7 +137,7 @@ namespace Sokoban.LevelManagement
     //======================================
 
     /// <summary>
-    /// Завершен ли уровень
+    /// Р—Р°РІРµСЂС€РµРЅ Р»Рё СѓСЂРѕРІРµРЅСЊ
     /// </summary>
     private bool IsLevelComplete()
     {
@@ -153,7 +153,7 @@ namespace Sokoban.LevelManagement
     }
 
     /// <summary>
-    /// True, если еда вся собрана
+    /// True, РµСЃР»Рё РµРґР° РІСЃСЏ СЃРѕР±СЂР°РЅР°
     /// </summary>
     public bool IsFoodCollected()
     {
@@ -171,19 +171,21 @@ namespace Sokoban.LevelManagement
     //======================================
 
     /// <summary>
-    /// Загрузить новый уровень
+    /// Р—Р°РіСЂСѓР·РёС‚СЊ РЅРѕРІС‹Р№ СѓСЂРѕРІРµРЅСЊ
     /// </summary>
     public void UploadNewLevel()
     {
       IsNextLevel?.Invoke();
 
-      _currentLevelData = GetNextLevelData();
+      var levelData = GetNextLevelData();
+      if (levelData != null)
+        _currentLevelData = levelData;
 
       ReloadLevel();
     }
 
     /// <summary>
-    /// Перезагрузить уровень
+    /// РџРµСЂРµР·Р°РіСЂСѓР·РёС‚СЊ СѓСЂРѕРІРµРЅСЊ
     /// </summary>
     public void ReloadLevel()
     {
@@ -196,7 +198,7 @@ namespace Sokoban.LevelManagement
     }
 
     /// <summary>
-    /// Выход в меню
+    /// Р’С‹С…РѕРґ РІ РјРµРЅСЋ
     /// </summary>
     public void ExitMenu()
     {
@@ -204,7 +206,7 @@ namespace Sokoban.LevelManagement
     }
 
     /// <summary>
-    /// Получите данные следующего уровня
+    /// РџРѕР»СѓС‡РёС‚Рµ РґР°РЅРЅС‹Рµ СЃР»РµРґСѓСЋС‰РµРіРѕ СѓСЂРѕРІРЅСЏ
     /// </summary>
     private LevelData GetNextLevelData()
     {
@@ -212,7 +214,7 @@ namespace Sokoban.LevelManagement
     }
 
     /// <summary>
-    /// Открыть следующий уровень
+    /// РћС‚РєСЂС‹С‚СЊ СЃР»РµРґСѓСЋС‰РёР№ СѓСЂРѕРІРµРЅСЊ
     /// </summary>
     private bool OpenNextLevel()
     {

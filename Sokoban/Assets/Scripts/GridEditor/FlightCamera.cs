@@ -5,20 +5,20 @@ using Cinemachine;
 namespace Sokoban.GridEditor
 {
   /// <summary>
-  /// Полет камеры во время создания уровня
+  /// РџРѕР»РµС‚ РєР°РјРµСЂС‹ РІРѕ РІСЂРµРјСЏ СЃРѕР·РґР°РЅРёСЏ СѓСЂРѕРІРЅСЏ
   /// </summary>
   public class FlightCamera : MonoBehaviour
   {
-    [Header("СКОРОСТИ ДВИЖЕНИЯ")]
-    [SerializeField, Tooltip("Замедленная скорость камеры")]
+    [Header("РЎРљРћР РћРЎРўР Р”Р’РР–Р•РќРРЇ")]
+    [SerializeField, Tooltip("Р—Р°РјРµРґР»РµРЅРЅР°СЏ СЃРєРѕСЂРѕСЃС‚СЊ РєР°РјРµСЂС‹")]
     private float _slowCameraSpeed = 5f;
-    [SerializeField, Tooltip("Обычная скорость камеры")]
+    [SerializeField, Tooltip("РћР±С‹С‡РЅР°СЏ СЃРєРѕСЂРѕСЃС‚СЊ РєР°РјРµСЂС‹")]
     private float _normalCameraSpeed = 10f;
-    [SerializeField, Tooltip("Быстрая скорость камеры")]
+    [SerializeField, Tooltip("Р‘С‹СЃС‚СЂР°СЏ СЃРєРѕСЂРѕСЃС‚СЊ РєР°РјРµСЂС‹")]
     private float _fastCameraSpeed = 20f;
 
-    [Header("ВРАЩЕНИЕ КАМЕРЫ")]
-    [SerializeField, Tooltip("Скорость вращения камеры")]
+    [Header("Р’Р РђР©Р•РќРР• РљРђРњР•Р Р«")]
+    [SerializeField, Tooltip("РЎРєРѕСЂРѕСЃС‚СЊ РІСЂР°С‰РµРЅРёСЏ РєР°РјРµСЂС‹")]
     private float _rotationSpeed = 3f;
 
     //--------------------------------------

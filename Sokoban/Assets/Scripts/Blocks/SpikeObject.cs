@@ -5,7 +5,7 @@ using UnityEngine;
 public class SpikeObject : InteractiveObjects
 {
   /// <summary>
-  /// True, если шип активирован
+  /// True, РµСЃР»Рё С€РёРї Р°РєС‚РёРІРёСЂРѕРІР°РЅ
   /// </summary>
   public bool IsSpikeActivated { get; private set; }
 

@@ -4,10 +4,10 @@ namespace Sokoban.UI
 {
   public class Panel : MonoBehaviour
   {
-    [SerializeField, Tooltip("Объект панели")]
+    [SerializeField, Tooltip("РћР±СЉРµРєС‚ РїР°РЅРµР»Рё")]
     private GameObject _panelObject;
 
-    [SerializeField, Tooltip("True, если панель показана")]
+    [SerializeField, Tooltip("True, РµСЃР»Рё РїР°РЅРµР»СЊ РїРѕРєР°Р·Р°РЅР°")]
     private bool _panelIsShow;
 
     //======================================
@@ -21,7 +21,7 @@ namespace Sokoban.UI
     //======================================
 
     /// <summary>
-    /// True, если панель показана
+    /// True, РµСЃР»Рё РїР°РЅРµР»СЊ РїРѕРєР°Р·Р°РЅР°
     /// </summary>
     public bool PanelIsShow
     {
@@ -36,7 +36,7 @@ namespace Sokoban.UI
     //======================================
 
     /// <summary>
-    /// Показать панель
+    /// РџРѕРєР°Р·Р°С‚СЊ РїР°РЅРµР»СЊ
     /// </summary>
     public void ShowPanel()
     {
@@ -44,7 +44,7 @@ namespace Sokoban.UI
     }
 
     /// <summary>
-    /// Скрыть панель
+    /// РЎРєСЂС‹С‚СЊ РїР°РЅРµР»СЊ
     /// </summary>
     public void HidePanel()
     {

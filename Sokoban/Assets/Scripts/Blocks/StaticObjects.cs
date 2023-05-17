@@ -3,17 +3,17 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
-/// Класс объектов, которые нельзя двигать
+/// РљР»Р°СЃСЃ РѕР±СЉРµРєС‚РѕРІ, РєРѕС‚РѕСЂС‹Рµ РЅРµР»СЊР·СЏ РґРІРёРіР°С‚СЊ
 /// </summary>
 public class StaticObjects : Block
 {
-  /*[SerializeField, Tooltip("Тип объекта")]
+  /*[SerializeField, Tooltip("РўРёРї РѕР±СЉРµРєС‚Р°")]
   private TypeObject _typeObject;
 
-  [SerializeField, Tooltip("Индекс объекта")]
+  [SerializeField, Tooltip("РРЅРґРµРєСЃ РѕР±СЉРµРєС‚Р°")]
   private int _indexObject;
 
-  [SerializeField, Tooltip("Позиция объекта")]
+  [SerializeField, Tooltip("РџРѕР·РёС†РёСЏ РѕР±СЉРµРєС‚Р°")]
   private Vector3Int _objectPosition;*/
 
   //======================================

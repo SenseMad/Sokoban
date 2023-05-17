@@ -5,11 +5,11 @@ using TMPro;
 namespace Sokoban.UI
 {
   /// <summary>
-  /// Пользовательский интерфейс кнопка выбора локации
+  /// РџРѕР»СЊР·РѕРІР°С‚РµР»СЊСЃРєРёР№ РёРЅС‚РµСЂС„РµР№СЃ РєРЅРѕРїРєР° РІС‹Р±РѕСЂР° Р»РѕРєР°С†РёРё
   /// </summary>
   public class UILocationSelectButton : MonoBehaviour
   {
-    [SerializeField, Tooltip("Текст названия локации")]
+    [SerializeField, Tooltip("РўРµРєСЃС‚ РЅР°Р·РІР°РЅРёСЏ Р»РѕРєР°С†РёРё")]
     private TextMeshProUGUI _textLocationName;
 
     //--------------------------------------
@@ -32,7 +32,7 @@ namespace Sokoban.UI
     //======================================
 
     /// <summary>
-    /// Инициализация кнопки выбора локации
+    /// РРЅРёС†РёР°Р»РёР·Р°С†РёСЏ РєРЅРѕРїРєРё РІС‹Р±РѕСЂР° Р»РѕРєР°С†РёРё
     /// </summary>
     public void Initialize(Location parLocation)
     {
@@ -43,7 +43,7 @@ namespace Sokoban.UI
     }
 
     /// <summary>
-    /// Изменить цвет
+    /// РР·РјРµРЅРёС‚СЊ С†РІРµС‚
     /// </summary>
     public void ChangeColor()
     {

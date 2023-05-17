@@ -5,22 +5,22 @@ using UnityEngine;
 using Sokoban.LevelManagement;
 
 /// <summary>
-/// Класс объекта еды
+/// В РљР»Р°СЃСЃ РѕР±СЉРµРєС‚Р° РµРґС‹
 /// </summary>
 public class FoodObject : InteractiveObjects
 {
-  [SerializeField, Tooltip("Вид еды")]
+  [SerializeField, Tooltip("РўРёРґ РµРґС‹")]
   private TypesFood _typeFood;
 
   //======================================
 
   /// <summary>
-  /// Получить вид еды
+  /// РџРѕР»СѓС‡РёС‚СЊ РІРёРґ РµРґС‹
   /// </summary>
   public TypesFood GetTypeFood() => _typeFood;
 
   /// <summary>
-  /// True, если еда собрана
+  /// True, РµСЃР»Рё РµРґР° СЃРѕР±СЂР°РЅР°
   /// </summary>
   public bool IsFoodCollected { get; private set; }
 
@@ -45,16 +45,16 @@ public class FoodObject : InteractiveObjects
 }
 
 /// <summary>
-/// Виды еды
+/// Р’РёРґС‹ РµРґС‹
 /// </summary>
 public enum TypesFood
 {
   /// <summary>
-  /// Гамбергер
+  /// Р“Р°РјР±РµСЂРіРµСЂ
   /// </summary>
   Hamburger,
   /// <summary>
-  /// Хот-дог
+  /// РҐРѕС‚-РґРѕРі
   /// </summary>
   HotDog
 }

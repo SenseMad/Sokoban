@@ -9,11 +9,11 @@ using Sokoban.LevelManagement;
 namespace Sokoban.UI
 {
   /// <summary>
-  /// Пользовательский интерфейс кнопка выбора уровня
+  /// РџРѕР»СЊР·РѕРІР°С‚РµР»СЊСЃРєРёР№ РёРЅС‚РµСЂС„РµР№СЃ РєРЅРѕРїРєР° РІС‹Р±РѕСЂР° СѓСЂРѕРІРЅСЏ
   /// </summary>
   public class UILevelSelectButton : MonoBehaviour
   {
-    [SerializeField, Tooltip("Текст названия уровня")]
+    [SerializeField, Tooltip("РўРµРєСЃС‚ РЅР°Р·РІР°РЅРёСЏ СѓСЂРѕРІРЅСЏ")]
     private TextMeshProUGUI _textLevelName;
 
     //--------------------------------------
@@ -25,7 +25,7 @@ namespace Sokoban.UI
     public Button Button { get; set; }
 
     /// <summary>
-    /// True, если уровень открыт
+    /// True, РµСЃР»Рё СѓСЂРѕРІРµРЅСЊ РѕС‚РєСЂС‹С‚
     /// </summary>
     public bool IsLevelOpen { get; private set; }
 
@@ -39,7 +39,7 @@ namespace Sokoban.UI
     //======================================
 
     /// <summary>
-    /// Инициализация кнопки выбора локации
+    /// РРЅРёС†РёР°Р»РёР·Р°С†РёСЏ РєРЅРѕРїРєРё РІС‹Р±РѕСЂР° Р»РѕРєР°С†РёРё
     /// </summary>
     public void Initialize(LevelData levelData)
     {
@@ -48,7 +48,7 @@ namespace Sokoban.UI
     }
 
     /// <summary>
-    /// Изменить цвет
+    /// РР·РјРµРЅРёС‚СЊ С†РІРµС‚
     /// </summary>
     public void ChangeColor()
     {

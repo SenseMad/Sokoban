@@ -9,10 +9,10 @@ namespace Sokoban.UI
 {
   public abstract class MenuUI : MonoBehaviour
   {
-    [SerializeField, Tooltip("True, если нельзя закрыть меню")]
+    [SerializeField, Tooltip("True, РµСЃР»Рё РЅРµР»СЊР·СЏ Р·Р°РєСЂС‹С‚СЊ РјРµРЅСЋ")]
     private bool _menuCannotClosed = false;
 
-    [SerializeField, Tooltip("Список кнопок")]
+    [SerializeField, Tooltip("РЎРїРёСЃРѕРє РєРЅРѕРїРѕРє")]
     protected List<Button> _listButtons;
 
     //--------------------------------------
@@ -24,17 +24,17 @@ namespace Sokoban.UI
     protected AudioManager audioManager;
 
     /// <summary>
-    /// True, если кнопка активна
+    /// True, РµСЃР»Рё РєРЅРѕРїРєР° Р°РєС‚РёРІРЅР°
     /// </summary>
     private bool isSelected;
 
     /// <summary>
-    /// Индекс активной кнопки
+    /// РРЅРґРµРєСЃ Р°РєС‚РёРІРЅРѕР№ РєРЅРѕРїРєРё
     /// </summary>
     protected int indexActiveButton;
 
     /// <summary>
-    /// Время перехода к следующему значения
+    /// Р’СЂРµРјСЏ РїРµСЂРµС…РѕРґР° Рє СЃР»РµРґСѓСЋС‰РµРјСѓ Р·РЅР°С‡РµРЅРёСЏ
     /// </summary>
     protected readonly float timeMoveNextValue = 0.2f;
     protected float nextTimeMoveNextValue = 0.0f;
@@ -42,7 +42,7 @@ namespace Sokoban.UI
     //======================================
 
     /// <summary>
-    /// True, если кнопка активна
+    /// True, РµСЃР»Рё РєРЅРѕРїРєР° Р°РєС‚РёРІРЅР°
     /// </summary>
     public bool IsSelected
     {
@@ -91,10 +91,10 @@ namespace Sokoban.UI
 
     //======================================
 
-    #region Закрыть меню
+    #region Р—Р°РєСЂС‹С‚СЊ РјРµРЅСЋ
 
     /// <summary>
-    /// Закрыть меню
+    /// Р—Р°РєСЂС‹С‚СЊ РјРµРЅСЋ
     /// </summary>
     public void CloseMenu()
     {
@@ -106,7 +106,7 @@ namespace Sokoban.UI
     }
 
     /// <summary>
-    /// Закрыть меню без звука
+    /// Р—Р°РєСЂС‹С‚СЊ РјРµРЅСЋ Р±РµР· Р·РІСѓРєР°
     /// </summary>
     public void CloseMenuNoSound()
     {
@@ -123,7 +123,7 @@ namespace Sokoban.UI
 
     #endregion
 
-    #region Выбор кнопки
+    #region Р’С‹Р±РѕСЂ РєРЅРѕРїРєРё
 
     private void Select_performed(InputAction.CallbackContext obj)
     {
@@ -136,7 +136,7 @@ namespace Sokoban.UI
 
     #endregion
 
-    #region Звуки
+    #region Р—РІСѓРєРё
 
     protected void Sound()
     {
@@ -146,7 +146,7 @@ namespace Sokoban.UI
     #endregion
 
     /// <summary>
-    /// Перемещение в меню по вертикали
+    /// РџРµСЂРµРјРµС‰РµРЅРёРµ РІ РјРµРЅСЋ РїРѕ РІРµСЂС‚РёРєР°Р»Рё
     /// </summary>
     protected virtual void MoveMenuVertically(int parValue)
     {
@@ -189,7 +189,7 @@ namespace Sokoban.UI
     }
 
     /// <summary>
-    /// Перемещение в меню по горизонтали
+    /// РџРµСЂРµРјРµС‰РµРЅРёРµ РІ РјРµРЅСЋ РїРѕ РіРѕСЂРёР·РѕРЅС‚Р°Р»Рё
     /// </summary>
     protected virtual void MoveMenuHorizontally()
     {

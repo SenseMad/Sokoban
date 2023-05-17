@@ -5,29 +5,29 @@ namespace Sokoban.UI
 {
   public class PanelController : SingletonInSceneNoInstance<PanelController>
   {
-    [SerializeField, Tooltip("Текущая активная панель")]
+    [SerializeField, Tooltip("РўРµРєСѓС‰Р°СЏ Р°РєС‚РёРІРЅР°СЏ РїР°РЅРµР»СЊ")]
     private Panel _currentActivePanel;
 
     //--------------------------------------
 
     /// <summary>
-    /// Список всех открытых панелей
+    /// РЎРїРёСЃРѕРє РІСЃРµС… РѕС‚РєСЂС‹С‚С‹С… РїР°РЅРµР»РµР№
     /// </summary>
     public List<Panel> listAllOpenPanels = new List<Panel>();
 
     //======================================
 
     /// <summary>
-    /// Получить текущую активную панель
+    /// РџРѕР»СѓС‡РёС‚СЊ С‚РµРєСѓС‰СѓСЋ Р°РєС‚РёРІРЅСѓСЋ РїР°РЅРµР»СЊ
     /// </summary>
     public Panel GetCurrentActivePanel() => _currentActivePanel;
 
     //======================================
 
     /// <summary>
-    /// Показать панель
+    /// РџРѕРєР°Р·Р°С‚СЊ РїР°РЅРµР»СЊ
     /// </summary>
-    /// <param name="parPanel">Панель которую нужно показать</param>
+    /// <param name="parPanel">РџР°РЅРµР»СЊ РєРѕС‚РѕСЂСѓСЋ РЅСѓР¶РЅРѕ РїРѕРєР°Р·Р°С‚СЊ</param>
     public void ShowPanel(Panel parPanel)
     {
       _currentActivePanel = parPanel;
@@ -40,9 +40,9 @@ namespace Sokoban.UI
     }
 
     /// <summary>
-    /// Скрыть панель
+    /// РЎРєСЂС‹С‚СЊ РїР°РЅРµР»СЊ
     /// </summary>
-    /// <param name="parPanel">Панель которую нужно скрыть</param>
+    /// <param name="parPanel">РџР°РЅРµР»СЊ РєРѕС‚РѕСЂСѓСЋ РЅСѓР¶РЅРѕ СЃРєСЂС‹С‚СЊ</param>
     public void HidePanel(Panel parPanel)
     {
       if (parPanel == null)
@@ -52,7 +52,7 @@ namespace Sokoban.UI
     }
 
     /// <summary>
-    /// Скрыть старую и открыть новую панель
+    /// РЎРєСЂС‹С‚СЊ СЃС‚Р°СЂСѓСЋ Рё РѕС‚РєСЂС‹С‚СЊ РЅРѕРІСѓСЋ РїР°РЅРµР»СЊ
     /// </summary>
     public void SetActivePanel(Panel parPanel)
     {
@@ -64,7 +64,7 @@ namespace Sokoban.UI
     //======================================
 
     /// <summary>
-    /// Закрытие панелей по порядку
+    /// Р—Р°РєСЂС‹С‚РёРµ РїР°РЅРµР»РµР№ РїРѕ РїРѕСЂСЏРґРєСѓ
     /// </summary>
     public void ClosePanel()
     {
@@ -87,7 +87,7 @@ namespace Sokoban.UI
     }
 
     /// <summary>
-    /// Закрыть все панели
+    /// Р—Р°РєСЂС‹С‚СЊ РІСЃРµ РїР°РЅРµР»Рё
     /// </summary>
     public void CloseAllPanels()
     {

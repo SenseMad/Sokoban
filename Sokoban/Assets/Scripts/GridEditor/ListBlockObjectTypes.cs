@@ -4,21 +4,21 @@ using UnityEngine;
 namespace Sokoban.GridEditor
 {
   /// <summary>
-  /// Список типов блочных объектов
+  /// РЎРїРёСЃРѕРє С‚РёРїРѕРІ Р±Р»РѕС‡РЅС‹С… РѕР±СЉРµРєС‚РѕРІ
   /// </summary>
   [CreateAssetMenu(fileName = "New List Block Object Types", menuName = "Data/List Block Object Types")]
   public class ListBlockObjectTypes : ScriptableObject
   {
-    [SerializeField, Tooltip("Список типов блочных объектов")]
+    [SerializeField, Tooltip("РЎРїРёСЃРѕРє С‚РёРїРѕРІ Р±Р»РѕС‡РЅС‹С… РѕР±СЉРµРєС‚РѕРІ")]
     private List<TypeBlockObjects> _listBlockObjectTypes = new List<TypeBlockObjects>();
 
     //======================================
 
     /// <summary>
-    /// Получить объект блока
+    /// РџРѕР»СѓС‡РёС‚СЊ РѕР±СЉРµРєС‚ Р±Р»РѕРєР°
     /// </summary>
-    /// <param name="parTypeObject">Тип объекта</param>
-    /// <param name="parObjectIndex">Индекс объекта</param>
+    /// <param name="parTypeObject">РўРёРї РѕР±СЉРµРєС‚Р°</param>
+    /// <param name="parObjectIndex">РРЅРґРµРєСЃ РѕР±СЉРµРєС‚Р°</param>
     public Block GetBlockObject(TypeObject parTypeObject, int parObjectIndex)
     {
       for (int i = 0; i < _listBlockObjectTypes.Count; i++)
