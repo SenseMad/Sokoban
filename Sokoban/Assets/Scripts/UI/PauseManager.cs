@@ -1,60 +1,65 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.SceneManagement;
 
 using Sokoban.LevelManagement;
 
 namespace Sokoban.UI
 {
-  public class PauseManager : MonoBehaviour
+  public class PauseManager : MenuUI
   {
-    [SerializeField, Tooltip("ѕанель паузы")]
+    [SerializeField, Tooltip("Панель паузы")]
     private Panel _pausePanel;
 
     //--------------------------------------
 
-    private InputHandler inputHandler;
+    private bool isPause;
 
     private LevelManager levelManager;
-
-    private PanelController panelController;
 
     //======================================
 
     /// <summary>
     /// True, если игра остановлена
     /// </summary>
-    public bool IsPause { get; set; }
+    public bool IsPause
+    {
+      get => isPause;
+      private set
+      {
+        isPause = value;
+        levelManager.IsPause?.Invoke(isPause);
+      }
+    }
 
     //======================================
 
-    private void Awake()
+    protected override void Awake()
     {
-      inputHandler = InputHandler.Instance;
+      base.Awake();
 
       levelManager = LevelManager.Instance;
-
-      panelController = PanelController.Instance;
     }
 
-    private void OnEnable()
+    protected override void OnEnable()
     {
+      indexActiveButton = 0;
+
+      base.OnEnable();
+
       inputHandler.AI_Player.UI.Pause.performed += OnPause;
-      //levelManager.IsReloadLevel.AddListener(ReloadLevel);
     }
 
-    private void OnDisable()
+    protected override void OnDisable()
     {
+      base.OnDisable();
+
       inputHandler.AI_Player.UI.Pause.performed -= OnPause;
-      //levelManager.IsReloadLevel.RemoveListener(ReloadLevel);
     }
 
     //======================================
 
     /// <summary>
-    /// ¬ключить/¬ыключить паузу
+    /// Включить/Выключить паузу
     /// </summary>
     private void SetIsPause()
     {
@@ -66,53 +71,68 @@ namespace Sokoban.UI
         IsPause = true;
         panelController.ShowPanel(_pausePanel);
       }
-      else if (panelController.GetCurrentActivePanel() == _pausePanel)
+      else
       {
-        if (panelController.listAllOpenPanels.Count > 1)
-        {
-          panelController.ClosePanel();
-        }
-        else
-        {
-          IsPause = false;
-          panelController.CloseAllPanels();
-        }
+        IsPause = false;
       }
+    }
 
-      levelManager.IsPause?.Invoke(IsPause);
+    //======================================
+
+    protected override void CloseMenu()
+    {
+      if (panelController.GetCurrentActivePanel() != _pausePanel)
+        return;
+
+      base.CloseMenu();
+
+      IsSelected = false;
+      indexActiveButton = 0;
+      IsSelected = true;
+    }
+
+    protected override void ButtonClick()
+    {
+      if (panelController.GetCurrentActivePanel() != _pausePanel)
+        return;
+
+      base.ButtonClick();
+    }
+
+    protected override void MoveMenuVertically(int parValue)
+    {
+      if (panelController.GetCurrentActivePanel() != _pausePanel)
+        return;
+
+      base.MoveMenuVertically(parValue);
     }
 
     //======================================
 
     /// <summary>
-    /// ѕерезугрука уровн¤
-    /// </summary>
-    private void ReloadLevel()
-    {
-      SetIsPause();
-      levelManager.ReloadLevel();
-    }
-
-    /// <summary>
-    ///  нопка продолжить
+    /// Кнопка продолжить
     /// </summary>
     public void ContinueButton()
     {
+      IsSelected = false;
+      indexActiveButton = 0;
+      IsSelected = true;
+
       SetIsPause();
       panelController.CloseAllPanels();
     }
 
     /// <summary>
-    ///  нопка перезагрузки
+    /// Кнопка перезагрузки
     /// </summary>
     public void RestartButton()
     {
-      SetIsPause();
+      ContinueButton();
       levelManager.ReloadLevel();
     }
 
     /// <summary>
-    ///  нопка выхода в меню
+    /// Кнопка выхода в меню
     /// </summary>
     public void ExitMenuButton()
     {
@@ -122,7 +142,7 @@ namespace Sokoban.UI
     //======================================
 
     /// <summary>
-    /// ѕауза
+    /// Пауза
     /// </summary>
     public void OnPause(InputAction.CallbackContext context)
     {

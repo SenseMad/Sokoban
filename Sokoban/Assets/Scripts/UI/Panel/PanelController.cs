@@ -68,8 +68,10 @@ namespace Sokoban.UI
     /// </summary>
     public void ClosePanel()
     {
-      HidePanel(_currentActivePanel);
+      if (listAllOpenPanels.Count == 0 || _currentActivePanel == null)
+        return;
 
+      HidePanel(_currentActivePanel);
       listAllOpenPanels.Remove(_currentActivePanel);
 
       if (listAllOpenPanels.Count == 0)
@@ -79,10 +81,6 @@ namespace Sokoban.UI
       }
 
       _currentActivePanel = listAllOpenPanels[listAllOpenPanels.Count - 1];
-
-      if (_currentActivePanel == null)
-        return;
-
       _currentActivePanel.ShowPanel();
     }
 

@@ -10,7 +10,7 @@ namespace Sokoban.UI
   public abstract class MenuUI : MonoBehaviour
   {
     [SerializeField, Tooltip("True, если нельзя закрыть меню")]
-    private bool _menuCannotClosed = false;
+    protected bool _menuCannotClosed = false;
 
     [SerializeField, Tooltip("Список кнопок")]
     protected List<Button> _listButtons;
@@ -96,7 +96,7 @@ namespace Sokoban.UI
     /// <summary>
     /// Закрыть меню
     /// </summary>
-    public void CloseMenu()
+    protected virtual void CloseMenu()
     {
       if (_menuCannotClosed)
         return;
@@ -108,7 +108,7 @@ namespace Sokoban.UI
     /// <summary>
     /// Закрыть меню без звука
     /// </summary>
-    public void CloseMenuNoSound()
+    protected void CloseMenuNoSound()
     {
       if (_menuCannotClosed)
         return;
@@ -125,13 +125,21 @@ namespace Sokoban.UI
 
     #region Выбор кнопки
 
-    private void Select_performed(InputAction.CallbackContext obj)
+    /// <summary>
+    /// Клик кнопки
+    /// </summary>
+    protected virtual void ButtonClick()
     {
       if (_listButtons.Count == 0)
         return;
 
       _listButtons[indexActiveButton].onClick?.Invoke();
       Sound();
+    }
+
+    private void Select_performed(InputAction.CallbackContext obj)
+    {
+      ButtonClick();
     }
 
     #endregion
