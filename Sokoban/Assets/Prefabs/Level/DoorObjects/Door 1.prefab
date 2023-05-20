@@ -67,8 +67,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d58562018dfab6458ee7d08fbe268fb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _typeObject: 6
   _indexObject: 1
   _objectPosition: {x: 0, y: 0, z: 0}
+  _nameObject: 
+  _spriteObject: {fileID: 0}
   _doorColor: 1
 --- !u!1 &6477405371046548371
 GameObject:

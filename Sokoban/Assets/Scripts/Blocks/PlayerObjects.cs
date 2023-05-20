@@ -65,24 +65,26 @@ public class PlayerObjects : Block
 
     if (!GridEditor.GridEditorEnabled)
       cinemachineVirtual = FindObjectOfType<CinemachineVirtualCamera>();
+
+    //typeObject = TypeObject.playerObject;
   }
 
   private void Start()
   {
     if (cinemachineVirtual != null)
       cinemachineVirtual.Follow = transform;
-
-    typeObject = TypeObject.playerObject;
   }
 
   private void OnEnable()
   {
-    levelManager.IsPause.AddListener(PossibleMove);
+    if (levelManager)
+      levelManager.IsPause.AddListener(PossibleMove);
   }
 
   private void OnDisable()
   {
-    levelManager.IsPause.AddListener(PossibleMove);
+    if (levelManager)
+      levelManager.IsPause.AddListener(PossibleMove);
   }
 
   private void Update()

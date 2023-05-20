@@ -88,7 +88,7 @@ namespace Sokoban.GridEditor
 
     #endregion
 
-    #region Поиск объектов еды на уровне
+    #region Поиск объектов дверей на уровне
     
     /// <summary>
     /// Найти все объекты дверей на уровне

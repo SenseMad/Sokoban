@@ -21,11 +21,13 @@ public class ButtonDoorObject : InteractiveObjects
   private void Awake()
   {
     levelManager = LevelManager.Instance;
+
+    //typeObject = TypeObject.buttonDoorObject;
   }
 
   private void Start()
   {
-    typeObject = TypeObject.buttonDoorObject;
+    
   }
 
   //======================================

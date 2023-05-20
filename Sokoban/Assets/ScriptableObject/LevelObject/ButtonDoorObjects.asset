@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4e8d257fb3980644dadcf0d84473e3aa, type: 3}
   m_Name: ButtonDoorObjects
   m_EditorClassIdentifier: 
-  _typeObjects: 6
+  _typeObjects: 7
   _listBlockObjects:
   - {fileID: -2449021619368749842, guid: 80f2ab3a0de4fd345aa096d6b98b096c, type: 3}

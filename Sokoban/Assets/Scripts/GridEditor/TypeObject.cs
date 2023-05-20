@@ -1,6 +1,10 @@
 public enum TypeObject
 {
   /// <summary>
+  /// Все объекты
+  /// </summary>
+  allObject,
+  /// <summary>
   /// Объект игрока
   /// </summary>
   playerObject,

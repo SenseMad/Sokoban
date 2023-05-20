@@ -46,8 +46,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e3dbed0e2183d19428679fef86bdd2d2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _typeObject: 4
   _indexObject: 0
   _objectPosition: {x: 0, y: 0, z: 0}
+  _nameObject: 
+  _spriteObject: {fileID: 0}
   _typeFood: 0
 --- !u!65 &3564449593172361866
 BoxCollider:

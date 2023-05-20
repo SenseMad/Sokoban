@@ -50,7 +50,7 @@ namespace Sokoban.GridEditor
     {
       Move();
 
-      if (gridEditor.EditingMode)
+      if (!gridEditor.EditMode)
         return;
 
       RotateCamera();
@@ -70,6 +70,9 @@ namespace Sokoban.GridEditor
       virtualCamera.transform.Translate(moveDirection, Space.Self);
     }
 
+    /// <summary>
+    /// Поворот камеры
+    /// </summary>
     private void RotateCamera()
     {
       if (Mouse.current.rightButton.IsPressed())

@@ -14,41 +14,107 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _levelNumber: 2
   _location: 0
-  _fieldSize: {x: 10, y: 5, z: 10}
+  _fieldSize: {x: 11, y: 2, z: 11}
   _listLevelObjects:
-  - _typeObject: 2
-    _positionObject: {x: 4, y: 0, z: 3}
-  - _typeObject: 2
-    _positionObject: {x: 5, y: 0, z: 3}
-  - _typeObject: 2
-    _positionObject: {x: 6, y: 0, z: 3}
-  - _typeObject: 2
-    _positionObject: {x: 7, y: 0, z: 3}
-  - _typeObject: 2
-    _positionObject: {x: 4, y: 0, z: 4}
-  - _typeObject: 2
-    _positionObject: {x: 5, y: 0, z: 4}
-  - _typeObject: 2
-    _positionObject: {x: 6, y: 0, z: 4}
-  - _typeObject: 2
-    _positionObject: {x: 7, y: 0, z: 4}
-  - _typeObject: 2
-    _positionObject: {x: 5, y: 0, z: 5}
-  - _typeObject: 2
-    _positionObject: {x: 6, y: 0, z: 5}
-  - _typeObject: 2
-    _positionObject: {x: 7, y: 0, z: 5}
-  - _typeObject: 2
-    _positionObject: {x: 4, y: 0, z: 6}
-  - _typeObject: 2
-    _positionObject: {x: 5, y: 0, z: 6}
-  - _typeObject: 2
-    _positionObject: {x: 6, y: 0, z: 6}
-  - _typeObject: 2
-    _positionObject: {x: 7, y: 0, z: 6}
-  - _typeObject: 0
-    _positionObject: {x: 6, y: 1, z: 5}
-  - _typeObject: 1
-    _positionObject: {x: 5, y: 1, z: 5}
   - _typeObject: 3
-    _positionObject: {x: 4, y: 1, z: 3}
+    _indexObject: 0
+    _positionObject: {x: 2, y: 0, z: 2}
+  - _typeObject: 3
+    _indexObject: 0
+    _positionObject: {x: 2, y: 0, z: 4}
+  - _typeObject: 3
+    _indexObject: 0
+    _positionObject: {x: 2, y: 0, z: 5}
+  - _typeObject: 3
+    _indexObject: 0
+    _positionObject: {x: 2, y: 0, z: 6}
+  - _typeObject: 3
+    _indexObject: 0
+    _positionObject: {x: 2, y: 0, z: 8}
+  - _typeObject: 4
+    _indexObject: 0
+    _positionObject: {x: 2, y: 1, z: 5}
+  - _typeObject: 3
+    _indexObject: 0
+    _positionObject: {x: 4, y: 0, z: 2}
+  - _typeObject: 3
+    _indexObject: 0
+    _positionObject: {x: 4, y: 0, z: 4}
+  - _typeObject: 3
+    _indexObject: 0
+    _positionObject: {x: 4, y: 0, z: 5}
+  - _typeObject: 3
+    _indexObject: 0
+    _positionObject: {x: 4, y: 0, z: 6}
+  - _typeObject: 3
+    _indexObject: 0
+    _positionObject: {x: 4, y: 0, z: 8}
+  - _typeObject: 2
+    _indexObject: 0
+    _positionObject: {x: 4, y: 1, z: 5}
+  - _typeObject: 3
+    _indexObject: 0
+    _positionObject: {x: 5, y: 0, z: 2}
+  - _typeObject: 3
+    _indexObject: 0
+    _positionObject: {x: 5, y: 0, z: 4}
+  - _typeObject: 3
+    _indexObject: 0
+    _positionObject: {x: 5, y: 0, z: 5}
+  - _typeObject: 3
+    _indexObject: 0
+    _positionObject: {x: 5, y: 0, z: 6}
+  - _typeObject: 3
+    _indexObject: 0
+    _positionObject: {x: 5, y: 0, z: 8}
+  - _typeObject: 4
+    _indexObject: 0
+    _positionObject: {x: 5, y: 1, z: 2}
+  - _typeObject: 2
+    _indexObject: 0
+    _positionObject: {x: 5, y: 1, z: 4}
+  - _typeObject: 1
+    _indexObject: 0
+    _positionObject: {x: 5, y: 1, z: 5}
+  - _typeObject: 2
+    _indexObject: 0
+    _positionObject: {x: 5, y: 1, z: 6}
+  - _typeObject: 4
+    _indexObject: 0
+    _positionObject: {x: 5, y: 1, z: 8}
+  - _typeObject: 3
+    _indexObject: 0
+    _positionObject: {x: 6, y: 0, z: 2}
+  - _typeObject: 3
+    _indexObject: 0
+    _positionObject: {x: 6, y: 0, z: 4}
+  - _typeObject: 3
+    _indexObject: 0
+    _positionObject: {x: 6, y: 0, z: 5}
+  - _typeObject: 3
+    _indexObject: 0
+    _positionObject: {x: 6, y: 0, z: 6}
+  - _typeObject: 3
+    _indexObject: 0
+    _positionObject: {x: 6, y: 0, z: 8}
+  - _typeObject: 2
+    _indexObject: 0
+    _positionObject: {x: 6, y: 1, z: 5}
+  - _typeObject: 3
+    _indexObject: 0
+    _positionObject: {x: 8, y: 0, z: 2}
+  - _typeObject: 3
+    _indexObject: 0
+    _positionObject: {x: 8, y: 0, z: 4}
+  - _typeObject: 3
+    _indexObject: 0
+    _positionObject: {x: 8, y: 0, z: 5}
+  - _typeObject: 3
+    _indexObject: 0
+    _positionObject: {x: 8, y: 0, z: 6}
+  - _typeObject: 3
+    _indexObject: 0
+    _positionObject: {x: 8, y: 0, z: 8}
+  - _typeObject: 4
+    _indexObject: 0
+    _positionObject: {x: 8, y: 1, z: 5}

@@ -32,11 +32,13 @@ public class DynamicObjects : Block
   private void Awake()
   {
     rigidbody = GetComponent<Rigidbody>();
+
+    //typeObject = TypeObject.dynamicObject;
   }
 
   private void Start()
   {
-    typeObject = TypeObject.dynamicObject;
+    
   }
 
   private void Update()

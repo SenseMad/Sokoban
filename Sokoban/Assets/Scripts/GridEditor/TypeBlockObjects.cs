@@ -20,6 +20,8 @@ namespace Sokoban.GridEditor
     /// </summary>
     public TypeObject GetTypeObjects => _typeObjects;
 
+    public List<Block> GetListBlockObjects() => _listBlockObjects;
+
     //======================================
 
     /// <summary>

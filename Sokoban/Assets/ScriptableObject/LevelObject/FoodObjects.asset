@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4e8d257fb3980644dadcf0d84473e3aa, type: 3}
   m_Name: FoodObjects
   m_EditorClassIdentifier: 
-  _typeObjects: 3
+  _typeObjects: 4
   _listBlockObjects:
   - {fileID: 3564449593172361865, guid: db1bc89eeb649284e91246f5cad6922e, type: 3}

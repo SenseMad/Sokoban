@@ -4,28 +4,47 @@ using UnityEngine;
 
 public abstract class Block : MonoBehaviour
 {
+  [SerializeField, Tooltip("Тип объекта")]
+  private TypeObject _typeObject;
+
   [SerializeField, Tooltip("Индекс объекта")]
-  protected int _indexObject;
+  private int _indexObject;
 
   [SerializeField, Tooltip("Позиция объекта")]
-  protected Vector3Int _objectPosition;
+  private Vector3Int _objectPosition;
 
-  /// <summary>
-  /// Тип объекта
-  /// </summary>
-  protected TypeObject typeObject;
+  [SerializeField, Tooltip("Название объекта")]
+  private string _nameObject;
+
+  [SerializeField, Tooltip("Спрайт объекта")]
+  private Sprite _spriteObject;
 
   //======================================
 
   /// <summary>
-  /// Получить тип объекта
+  /// Получить индекс объекта
   /// </summary>
-  public TypeObject GetTypeObject() => typeObject;
+  public int GetIndexObject() => _indexObject;
 
   /// <summary>
   /// Получить позицию объекта
   /// </summary>
   public Vector3Int GetObjectPosition() => _objectPosition;
+
+  /// <summary>
+  /// Получить название объекта
+  /// </summary>
+  public string GetNameObject() => _nameObject;
+
+  /// <summary>
+  /// Получить спрайт объекта
+  /// </summary>
+  public Sprite GetSpriteObject() => _spriteObject;
+
+  /// <summary>
+  /// Получить тип объекта
+  /// </summary>
+  public TypeObject GetTypeObject() => _typeObject;
 
   //======================================
 

@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4e8d257fb3980644dadcf0d84473e3aa, type: 3}
   m_Name: PlayerObjects
   m_EditorClassIdentifier: 
-  _typeObjects: 0
+  _typeObjects: 1
   _listBlockObjects:
   - {fileID: 7587224145540409192, guid: bb208ec8e00244345a28d37fc6de9b7f, type: 3}

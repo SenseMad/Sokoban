@@ -25,8 +25,6 @@ namespace Sokoban.LevelManagement
 
     private GameManager gameManager;
 
-    //private PauseManager pauseManager;
-
     //======================================
 
     /// <summary>
@@ -38,11 +36,6 @@ namespace Sokoban.LevelManagement
     /// Сетка уровня
     /// </summary>
     public GridLevel GridLevel => _gridLevel;
-
-    /// <summary>
-    /// True, если игра остановлена
-    /// </summary>
-    //public bool IsPause { get => pauseManager.IsPause; }
 
     //======================================
 

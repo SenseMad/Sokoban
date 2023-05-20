@@ -26,9 +26,9 @@ public class FoodObject : InteractiveObjects
 
   //======================================
 
-  private void Start()
+  private void Awake()
   {
-    typeObject = TypeObject.foodObject;
+    //typeObject = TypeObject.foodObject;
   }
 
   private void OnTriggerEnter(Collider other)

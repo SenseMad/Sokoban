@@ -130,8 +130,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1ea367f2924effc42b2515143397e56c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _typeObject: 2
   _indexObject: 0
   _objectPosition: {x: 0, y: 0, z: 0}
+  _nameObject: 
+  _spriteObject: {fileID: 0}
 --- !u!65 &4001734293871163822
 BoxCollider:
   m_ObjectHideFlags: 0

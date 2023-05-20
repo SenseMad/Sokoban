@@ -179,9 +179,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 93cb3808dd7166743a7b546f0177b8f1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _typeObject: 0
+  _typeObject: 1
   _indexObject: 0
   _objectPosition: {x: 0, y: 0, z: 0}
+  _nameObject: 
+  _spriteObject: {fileID: 0}
+  _speed: 2
 --- !u!95 &3884544150236789074
 Animator:
   serializedVersion: 5

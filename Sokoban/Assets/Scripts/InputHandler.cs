@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class InputHandler : SingletonInGame<InputHandler>
@@ -52,12 +50,13 @@ public class InputHandler : SingletonInGame<InputHandler>
   }
 
   #region Камера
+
   /// <summary>
   /// Получить кнопку меделеного полета камеры
   /// </summary>
   public bool GetButtonSlowCamera()
   {
-    return CanProcessInput() ? AI_Player.Camera.SlowCameraSpeed.ReadValue<float>() == 1 : false;
+    return CanProcessInput() && AI_Player.Camera.SlowCameraSpeed.ReadValue<float>() == 1;
   }
 
   /// <summary>
@@ -65,8 +64,9 @@ public class InputHandler : SingletonInGame<InputHandler>
   /// </summary>
   public bool GetButtonFastCamera()
   {
-    return CanProcessInput() ? AI_Player.Camera.FastCameraSpeed.ReadValue<float>() == 1 : false;
+    return CanProcessInput() && AI_Player.Camera.FastCameraSpeed.ReadValue<float>() == 1;
   }
+
   #endregion
 
   #region UI
@@ -87,21 +87,6 @@ public class InputHandler : SingletonInGame<InputHandler>
     return AI_Player != null ? AI_Player.Player.Move.ReadValue<Vector2>().x : 0f;
   }
 
-  /// <summary>
-  /// Получить кнопку паузы
-  /// </summary>
-  /*public bool GetButtonPause()
-  {
-    return CanProcessInput() ? AI_Player.UI.Pause.ReadValue<float>() == 1 : false;
-  }
-
-  /// <summary>
-  /// Получить кнопку перезагрузки
-  /// </summary>
-  public bool GetButtonReload()
-  {
-    return CanProcessInput() ? AI_Player.UI.Reload.ReadValue<float>() == 1 : false;
-  }*/
   #endregion
 
   //======================================

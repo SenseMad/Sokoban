@@ -15,6 +15,24 @@ namespace Sokoban.GridEditor
     //======================================
 
     /// <summary>
+    /// Получить список всех блоков
+    /// </summary>
+    public List<Block> GetListAllBlock()
+    {
+      var tempListBlock = new List<Block>();
+
+      foreach (var blockObjectType in _listBlockObjectTypes)
+      {
+        foreach (var block in blockObjectType.GetListBlockObjects())
+        {
+          tempListBlock.Add(block);
+        }
+      }
+
+      return tempListBlock;
+    }
+
+    /// <summary>
     /// Получить объект блока
     /// </summary>
     /// <param name="parTypeObject">Тип объекта</param>
