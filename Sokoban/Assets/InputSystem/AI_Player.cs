@@ -189,6 +189,24 @@ public partial class @AI_Player: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""RotationLeft"",
+                    ""type"": ""Button"",
+                    ""id"": ""3b36342e-197f-4dc4-ba85-413dc412ea06"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""RotationRight"",
+                    ""type"": ""Button"",
+                    ""id"": ""93ee5176-89d3-4333-adcb-c2b415727883"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -279,6 +297,28 @@ public partial class @AI_Player: IInputActionCollection2, IDisposable
                     ""action"": ""SlowCameraSpeed"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""09370b60-10b4-42fe-a873-818b9c74811d"",
+                    ""path"": ""<Keyboard>/comma"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""RotationLeft"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""5cccbd81-1800-4296-ad1c-172ca2027188"",
+                    ""path"": ""<Keyboard>/period"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""RotationRight"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         },
@@ -362,6 +402,8 @@ public partial class @AI_Player: IInputActionCollection2, IDisposable
         m_Camera_Move = m_Camera.FindAction("Move", throwIfNotFound: true);
         m_Camera_SlowCameraSpeed = m_Camera.FindAction("SlowCameraSpeed", throwIfNotFound: true);
         m_Camera_FastCameraSpeed = m_Camera.FindAction("FastCameraSpeed", throwIfNotFound: true);
+        m_Camera_RotationLeft = m_Camera.FindAction("RotationLeft", throwIfNotFound: true);
+        m_Camera_RotationRight = m_Camera.FindAction("RotationRight", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Pause = m_UI.FindAction("Pause", throwIfNotFound: true);
@@ -478,6 +520,8 @@ public partial class @AI_Player: IInputActionCollection2, IDisposable
     private readonly InputAction m_Camera_Move;
     private readonly InputAction m_Camera_SlowCameraSpeed;
     private readonly InputAction m_Camera_FastCameraSpeed;
+    private readonly InputAction m_Camera_RotationLeft;
+    private readonly InputAction m_Camera_RotationRight;
     public struct CameraActions
     {
         private @AI_Player m_Wrapper;
@@ -486,6 +530,8 @@ public partial class @AI_Player: IInputActionCollection2, IDisposable
         public InputAction @Move => m_Wrapper.m_Camera_Move;
         public InputAction @SlowCameraSpeed => m_Wrapper.m_Camera_SlowCameraSpeed;
         public InputAction @FastCameraSpeed => m_Wrapper.m_Camera_FastCameraSpeed;
+        public InputAction @RotationLeft => m_Wrapper.m_Camera_RotationLeft;
+        public InputAction @RotationRight => m_Wrapper.m_Camera_RotationRight;
         public InputActionMap Get() { return m_Wrapper.m_Camera; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -507,6 +553,12 @@ public partial class @AI_Player: IInputActionCollection2, IDisposable
             @FastCameraSpeed.started += instance.OnFastCameraSpeed;
             @FastCameraSpeed.performed += instance.OnFastCameraSpeed;
             @FastCameraSpeed.canceled += instance.OnFastCameraSpeed;
+            @RotationLeft.started += instance.OnRotationLeft;
+            @RotationLeft.performed += instance.OnRotationLeft;
+            @RotationLeft.canceled += instance.OnRotationLeft;
+            @RotationRight.started += instance.OnRotationRight;
+            @RotationRight.performed += instance.OnRotationRight;
+            @RotationRight.canceled += instance.OnRotationRight;
         }
 
         private void UnregisterCallbacks(ICameraActions instance)
@@ -523,6 +575,12 @@ public partial class @AI_Player: IInputActionCollection2, IDisposable
             @FastCameraSpeed.started -= instance.OnFastCameraSpeed;
             @FastCameraSpeed.performed -= instance.OnFastCameraSpeed;
             @FastCameraSpeed.canceled -= instance.OnFastCameraSpeed;
+            @RotationLeft.started -= instance.OnRotationLeft;
+            @RotationLeft.performed -= instance.OnRotationLeft;
+            @RotationLeft.canceled -= instance.OnRotationLeft;
+            @RotationRight.started -= instance.OnRotationRight;
+            @RotationRight.performed -= instance.OnRotationRight;
+            @RotationRight.canceled -= instance.OnRotationRight;
         }
 
         public void RemoveCallbacks(ICameraActions instance)
@@ -612,6 +670,8 @@ public partial class @AI_Player: IInputActionCollection2, IDisposable
         void OnMove(InputAction.CallbackContext context);
         void OnSlowCameraSpeed(InputAction.CallbackContext context);
         void OnFastCameraSpeed(InputAction.CallbackContext context);
+        void OnRotationLeft(InputAction.CallbackContext context);
+        void OnRotationRight(InputAction.CallbackContext context);
     }
     public interface IUIActions
     {

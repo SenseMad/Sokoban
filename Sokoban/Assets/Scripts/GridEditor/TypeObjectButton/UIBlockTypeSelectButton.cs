@@ -11,14 +11,23 @@ namespace Sokoban.GridEditor
     [SerializeField, Tooltip("Image объекта")]
     private Image _imageObject;
 
-    [SerializeField, Tooltip("Текст названия объекта")]
+    [SerializeField, Tooltip("Текст индекса объекта")]
     private TextMeshProUGUI _textNameObject;
 
     //======================================
 
     public Button Button { get; set; }
 
+    public Image Image { get; set; }
+
     public TypeObject TypeObject { get; set; }
+
+    //======================================
+
+    private void Awake()
+    {
+      Image = GetComponent<Image>();
+    }
 
     //======================================
 
@@ -34,7 +43,16 @@ namespace Sokoban.GridEditor
 
     //======================================
 
-
+    /// <summary>
+    /// Изменить цвет
+    /// </summary>
+    public void ChangeColor(bool parValue)
+    {
+      if (parValue)
+        Image.color = ColorsGame.SELECTED_COLOR;
+      else
+        Image.color = ColorsGame.STANDART_COLOR;
+    }
 
     //======================================
   }

@@ -50,8 +50,8 @@ namespace Sokoban.GridEditor
     {
       Move();
 
-      if (!gridEditor.EditMode)
-        return;
+      /*if (!gridEditor.EditMode)
+        return;*/
 
       RotateCamera();
 

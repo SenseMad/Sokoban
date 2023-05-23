@@ -104,6 +104,11 @@ namespace Sokoban.GridEditor
     //======================================
 
     /// <summary>
+    /// Получить ...
+    /// </summary>
+    public Block[,,] GetBlockObjects() => blockObjects;
+
+    /// <summary>
     /// Получить размер поля
     /// </summary>
     public Vector3Int GetFieldSize() => _fieldSize;

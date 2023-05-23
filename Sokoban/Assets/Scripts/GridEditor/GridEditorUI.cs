@@ -78,7 +78,22 @@ namespace Sokoban.GridEditor
 
     //======================================
 
-
+    /// <summary>
+    /// Количество нажатий на кнопку создать
+    /// </summary>
+    private int numberClickCreateButton;
+    /// <summary>
+    /// Количество нажатий на кнопку подтвердить
+    /// </summary>
+    private int numberClickConfirmButton;
+    /// <summary>
+    /// Количество нажатий на кнопку загрузить
+    /// </summary>
+    private int numberClickLoadButton;
+    /// <summary>
+    /// Количество нажатий на кнопку очистить
+    /// </summary>
+    private int numberClickClearButton;
 
     //======================================
 
@@ -123,7 +138,7 @@ namespace Sokoban.GridEditor
 
       #region InputField
 
-      _buttonConfirm.onClick.AddListener(() => ChangeFieldSize());
+      _buttonConfirm.onClick.AddListener(() => UIConfrirm());
 
       #endregion
 
@@ -131,7 +146,7 @@ namespace Sokoban.GridEditor
 
       _buttonCreate.onClick.AddListener(() => UICreateLevelData());
       _buttonSave.onClick.AddListener(() => gridEditor.SaveLevelData());
-      _buttonLoad.onClick.AddListener(() => gridEditor.LoadLevelData());
+      _buttonLoad.onClick.AddListener(() => UILoadLevelData());
       _buttonClear.onClick.AddListener(() => UIClearLevelData());
 
       _gridLevelDownButton.onClick.AddListener(() => ChangeGridLevel(false));
@@ -161,7 +176,7 @@ namespace Sokoban.GridEditor
 
       #region InputField
 
-      _buttonConfirm.onClick.AddListener(() => ChangeFieldSize());
+      _buttonConfirm.onClick.AddListener(() => UIConfrirm());
 
       #endregion
 
@@ -169,7 +184,7 @@ namespace Sokoban.GridEditor
 
       _buttonCreate.onClick.RemoveListener(() => UICreateLevelData());
       _buttonSave.onClick.RemoveListener(() => gridEditor.SaveLevelData());
-      _buttonLoad.onClick.RemoveListener(() => gridEditor.LoadLevelData());
+      _buttonLoad.onClick.RemoveListener(() => UILoadLevelData());
       _buttonClear.onClick.RemoveListener(() => UIClearLevelData());
 
       _gridLevelDownButton.onClick.RemoveListener(() => ChangeGridLevel(false));
@@ -313,10 +328,10 @@ namespace Sokoban.GridEditor
         UIBlockTypeSelectButton button = Instantiate(_prefabButtonTypeObject, _blockTypeSelectionPanel);
         button.Button = button.GetComponent<Button>();
 
-        button.Button.onClick.AddListener(() => SelectObject(block.GetTypeObject(), block.GetIndexObject()));
+        button.Button.onClick.AddListener(() => SelectObject(block, button));
         listBlocks.Add(button);
 
-        button.InitializeButton(block.GetTypeObject(), block.GetSpriteObject(), block.GetNameObject());
+        button.InitializeButton(block.GetTypeObject(), block.GetSpriteObject(), $"{block.GetIndexObject()}");
       }
     }
 
@@ -325,10 +340,19 @@ namespace Sokoban.GridEditor
     /// </summary>
     /// <param name="parTypeObject">Тип объекта</param>
     /// <param name="parIndexObject">Индекс объекта</param>
-    private void SelectObject(TypeObject parTypeObject, int parIndexObject)
+    private void SelectObject(Block parBlock, UIBlockTypeSelectButton parUIBlockTypeSelectButton)
     {
-      gridEditor.TypeSelectedObject = parTypeObject;
-      gridEditor.IndexSelectedObject = parIndexObject;
+      gridEditor.TypeSelectedObject = parBlock.GetTypeObject();
+      gridEditor.IndexSelectedObject = parBlock.GetIndexObject();
+
+      parUIBlockTypeSelectButton.ChangeColor(true);
+      foreach (var block in listBlocks)
+      {
+        if (block == parUIBlockTypeSelectButton)
+          continue;
+
+        block.ChangeColor(false);
+      }
     }
 
     #endregion
@@ -510,8 +534,69 @@ namespace Sokoban.GridEditor
     /// </summary>
     private void UICreateLevelData()
     {
+      numberClickCreateButton++;
+
+      numberClickConfirmButton = 0;
+      numberClickLoadButton = 0;
+      numberClickClearButton = 0;
+
+      if (numberClickCreateButton < 2)
+        return;
+
+      numberClickCreateButton = 0;
+
+      int tempNum = 0;
+      foreach (var blockObject in gridEditor.GetBlockObjects())
+      {
+        if (blockObject == null)
+          continue;
+
+        tempNum++;
+      }
+
+      if (tempNum == 0)
+        return;
+
       gridEditor.CreateLevelData();
       AddNumberLevelDropDown(gridEditor.SelectedLocation);
+
+      gridEditor.ClearLevelObjects();
+      gridEditor.CurrentLevelData = null;
+    }
+
+    private void UIConfrirm()
+    {
+      numberClickConfirmButton++;
+
+      numberClickCreateButton = 0;
+      numberClickLoadButton = 0;
+      numberClickClearButton = 0;
+
+      if (numberClickConfirmButton < 2)
+        return;
+
+      numberClickConfirmButton = 0;
+
+      ChangeFieldSize();
+    }
+
+    /// <summary>
+    /// UI Загрузка данных уровня
+    /// </summary>
+    private void UILoadLevelData()
+    {
+      numberClickLoadButton++;
+
+      numberClickCreateButton = 0;
+      numberClickConfirmButton = 0;
+      numberClickClearButton = 0;
+
+      if (numberClickLoadButton < 2)
+        return;
+
+      numberClickLoadButton = 0;
+
+      gridEditor.LoadLevelData();
     }
 
     /// <summary>
@@ -519,6 +604,17 @@ namespace Sokoban.GridEditor
     /// </summary>
     private void UIClearLevelData()
     {
+      numberClickClearButton++;
+
+      numberClickCreateButton = 0;
+      numberClickLoadButton = 0;
+      numberClickConfirmButton = 0;
+
+      if (numberClickClearButton < 2)
+        return;
+
+      numberClickClearButton = 0;
+
       gridEditor.ClearLevelObjects();
       gridEditor.CurrentLevelData = null;
     }

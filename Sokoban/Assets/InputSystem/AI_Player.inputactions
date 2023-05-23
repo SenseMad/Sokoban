@@ -167,6 +167,24 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "RotationLeft",
+                    "type": "Button",
+                    "id": "3b36342e-197f-4dc4-ba85-413dc412ea06",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "RotationRight",
+                    "type": "Button",
+                    "id": "93ee5176-89d3-4333-adcb-c2b415727883",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -255,6 +273,28 @@
                     "processors": "",
                     "groups": "",
                     "action": "SlowCameraSpeed",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "09370b60-10b4-42fe-a873-818b9c74811d",
+                    "path": "<Keyboard>/comma",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "RotationLeft",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "5cccbd81-1800-4296-ad1c-172ca2027188",
+                    "path": "<Keyboard>/period",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "RotationRight",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
