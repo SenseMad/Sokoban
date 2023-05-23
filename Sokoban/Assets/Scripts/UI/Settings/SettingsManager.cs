@@ -74,7 +74,6 @@ namespace Sokoban.UI
     {
       gameManager.SettingsData.SoundVolume = parValue;
       Sound();
-      //AudioManager.OnPlaySoundInterface?.Invoke();
     }
 
     //======================================

@@ -1,24 +1,21 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using TMPro;
 
 using Sokoban.LevelManagement;
-using Sokoban.GameManagement;
 
 namespace Sokoban.UI
 {
   public class UILevelComplete : MonoBehaviour
   {
-    [Header("ѕјЌ≈Ћ№")]
-    [SerializeField, Tooltip("ѕанель пройденного уровн¤")]
+    [Header("ПАНЕЛЬ")]
+    [SerializeField, Tooltip("Панель пройденного уровн¤")]
     private Panel _levelCompletePanel;
 
-    [Header("“≈ —“")]
-    [SerializeField, Tooltip("“екст времени прохождени¤ уровн¤")]
+    [Header("ТЕКСТЫ")]
+    [SerializeField, Tooltip("Текст времени прохождени¤ уровн¤")]
     private TextMeshProUGUI _textLevelCompletedTime;
-    [SerializeField, Tooltip("“екст количества ходов")]
+    [SerializeField, Tooltip("Текст количества ходов")]
     private TextMeshProUGUI _textNumberMoves;
 
     //--------------------------------------
@@ -63,42 +60,36 @@ namespace Sokoban.UI
     //======================================
 
     /// <summary>
-    /// ќбновить текст при завершении уровн¤
+    /// Обновить текст при завершении уровня
     /// </summary>
     private void UpdateText()
     {
-      UpdateTextTime();
+      UpdateTextTimeLevel();
       UpdateTextNumberMoves();
 
       panelController.ShowPanel(_levelCompletePanel);
     }
 
     /// <summary>
-    /// ќбновить текст времени проведенного на уровне
+    /// Обновить текст времени на уровне
     /// </summary>
-    private void UpdateTextTime()
+    private void UpdateTextTimeLevel()
     {
-      int time = (int)(levelManager.TimeOnLevel * 1000f);
-      float formatedTime = (float)time;
-
-      string min = $"{(int)formatedTime / 1000 / 60}";
-      string sec = ((int)formatedTime / 1000f % 60f).ToString("f3");
-
-      _textLevelCompletedTime.text = $"¬–≈ћя ѕ–ќ’ќ∆ƒ≈Ќ»я ”–ќ¬Ќя: {min}:{sec}";
+      _textLevelCompletedTime.text = $"Время прохожения: {levelManager.UpdateTextTimeLevel()}";
     }
 
     /// <summary>
-    /// ќбновить текст количества ходов
+    /// Обновить текст количества ходов
     /// </summary>
     private void UpdateTextNumberMoves()
     {
-      _textNumberMoves.text = $" ќЋ»„≈—“¬ќ ’ќƒќ¬: {levelManager.NumberMoves}";
+      _textNumberMoves.text = $"Количество ходов: {levelManager.NumberMoves}";
     }
 
     //======================================
 
     /// <summary>
-    /// —ледующий уровень
+    /// Следующий уровень
     /// </summary>
     public void OnSelect(InputAction.CallbackContext context)
     {
@@ -109,7 +100,7 @@ namespace Sokoban.UI
     }
 
     /// <summary>
-    /// ѕерезугрузка уровн¤
+    /// Перезагрузка уровнЯ
     /// </summary>
     public void OnReload(InputAction.CallbackContext context)
     {
@@ -121,7 +112,7 @@ namespace Sokoban.UI
     }
 
     /// <summary>
-    /// ¬ыход в меню
+    /// Выход в меню
     /// </summary>
     public void OnExitMenu(InputAction.CallbackContext context)
     {

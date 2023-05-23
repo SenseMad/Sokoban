@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 using Sokoban.LevelManagement;
@@ -9,7 +7,7 @@ using Sokoban.LevelManagement;
 /// </summary>
 public class FoodObject : InteractiveObjects
 {
-  [SerializeField, Tooltip("Тид еды")]
+  [SerializeField, Tooltip("Тип еды")]
   private TypesFood _typeFood;
 
   //======================================
@@ -25,11 +23,6 @@ public class FoodObject : InteractiveObjects
   public bool IsFoodCollected { get; private set; }
 
   //======================================
-
-  private void Awake()
-  {
-    //typeObject = TypeObject.foodObject;
-  }
 
   private void OnTriggerEnter(Collider other)
   {

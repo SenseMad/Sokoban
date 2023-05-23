@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
@@ -141,8 +140,6 @@ namespace Sokoban.GridEditor
         newBlockObject.transform.position = levelObject.PositionObject;
         newBlockObject.SetPositionObject(levelObject.PositionObject);
         blockObjects[levelObject.PositionObject.x, levelObject.PositionObject.y, levelObject.PositionObject.z] = newBlockObject;
-
-        //yield return new WaitForSeconds(0f);
       }
 
       FindAllFoodObjects();

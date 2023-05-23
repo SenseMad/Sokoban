@@ -402,10 +402,12 @@ namespace Sokoban.GridEditor
         });
       }
 
+#if UNITY_EDITOR
       string path = Levels.GetPathToStorageLevels(SelectedLocation, numLevel);
       AssetDatabase.CreateAsset(levelData, $"Assets/Resources/{path}.asset");
       AssetDatabase.SaveAssets();
       AssetDatabase.Refresh();
+#endif
 
       Levels.GetFullNumberLevelsLocation();
     }
@@ -465,6 +467,7 @@ namespace Sokoban.GridEditor
 
       CurrentLevelData.FieldSize = _fieldSize;
       CurrentLevelData.ListLevelObjects = new List<LevelData.GridData>();
+
       foreach (var blockObject in blockObjects)
       {
         if (blockObject == null)
@@ -477,9 +480,13 @@ namespace Sokoban.GridEditor
           PositionObject = blockObject.GetObjectPosition()
         });
       }
+
+#if UNITY_EDITOR
+      EditorUtility.SetDirty(CurrentLevelData);
+#endif
     }
 
-    #endregion
+#endregion
 
     //======================================
 

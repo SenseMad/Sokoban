@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Events;
 
 using Sokoban.LevelManagement;
 
@@ -12,6 +11,8 @@ namespace Sokoban.GameManagement
   [System.Serializable]
   public sealed class ProgressData
   {
+    #region (Таблицы) Локаций/Уровней
+
     /// <summary>
     /// Таблица количества пройденных уровней на локации
     /// </summary>
@@ -25,7 +26,11 @@ namespace Sokoban.GameManagement
     /// </summary>
     public Dictionary<Location, Dictionary<int, LevelProgressData>> levelProgressData = new Dictionary<Location, Dictionary<int, LevelProgressData>>();
 
+    #endregion
+
     //======================================
+
+    #region (Функции) Локации/Уровни
 
     /// <summary>
     /// Открыть локацию
@@ -144,6 +149,8 @@ namespace Sokoban.GameManagement
     {
       return tableNumberCompletedLevelsLocation.ContainsKey(parLocation);
     }
+
+    #endregion
 
     //======================================
   }

@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 using Sokoban.LevelManagement;
@@ -21,13 +19,6 @@ public class ButtonDoorObject : InteractiveObjects
   private void Awake()
   {
     levelManager = LevelManager.Instance;
-
-    //typeObject = TypeObject.buttonDoorObject;
-  }
-
-  private void Start()
-  {
-    
   }
 
   //======================================

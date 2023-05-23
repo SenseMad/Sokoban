@@ -33,6 +33,11 @@ namespace Sokoban.LevelManagement
     public bool LevelCompleted { get; set; }
 
     /// <summary>
+    /// True, если пауза
+    /// </summary>
+    public bool IsPause { get; private set; }
+    
+    /// <summary>
     /// Сетка уровня
     /// </summary>
     public GridLevel GridLevel => _gridLevel;
@@ -52,8 +57,8 @@ namespace Sokoban.LevelManagement
     /// <summary>
     /// Событие: Пауза
     /// </summary>
-    public UnityEvent<bool> IsPause { get; } = new UnityEvent<bool>();
-
+    public UnityEvent<bool> OnPauseEvent { get; } = new UnityEvent<bool>();
+    
     /// <summary>
     /// Событие: Уровень завершен
     /// </summary>
@@ -62,6 +67,10 @@ namespace Sokoban.LevelManagement
     /// Событие: Следующий уровень
     /// </summary>
     public UnityEvent IsNextLevel { get; } = new UnityEvent();
+    /// <summary>
+    /// Событие: Данные следующего уровня
+    /// </summary>
+    public UnityEvent<LevelData> IsNextLevelData { get; } = new UnityEvent<LevelData>();
     /// <summary>
     /// Событие: Перезагрузка уровня
     /// </summary>
@@ -123,8 +132,13 @@ namespace Sokoban.LevelManagement
 
     private void LateUpdate()
     {
-      if (!LevelCompleted)
-        TimeOnLevel += Time.deltaTime;
+      if (IsPause)
+        return;
+
+      if (LevelCompleted)
+        return;
+      
+      TimeOnLevel += Time.deltaTime;
     }
 
     //======================================
@@ -161,7 +175,33 @@ namespace Sokoban.LevelManagement
       return true;
     }
 
+    /// <summary>
+    /// Установить паузу
+    /// </summary>
+    public void SetPause(bool parValue)
+    {
+      IsPause = parValue;
+      OnPauseEvent?.Invoke(parValue);
+    }
+
     //======================================
+
+    /// <summary>
+    /// Обновить текст времени
+    /// </summary>
+    public string UpdateTextTimeLevel()
+    {
+      int hours = Mathf.FloorToInt(TimeOnLevel / 3600f);
+      int minutes = Mathf.FloorToInt((TimeOnLevel % 3600f) / 60f);
+      int seconds = Mathf.FloorToInt(TimeOnLevel % 60f);
+
+      if (hours > 0)
+        return $"{hours:00}:{minutes:00}:{seconds:00}";
+      else if (minutes > 0)
+        return $"{minutes:00}:{seconds:00}";
+      else
+        return $"{seconds:00}";
+    }
 
     /// <summary>
     /// Загрузить новый уровень
@@ -173,6 +213,8 @@ namespace Sokoban.LevelManagement
       var levelData = GetNextLevelData();
       if (levelData != null)
         _currentLevelData = levelData;
+
+      IsNextLevelData?.Invoke(_currentLevelData);
 
       ReloadLevel();
     }

@@ -21,13 +21,13 @@ namespace Sokoban.UI
     /// <summary>
     /// True, если игра остановлена
     /// </summary>
-    public bool IsPause
+    private bool IsPause
     {
       get => isPause;
-      private set
+      set
       {
         isPause = value;
-        levelManager.IsPause?.Invoke(isPause);
+        levelManager.SetPause(value);
       }
     }
 

@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public abstract class Block : MonoBehaviour
@@ -13,13 +11,18 @@ public abstract class Block : MonoBehaviour
   [SerializeField, Tooltip("Позиция объекта")]
   private Vector3Int _objectPosition;
 
+  [Header("UI")]
   [SerializeField, Tooltip("Название объекта")]
   private string _nameObject;
-
   [SerializeField, Tooltip("Спрайт объекта")]
   private Sprite _spriteObject;
 
   //======================================
+
+  /// <summary>
+  /// Получить тип объекта
+  /// </summary>
+  public TypeObject GetTypeObject() => _typeObject;
 
   /// <summary>
   /// Получить индекс объекта
@@ -40,11 +43,6 @@ public abstract class Block : MonoBehaviour
   /// Получить спрайт объекта
   /// </summary>
   public Sprite GetSpriteObject() => _spriteObject;
-
-  /// <summary>
-  /// Получить тип объекта
-  /// </summary>
-  public TypeObject GetTypeObject() => _typeObject;
 
   //======================================
 

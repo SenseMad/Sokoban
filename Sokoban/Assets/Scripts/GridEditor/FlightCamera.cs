@@ -43,7 +43,7 @@ namespace Sokoban.GridEditor
       inputHandler = InputHandler.Instance;
 
       virtualCamera = FindObjectOfType<CinemachineVirtualCamera>();
-      gridEditor = FindObjectOfType<GridEditor>();
+      //gridEditor = FindObjectOfType<GridEditor>();
     }
 
     private void Update()

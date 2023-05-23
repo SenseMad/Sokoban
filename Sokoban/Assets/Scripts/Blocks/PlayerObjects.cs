@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using Cinemachine;
 
 using Sokoban.LevelManagement;
@@ -62,6 +63,13 @@ public class PlayerObjects : Block
 
   //======================================
 
+  /// <summary>
+  /// Событие: Смерть игрока
+  /// </summary>
+  public UnityEvent OnPlayerDeathEvent { get; } = new UnityEvent();
+
+  //======================================
+
   private void Awake()
   {
     rigidbody = GetComponent<Rigidbody>();
@@ -78,14 +86,17 @@ public class PlayerObjects : Block
 
   private void Start()
   {
+    if (GridEditor.GridEditorEnabled)
+      RemoveRigidbody();
+
     if (cinemachineVirtual != null)
       cinemachineVirtual.Follow = transform;
   }
 
   private void OnEnable()
   {
-    if (levelManager)
-      levelManager.IsPause.AddListener(PossibleMove);
+    /*if (levelManager)
+      levelManager.OnPauseEvent.AddListener(PossibleMove);*/
 
     if (!isRotating)
     {
@@ -96,8 +107,8 @@ public class PlayerObjects : Block
 
   private void OnDisable()
   {
-    if (levelManager)
-      levelManager.IsPause.AddListener(PossibleMove);
+    /*if (levelManager)
+      levelManager.OnPauseEvent.AddListener(PossibleMove);*/
 
     if (!isRotating)
     {
@@ -157,8 +168,6 @@ public class PlayerObjects : Block
         Vector3 direction = new Vector3(cinemachineVirtualDirection.x, 0.0f, cinemachineVirtualDirection.z);
         //Vector3 direction = new Vector3(axisMovement.x, 0.0f, axisMovement.y);
         Move(direction);
-
-        //CameraRotation(90);
       }
 
       return;
@@ -186,7 +195,7 @@ public class PlayerObjects : Block
   /// <param name="parDirection">Направление движения</param>
   private bool Move(Vector3 parDirection)
   {
-    if (levelManager.LevelCompleted || !isPossibleMove || isMoving)
+    if (levelManager.LevelCompleted || levelManager.IsPause || isMoving)
       return false;
 
     if (Mathf.Abs(parDirection.x) < 0.5f)

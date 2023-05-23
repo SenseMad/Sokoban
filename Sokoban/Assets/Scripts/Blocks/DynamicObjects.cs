@@ -5,11 +5,6 @@ using UnityEngine;
 /// </summary>
 public class DynamicObjects : Block
 {
-
-  //--------------------------------------
-
-  private new Rigidbody rigidbody;
-
   /// <summary>
   /// True, если объект движется
   /// </summary>
@@ -27,18 +22,21 @@ public class DynamicObjects : Block
   /// </summary>
   private Vector3 direction;
 
+  //--------------------------------------
+
+  private new Rigidbody rigidbody;
+
   //======================================
 
   private void Awake()
   {
     rigidbody = GetComponent<Rigidbody>();
-
-    //typeObject = TypeObject.dynamicObject;
   }
 
   private void Start()
   {
-    
+    if (Sokoban.GridEditor.GridEditor.GridEditorEnabled)
+      RemoveRigidbody();
   }
 
   private void Update()

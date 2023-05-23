@@ -64,9 +64,6 @@ namespace Sokoban.GridEditor
     [SerializeField, Tooltip("Текст локации/номера уровня")]
     private TextMeshProUGUI _textLocationName;
 
-    /*[SerializeField, Tooltip("Отобразить все подуровни")]
-    private Toggle _displayAllSubLevelToogle;*/
-
     //--------------------------------------
 
     private GridEditor gridEditor;
@@ -160,8 +157,6 @@ namespace Sokoban.GridEditor
       _toggleDeleteMode.onValueChanged.AddListener(ChangeToggleDeleteMode);
 
       #endregion
-
-      //_displayAllSubLevelToogle.onValueChanged.AddListener(parValue => ShowHideAllSublevels());
     }
 
     private void OnDisable()
@@ -198,8 +193,6 @@ namespace Sokoban.GridEditor
       _toggleDeleteMode.onValueChanged.RemoveListener(ChangeToggleDeleteMode);
 
       #endregion
-
-      //_displayAllSubLevelToogle.onValueChanged.RemoveListener(parValue => ShowHideAllSublevels());
     }
 
     private void OnDestroy()
@@ -617,13 +610,6 @@ namespace Sokoban.GridEditor
 
       gridEditor.ClearLevelObjects();
       gridEditor.CurrentLevelData = null;
-    }
-
-    private void ShowHideAllSublevels()
-    {
-      /*gridEditor.ShowHideAllSublevels(_displayAllSubLevelToogle.isOn);
-
-      gridEditor.DisplayLevel = !_displayAllSubLevelToogle.isOn;*/
     }
 
     //======================================

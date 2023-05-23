@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
@@ -16,13 +14,6 @@ public class DoorObject : StaticObjects
   /// Получить цвет двери
   /// </summary>
   public DoorColor GetDoorColor() => _doorColor;
-
-  //======================================
-
-  private void Start()
-  {
-    //typeObject = TypeObject.doorObject;
-  }
 
   //======================================
 }
