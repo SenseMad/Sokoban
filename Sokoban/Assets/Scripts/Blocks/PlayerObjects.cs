@@ -14,7 +14,7 @@ public class PlayerObjects : Block
 
   //--------------------------------------
 
-  private new Rigidbody rigidbody;
+  public new Rigidbody rigidbody { get; private set; }
 
   private Animator animator;
 
@@ -70,8 +70,10 @@ public class PlayerObjects : Block
 
   //======================================
 
-  private void Awake()
+  protected override void Awake()
   {
+    base.Awake();
+
     rigidbody = GetComponent<Rigidbody>();
 
     animator = GetComponent<Animator>();
@@ -195,7 +197,7 @@ public class PlayerObjects : Block
   /// <param name="parDirection">Направление движения</param>
   private bool Move(Vector3 parDirection)
   {
-    if (levelManager.LevelCompleted || levelManager.IsPause || isMoving)
+    if (levelManager.LevelCompleted || levelManager.IsPause || isMoving || levelManager.GridLevel.GetStatesLevel())
       return false;
 
     if (Mathf.Abs(parDirection.x) < 0.5f)

@@ -125,13 +125,16 @@ namespace Sokoban.LevelManagement
 
     private void Start()
     {
-      _currentLevelData = Levels.CurrentSelectedLevelData;
+      //_currentLevelData = Levels.CurrentSelectedLevelData;
 
-      ReloadLevel();
+      //ReloadLevel();
     }
 
     private void LateUpdate()
     {
+      if (_currentLevelData == null)
+        return;
+
       if (IsPause)
         return;
 

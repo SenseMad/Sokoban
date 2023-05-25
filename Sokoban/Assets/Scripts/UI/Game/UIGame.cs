@@ -9,12 +9,12 @@ namespace Sokoban.UI
 {
   public class UIGame : MonoBehaviour
   {
-    [Header("ТЕКСТ")]
-    [SerializeField, Tooltip("Текст номера уровня")]
+    [Header("РўР•РљРЎРў")]
+    [SerializeField, Tooltip("РўРµРєСЃС‚ РЅРѕРјРµСЂР° СѓСЂРѕРІРЅСЏ")]
     private TextMeshProUGUI _textLevelNumber;
-    [SerializeField, Tooltip("Текст времени на уровне")]
+    [SerializeField, Tooltip("РўРµРєСЃС‚ РІСЂРµРјРµРЅРё РЅР° СѓСЂРѕРІРЅРµ")]
     private TextMeshProUGUI _textTimeLevel;
-    [SerializeField, Tooltip("Текст количества ходов")]
+    [SerializeField, Tooltip("РўРµРєСЃС‚ РєРѕР»РёС‡РµСЃС‚РІР° С…РѕРґРѕРІ")]
     private TextMeshProUGUI _textNumberMoves;
 
     //--------------------------------------
@@ -46,23 +46,23 @@ namespace Sokoban.UI
 
     private void UpdateText(LevelData parLevelData)
     {
-      _textLevelNumber.text = $"LEVEL: {parLevelData.LevelNumber}";
+      _textLevelNumber.text = $"LEVEL {parLevelData.LevelNumber}";
     }
 
     /// <summary>
-    /// Обновить текст времени на уровне
+    /// РћР±РЅРѕРІРёС‚СЊ С‚РµРєСЃС‚ РІСЂРµРјРµРЅРё РЅР° СѓСЂРѕРІРЅРµ
     /// </summary>
     private void UpdateTextTimeLevel(float parValue)
     {
-      _textTimeLevel.text = $"TIME: {levelManager.UpdateTextTimeLevel()}";
+      _textTimeLevel.text = $"{levelManager.UpdateTextTimeLevel()}";
     }
 
     /// <summary>
-    /// Обновить текст количества ходов
+    /// РћР±РЅРѕРІРёС‚СЊ С‚РµРєСЃС‚ РєРѕР»РёС‡РµСЃС‚РІР° С…РѕРґРѕРІ
     /// </summary>
     private void UpdateTextNumberMoves(int parValue)
     {
-      _textNumberMoves.text = $"NUMBER MOVES: {parValue}";
+      _textNumberMoves.text = $"{parValue}";
     }
 
     //======================================

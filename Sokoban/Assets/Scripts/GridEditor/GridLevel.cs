@@ -3,6 +3,7 @@ using UnityEngine;
 using UnityEngine.Events;
 
 using Sokoban.LevelManagement;
+using System.Collections;
 
 namespace Sokoban.GridEditor
 {
@@ -10,6 +11,15 @@ namespace Sokoban.GridEditor
   {
     [SerializeField, Tooltip("Список типов блочных объектов")]
     private ListBlockObjectTypes _listBlockObjectTypes;
+
+    [SerializeField, Tooltip("")]
+    private AnimationCurve animationCurve;
+
+    //--------------------------------------
+
+    private StatesLevel statesLevel;
+
+    private Coroutine myCoroutine;
 
     //======================================
 
@@ -44,11 +54,18 @@ namespace Sokoban.GridEditor
     /// </summary>
     public UnityEvent OnLevelCreated { get; } = new UnityEvent();
 
+    /// <summary>
+    /// Событие: Уровень удален
+    /// </summary>
+    public UnityEvent OnLevelDeleted { get; } = new UnityEvent();
+
     //======================================
 
     private void Start()
     {
       levelManager = LevelManager.Instance;
+
+      transform.localPosition = new Vector3(0, -2, 0);
     }
 
     //======================================
@@ -128,23 +145,9 @@ namespace Sokoban.GridEditor
     /// </summary>
     public void CreatingLevelGrid()
     {
-      // Если сетка уровня уже создана, удаляем её
       DeletingLevelObjects();
 
-      LevelData levelData = levelManager.GetCurrentLevelData();
-      blockObjects = new Block[levelData.FieldSize.x, levelData.FieldSize.y, levelData.FieldSize.z];
-
-      foreach (var levelObject in levelData.ListLevelObjects)
-      {
-        Block newBlockObject = Instantiate(_listBlockObjectTypes.GetBlockObject(levelObject.TypeObject, levelObject.IndexObject), transform);
-        newBlockObject.transform.position = levelObject.PositionObject;
-        newBlockObject.SetPositionObject(levelObject.PositionObject);
-        blockObjects[levelObject.PositionObject.x, levelObject.PositionObject.y, levelObject.PositionObject.z] = newBlockObject;
-      }
-
-      FindAllFoodObjects();
-      FindAllDoorObjects();
-      OnLevelCreated?.Invoke();
+      StartCoroutine(CreateLevel());
     }
 
     /// <summary>
@@ -155,15 +158,171 @@ namespace Sokoban.GridEditor
       if (blockObjects == null)
         return;
 
-      foreach (var blockObject in blockObjects)
-      {
-        if (blockObject == null)
-          continue;
+      myCoroutine = StartCoroutine(DeleteLevel());
+    }
 
-        Destroy(blockObject.gameObject);
+    /// <summary>
+    /// Создание уровня
+    /// </summary>
+    private IEnumerator CreateLevel()
+    {
+      while (myCoroutine != null)
+      {
+        yield return null;
       }
 
-      blockObjects = new Block[0, 0, 0];
+      statesLevel = StatesLevel.Created;
+      float timer = 0f;
+
+      LevelData levelData = levelManager.GetCurrentLevelData();
+      blockObjects = new Block[levelData.FieldSize.x, levelData.FieldSize.y, levelData.FieldSize.z];
+
+      foreach (var levelObject in levelManager.GetCurrentLevelData().ListLevelObjects)
+      {
+        Block newBlockObject = Instantiate(_listBlockObjectTypes.GetBlockObject(levelObject.TypeObject, levelObject.IndexObject), transform);
+
+        if (newBlockObject.GetTypeObject() != TypeObject.staticObject)
+          newBlockObject.transform.localScale = Vector3.zero;
+
+        newBlockObject.transform.position = levelObject.PositionObject;
+        newBlockObject.SetPositionObject(levelObject.PositionObject);
+        blockObjects[levelObject.PositionObject.x, levelObject.PositionObject.y, levelObject.PositionObject.z] = newBlockObject;
+      }
+
+      while (timer < 1)
+      {
+        timer += Time.deltaTime;
+        float t = Mathf.Clamp01(timer / 1);
+
+        transform.localPosition = new Vector3(0, -2, 0) * animationCurve.Evaluate(1 - t);
+
+        yield return null;
+      }
+
+      timer = 0f;
+
+      while (timer < 1)
+      {
+        timer += Time.deltaTime;
+        float t = Mathf.Clamp01(timer / 1);
+
+        foreach (var block in blockObjects)
+        {
+          if (block == null)
+            continue;
+
+          if (block.GetTypeObject() == TypeObject.staticObject)
+            continue;
+
+          block.transform.localScale = Vector3.one * animationCurve.Evaluate(t);
+        }
+
+        yield return null;
+      }
+
+      foreach (var block in blockObjects)
+      {
+        if (block == null)
+          continue;
+
+        block.GetBoxCollider().enabled = true;
+
+        if (block.TryGetComponent(out DynamicObjects dynamicObjects))
+        {
+          dynamicObjects.rigidbody.useGravity = true;
+        }
+
+        if (block.TryGetComponent(out PlayerObjects playerObjects))
+        {
+          playerObjects.rigidbody.useGravity = true;
+        }
+      }
+
+      FindAllFoodObjects();
+      FindAllDoorObjects();
+      statesLevel = StatesLevel.Completed;
+      OnLevelCreated?.Invoke();
+    }
+
+    /// <summary>
+    /// Удаление уровня
+    /// </summary>
+    private IEnumerator DeleteLevel()
+    {
+      statesLevel = StatesLevel.Deleted;
+      float timer = 0f;
+
+      while (timer < 1)
+      {
+        timer += Time.deltaTime;
+        float t = Mathf.Clamp01(timer / 1);
+
+        foreach (var block in blockObjects)
+        {
+          if (block == null)
+            continue;
+
+          if (block.GetTypeObject() == TypeObject.staticObject)
+            continue;
+
+          if (block.GetTypeObject() == TypeObject.dynamicObject || block.GetTypeObject() == TypeObject.playerObject)
+            block.RemoveRigidbody();
+
+          block.transform.localScale = Vector3.one * animationCurve.Evaluate(1 - t);
+        }
+
+        yield return null;
+      }
+
+      timer = 0;
+
+      while (timer < 1)
+      {
+        timer += Time.deltaTime;
+        float t = Mathf.Clamp01(timer / 1);
+
+        transform.localPosition = new Vector3(0, -2, 0) * animationCurve.Evaluate(t);
+        yield return null;
+      }
+
+      foreach (var block in blockObjects)
+      {
+        if (block == null)
+          continue;
+
+        Destroy(block.gameObject);
+      }
+
+      myCoroutine = null;
+    }
+
+    /// <summary>
+    /// True, если уровень Создается/Удаляется
+    /// </summary>
+    public bool GetStatesLevel()
+    {
+      return statesLevel == StatesLevel.Created || statesLevel == StatesLevel.Deleted;
+    }
+
+    //======================================
+
+    /// <summary>
+    /// Состояние уровня
+    /// </summary>
+    public enum StatesLevel
+    {
+      /// <summary>
+      /// Уровень создан
+      /// </summary>
+      Completed,
+      /// <summary>
+      /// Уровень создается
+      /// </summary>
+      Created,
+      /// <summary>
+      /// Уровень удаляется
+      /// </summary>
+      Deleted
     }
 
     //======================================

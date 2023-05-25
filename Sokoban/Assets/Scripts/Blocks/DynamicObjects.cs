@@ -24,12 +24,14 @@ public class DynamicObjects : Block
 
   //--------------------------------------
 
-  private new Rigidbody rigidbody;
+  public new Rigidbody rigidbody { get; private set; }
 
   //======================================
 
-  private void Awake()
+  protected override void Awake()
   {
+    base.Awake();
+
     rigidbody = GetComponent<Rigidbody>();
   }
 

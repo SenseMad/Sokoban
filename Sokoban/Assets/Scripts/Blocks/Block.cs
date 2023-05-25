@@ -17,6 +17,17 @@ public abstract class Block : MonoBehaviour
   [SerializeField, Tooltip("Спрайт объекта")]
   private Sprite _spriteObject;
 
+  //--------------------------------------
+
+  private BoxCollider boxCollider;
+
+  //======================================
+
+  protected virtual void Awake()
+  {
+    boxCollider = GetComponent<BoxCollider>();
+  }
+
   //======================================
 
   /// <summary>
@@ -43,6 +54,11 @@ public abstract class Block : MonoBehaviour
   /// Получить спрайт объекта
   /// </summary>
   public Sprite GetSpriteObject() => _spriteObject;
+
+  /// <summary>
+  /// Получить BoxCollider
+  /// </summary>
+  public BoxCollider GetBoxCollider() => boxCollider;
 
   //======================================
 
