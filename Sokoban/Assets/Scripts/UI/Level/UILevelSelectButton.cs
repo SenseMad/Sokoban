@@ -14,6 +14,14 @@ namespace Sokoban.UI
     [SerializeField, Tooltip("Текст названия уровня")]
     private TextMeshProUGUI _textLevelName;
 
+    [SerializeField, Tooltip("Image замка")]
+    private Image _imageLock;
+
+    [SerializeField, Tooltip("Спрайт стандартный")]
+    private Sprite _spriteStandart;
+    [SerializeField, Tooltip("Спрайт выделения")]
+    private Sprite _spriteSelected;
+
     //--------------------------------------
 
     private Image imageButton;
@@ -25,7 +33,7 @@ namespace Sokoban.UI
     /// <summary>
     /// True, если уровень открыт
     /// </summary>
-    public bool IsLevelOpen { get; private set; }
+    //public bool IsLevelOpen { get; private set; }
 
     //======================================
 
@@ -51,9 +59,19 @@ namespace Sokoban.UI
     public void ChangeColor()
     {
       _textLevelName.color = ColorsGame.STANDART_COLOR;
-      imageButton.color = ColorsGame.STANDART_COLOR;
+      imageButton.color = ColorsGame.SELECTED_COLOR_BLACK;
 
-      IsLevelOpen = true;
+      //IsLevelOpen = true;
+      _imageLock.gameObject.SetActive(false);
+      _textLevelName.gameObject.SetActive(true);
+    }
+
+    /// <summary>
+    /// Изменить спрайт
+    /// </summary>
+    public void ChangeSprite(bool parValue)
+    {
+      imageButton.sprite = parValue ? _spriteSelected : _spriteStandart;
     }
 
     //======================================

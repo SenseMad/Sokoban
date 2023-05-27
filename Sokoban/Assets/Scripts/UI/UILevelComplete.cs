@@ -6,7 +6,7 @@ using Sokoban.LevelManagement;
 
 namespace Sokoban.UI
 {
-  public class UILevelComplete : MonoBehaviour
+  public class UILevelComplete : MenuUI
   {
     [Header("ПАНЕЛЬ")]
     [SerializeField, Tooltip("Панель пройденного уровн¤")]
@@ -15,46 +15,66 @@ namespace Sokoban.UI
     [Header("ТЕКСТЫ")]
     [SerializeField, Tooltip("Текст времени прохождени¤ уровн¤")]
     private TextMeshProUGUI _textLevelCompletedTime;
+    [SerializeField, Tooltip("Текст номера уровня")]
+    private TextMeshProUGUI _textLevelNumber;
     [SerializeField, Tooltip("Текст количества ходов")]
     private TextMeshProUGUI _textNumberMoves;
 
     //--------------------------------------
 
-    private InputHandler inputHandler;
+    //private InputHandler inputHandler;
 
     private LevelManager levelManager;
 
-    private PanelController panelController;
+    //private PanelController panelController;
 
     //======================================
 
-    private void Awake()
+    protected override void Awake()
     {
-      inputHandler = InputHandler.Instance;
+      base.Awake();
+      //inputHandler = InputHandler.Instance;
 
       levelManager = LevelManager.Instance;
 
-      panelController = PanelController.Instance;
+      //panelController = PanelController.Instance;
     }
 
-    private void OnEnable()
+    protected override void OnEnable()
     {
-      inputHandler.AI_Player.UI.Select.performed += OnSelect;
+      IsSelected = false;
+      indexActiveButton = _listButtons.Count - 1;
+
+      base.OnEnable();
+
+      //IsSelected = false;
+
+      //inputHandler.AI_Player.UI.Select.performed += OnSelect;
       inputHandler.AI_Player.UI.Reload.performed += OnReload;
-      inputHandler.AI_Player.UI.Pause.performed += OnExitMenu;
+      //inputHandler.AI_Player.UI.Pause.performed += OnExitMenu;
 
       levelManager.IsNextLevel.AddListener(panelController.CloseAllPanels);
       levelManager.IsLevelCompleted.AddListener(UpdateText);
     }
 
-    private void OnDisable()
+    protected override void OnDisable()
     {
-      inputHandler.AI_Player.UI.Select.performed -= OnSelect;
+      base.OnDisable();
+
+      //inputHandler.AI_Player.UI.Select.performed -= OnSelect;
       inputHandler.AI_Player.UI.Reload.performed -= OnReload;
-      inputHandler.AI_Player.UI.Pause.performed -= OnExitMenu;
+      //inputHandler.AI_Player.UI.Pause.performed -= OnExitMenu;
 
       levelManager.IsNextLevel.RemoveListener(panelController.CloseAllPanels);
       levelManager.IsLevelCompleted.RemoveListener(UpdateText);
+    }
+
+    protected override void Update()
+    {
+      if (!levelManager.LevelCompleted)
+        return;
+
+      MoveMenuHorizontally();
     }
 
     //======================================
@@ -65,6 +85,7 @@ namespace Sokoban.UI
     private void UpdateText()
     {
       UpdateTextTimeLevel();
+      UpdateTextLevelNumber();
       UpdateTextNumberMoves();
 
       panelController.ShowPanel(_levelCompletePanel);
@@ -75,7 +96,15 @@ namespace Sokoban.UI
     /// </summary>
     private void UpdateTextTimeLevel()
     {
-      _textLevelCompletedTime.text = $"Время прохожения: {levelManager.UpdateTextTimeLevel()}";
+      _textLevelCompletedTime.text = $"{levelManager.UpdateTextTimeLevel()}";
+    }
+
+    /// <summary>
+    /// Обновить текст номера уровня
+    /// </summary>
+    private void UpdateTextLevelNumber()
+    {
+      _textLevelNumber.text = $"Level {levelManager.GetCurrentLevelData().LevelNumber}";
     }
 
     /// <summary>
@@ -83,7 +112,14 @@ namespace Sokoban.UI
     /// </summary>
     private void UpdateTextNumberMoves()
     {
-      _textNumberMoves.text = $"Количество ходов: {levelManager.NumberMoves}";
+      _textNumberMoves.text = $"{levelManager.NumberMoves}";
+    }
+
+    protected override void CloseMenu()
+    {
+      ExitMenu();
+
+      Sound();
     }
 
     //======================================
@@ -91,12 +127,55 @@ namespace Sokoban.UI
     /// <summary>
     /// Следующий уровень
     /// </summary>
-    public void OnSelect(InputAction.CallbackContext context)
+    public void NextLevel()
     {
       if (!levelManager.LevelCompleted)
         return;
 
       levelManager.UploadNewLevel();
+
+      IsSelected = false;
+      indexActiveButton = _listButtons.Count - 1;
+      IsSelected = true;
+    }
+
+    /// <summary>
+    /// Перезапуск уровня
+    /// </summary>
+    public void ReloadLevel()
+    {
+      if (!levelManager.LevelCompleted)
+        return;
+
+      panelController.CloseAllPanels();
+      levelManager.ReloadLevel();
+
+      IsSelected = false;
+      indexActiveButton = _listButtons.Count - 1;
+      IsSelected = true;
+    }
+
+    /// <summary>
+    /// Выход в меню
+    /// </summary>
+    public void ExitMenu()
+    {
+      if (!levelManager.LevelCompleted)
+        return;
+
+      levelManager.ExitMenu();
+
+      IsSelected = false;
+      indexActiveButton = _listButtons.Count - 1;
+      IsSelected = true;
+    }
+
+    /// <summary>
+    /// Следующий уровень
+    /// </summary>
+    public void OnSelect(InputAction.CallbackContext context)
+    {
+      NextLevel();
     }
 
     /// <summary>
@@ -104,11 +183,7 @@ namespace Sokoban.UI
     /// </summary>
     public void OnReload(InputAction.CallbackContext context)
     {
-      if (!levelManager.LevelCompleted)
-        return;
-
-      panelController.CloseAllPanels();
-      levelManager.ReloadLevel();
+      ReloadLevel();
     }
 
     /// <summary>
@@ -116,10 +191,7 @@ namespace Sokoban.UI
     /// </summary>
     public void OnExitMenu(InputAction.CallbackContext context)
     {
-      if (!levelManager.LevelCompleted)
-        return;
-
-      levelManager.ExitMenu();
+      ExitMenu();
     }
 
     //======================================

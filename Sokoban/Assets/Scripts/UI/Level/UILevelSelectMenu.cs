@@ -5,6 +5,7 @@ using UnityEngine.SceneManagement;
 
 using Sokoban.LevelManagement;
 using Sokoban.GameManagement;
+using TMPro;
 
 namespace Sokoban.UI
 {
@@ -19,6 +20,10 @@ namespace Sokoban.UI
     [Header("ПРЕФАБ")]
     [SerializeField, Tooltip("Префаб кнопки выбора уровня")]
     private UILevelSelectButton _prefabButtonLevelSelect;
+
+    [Header("ТЕКСТ")]
+    [SerializeField, Tooltip("Текст количества пройденных уровней")]
+    private TextMeshProUGUI _textNumberCompletedLevels;
 
     //--------------------------------------
 
@@ -60,11 +65,15 @@ namespace Sokoban.UI
         {
           IsSelected = false;
 
+          listUILevelSelectButton[indexActiveButton].ChangeSprite(false);
+
           indexActiveButton++;
 
           if (indexActiveButton > _listButtons.Count - 1) indexActiveButton = 0;
           if (gameManager.ProgressData.GetNumberLevelsCompleted(currentLocation) < indexActiveButton)
             indexActiveButton = 0;
+
+          listUILevelSelectButton[indexActiveButton].ChangeSprite(true);
 
           Sound();
           IsSelected = true;
@@ -74,11 +83,15 @@ namespace Sokoban.UI
         {
           IsSelected = false;
 
+          listUILevelSelectButton[indexActiveButton].ChangeSprite(false);
+
           indexActiveButton--;
 
           if (indexActiveButton < 0) indexActiveButton = _listButtons.Count - 1;
           while (gameManager.ProgressData.GetNumberLevelsCompleted(currentLocation) < indexActiveButton)
             indexActiveButton--;
+
+          listUILevelSelectButton[indexActiveButton].ChangeSprite(true);
 
           Sound();
           IsSelected = true;
@@ -120,6 +133,10 @@ namespace Sokoban.UI
 
       currentLocation = parLocation;
 
+      listUILevelSelectButton[indexActiveButton].ChangeSprite(true);
+
+      _textNumberCompletedLevels.text = $"{gameManager.ProgressData.GetNumberLevelsCompleted(parLocation)}/{Levels.GetNumberLevelsLocation(parLocation)}";
+
       base.OnEnable();
     }
 
@@ -137,6 +154,28 @@ namespace Sokoban.UI
       _listButtons = new List<Button>();
     }
 
+    protected override void OnSelected()
+    {
+      if (_listButtons.Count == 0)
+        return;
+
+      var listButtons = _listButtons[indexActiveButton];
+
+      var rectTransform = listButtons.GetComponent<RectTransform>();
+      rectTransform.localScale = new Vector3(1.1f, 1.1f, 1);
+    }
+
+    protected override void OnDeselected()
+    {
+      if (_listButtons.Count == 0)
+        return;
+
+      var listButtons = _listButtons[indexActiveButton];
+
+      var rectTransform = listButtons.GetComponent<RectTransform>();
+      rectTransform.localScale = new Vector3(1, 1, 1);
+    }
+
     //======================================
 
     /// <summary>
@@ -144,9 +183,15 @@ namespace Sokoban.UI
     /// </summary>
     private void SelectLevel(LevelData levelData)
     {
-      Levels.CurrentSelectedLevelData = levelData;
+      //Levels.CurrentSelectedLevelData = levelData;
 
-      SceneManager.LoadScene($"GameScene");
+      PanelController.Instance.CloseAllPanels1();
+
+      LevelManager.Instance.OnPauseEvent?.Invoke(false);
+
+      LevelManager.Instance.ReloadLevel(levelData);
+
+      //SceneManager.LoadScene($"GameScene");
     }
 
     //======================================

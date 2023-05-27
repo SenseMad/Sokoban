@@ -82,11 +82,15 @@ namespace Sokoban.UI
         {
           IsSelected = false;
 
+          listUILocationSelectButton[indexActiveButton].ChangeSprite(false);
+
           indexActiveButton++;
 
           if (indexActiveButton > _listButtons.Count - 1) indexActiveButton = 0;
           if (!gameManager.ProgressData.IsLocationOpen(listUILocationSelectButton[indexActiveButton].Location))
             indexActiveButton = 0;
+
+          listUILocationSelectButton[indexActiveButton].ChangeSprite(true);
 
           Sound();
           IsSelected = true;
@@ -96,11 +100,15 @@ namespace Sokoban.UI
         {
           IsSelected = false;
 
+          listUILocationSelectButton[indexActiveButton].ChangeSprite(false);
+
           indexActiveButton--;
 
           if (indexActiveButton < 0) indexActiveButton = _listButtons.Count - 1;
           while (!gameManager.ProgressData.IsLocationOpen(listUILocationSelectButton[indexActiveButton].Location))
             indexActiveButton--;
+
+          listUILocationSelectButton[indexActiveButton].ChangeSprite(true);
 
           Sound();
           IsSelected = true;
@@ -139,6 +147,7 @@ namespace Sokoban.UI
           button.ChangeColor();
           button.Button.interactable = true;
           button.Button.onClick.AddListener(() => SelectLocation(location));
+          button.ChangeTextNumberLevels($"{gameManager.ProgressData.GetNumberLevelsCompleted(location)}/{Levels.GetNumberLevelsLocation(location)}");
           indexActiveButton++;
         }
 
@@ -146,6 +155,8 @@ namespace Sokoban.UI
         _listButtons.Add(button.GetComponent<Button>());
         button.Initialize(location);
       }
+
+      listUILocationSelectButton[indexActiveButton].ChangeSprite(true);
     }
 
     /// <summary>
@@ -160,6 +171,28 @@ namespace Sokoban.UI
 
       listUILocationSelectButton = new List<UILocationSelectButton>();
       _listButtons = new List<Button>();
+    }
+
+    protected override void OnSelected()
+    {
+      if (_listButtons.Count == 0)
+        return;
+
+      var listButtons = _listButtons[indexActiveButton];
+
+      var rectTransform = listButtons.GetComponent<RectTransform>();
+      rectTransform.localScale = new Vector3(1.1f, 1.1f, 1);
+    }
+
+    protected override void OnDeselected()
+    {
+      if (_listButtons.Count == 0)
+        return;
+
+      var listButtons = _listButtons[indexActiveButton];
+
+      var rectTransform = listButtons.GetComponent<RectTransform>();
+      rectTransform.localScale = new Vector3(1, 1, 1);
     }
 
     //======================================

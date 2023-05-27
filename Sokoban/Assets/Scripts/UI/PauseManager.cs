@@ -27,7 +27,8 @@ namespace Sokoban.UI
       set
       {
         isPause = value;
-        levelManager.SetPause(value);
+        levelManager.IsPause = isPause;
+        //levelManager.SetPause(value);
       }
     }
 
@@ -47,6 +48,8 @@ namespace Sokoban.UI
       base.OnEnable();
 
       inputHandler.AI_Player.UI.Pause.performed += OnPause;
+
+      levelManager.OnPauseEvent.AddListener(OnPause);
     }
 
     protected override void OnDisable()
@@ -54,6 +57,8 @@ namespace Sokoban.UI
       base.OnDisable();
 
       inputHandler.AI_Player.UI.Pause.performed -= OnPause;
+
+      levelManager.OnPauseEvent.RemoveListener(OnPause);
     }
 
     //======================================
@@ -63,7 +68,7 @@ namespace Sokoban.UI
     /// </summary>
     private void SetIsPause()
     {
-      if (levelManager.LevelCompleted)
+      /*if (levelManager.LevelCompleted)
         return;
 
       if (!IsPause)
@@ -73,18 +78,41 @@ namespace Sokoban.UI
       }
       else
       {
-        IsPause = false;
+
       }
+
+      Debug.Log(IsPause);*/
+    }
+
+    private void OnPause(bool parValue)
+    {
+      IsPause = false;
     }
 
     //======================================
 
     protected override void CloseMenu()
     {
-      if (panelController.GetCurrentActivePanel() != _pausePanel)
-        return;
+      if (!IsPause)
+      {
+        if (levelManager.LevelCompleted)
+          return;
 
-      base.CloseMenu();
+        IsPause = true;
+        panelController.ShowPanel(_pausePanel);
+        return;
+      }
+      
+      if (panelController.GetCurrentActivePanel() == _pausePanel)
+        base.CloseMenu();
+
+      if (panelController.listAllOpenPanels.Count != 0)
+      {
+        if (panelController.GetCurrentActivePanel() != _pausePanel)
+          return;
+      }
+
+      IsPause = false;
 
       IsSelected = false;
       indexActiveButton = 0;
@@ -118,7 +146,7 @@ namespace Sokoban.UI
       indexActiveButton = 0;
       IsSelected = true;
 
-      SetIsPause();
+      IsPause = false;
       panelController.CloseAllPanels();
     }
 
@@ -136,6 +164,7 @@ namespace Sokoban.UI
     /// </summary>
     public void ExitMenuButton()
     {
+      IsPause = false;
       levelManager.ExitMenu();
     }
 

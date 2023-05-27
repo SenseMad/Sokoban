@@ -2,10 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using Sokoban.UI;
 
 using Sokoban.GameManagement;
 using Sokoban.GridEditor;
 using UnityEngine.SceneManagement;
+using Cinemachine;
 
 namespace Sokoban.LevelManagement
 {
@@ -21,11 +23,31 @@ namespace Sokoban.LevelManagement
     [SerializeField, Tooltip("Сетка уровня")]
     private GridLevel _gridLevel;
 
+    [Header("ПАНЕЛИ")]
+    [SerializeField, Tooltip("Меню паузы")]
+    private GameObject _pauseMenu;
+    [SerializeField, Tooltip("Меню уровень завершен")]
+    private GameObject _levelCompleteMenu;
+    [SerializeField, Tooltip("Панель меню")]
+    private Panel _menuPanel;
+
     //--------------------------------------
 
     private GameManager gameManager;
 
+    private CinemachineVirtualCamera cinemachineVirtual;
+
+    /// <summary>
+    /// True, еслика камера поворачивается
+    /// </summary>
+    private bool isCameraRotation;
+
     //======================================
+
+    /// <summary>
+    /// True, если уровень запущен
+    /// </summary>
+    public bool IsLevelStarted { get; set; }
 
     /// <summary>
     /// True, если уровень завершен
@@ -35,12 +57,21 @@ namespace Sokoban.LevelManagement
     /// <summary>
     /// True, если пауза
     /// </summary>
-    public bool IsPause { get; private set; }
+    public bool IsPause { get; set; }
     
     /// <summary>
     /// Сетка уровня
     /// </summary>
     public GridLevel GridLevel => _gridLevel;
+
+    /// <summary>
+    /// Получить виртуальную камеру
+    /// </summary>
+    public CinemachineVirtualCamera CinemachineVirtual
+    {
+      get => cinemachineVirtual;
+      set => cinemachineVirtual = value;
+    }
 
     //======================================
 
@@ -121,6 +152,8 @@ namespace Sokoban.LevelManagement
     private new void Awake()
     {
       gameManager = GameManager.Instance;
+
+      cinemachineVirtual = FindObjectOfType<CinemachineVirtualCamera>();
     }
 
     private void Start()
@@ -132,6 +165,8 @@ namespace Sokoban.LevelManagement
 
     private void LateUpdate()
     {
+      ResetCameraRotation();
+
       if (_currentLevelData == null)
         return;
 
@@ -140,11 +175,36 @@ namespace Sokoban.LevelManagement
 
       if (LevelCompleted)
         return;
+
+      if (!IsLevelStarted)
+        return;
       
       TimeOnLevel += Time.deltaTime;
     }
 
     //======================================
+
+    /// <summary>
+    /// Сброс поворота камеры
+    /// </summary>
+    private void ResetCameraRotation()
+    {
+      if (!isCameraRotation)
+        return;
+
+      Quaternion currentRotation = cinemachineVirtual.transform.rotation;
+      Quaternion targetQuaternion = Quaternion.Euler(48.0f, 0.0f, 0.0f);
+      Quaternion newRotation = Quaternion.Slerp(currentRotation, targetQuaternion, 3f * Time.deltaTime);
+
+      cinemachineVirtual.transform.rotation = newRotation;
+
+      // Проверяем, достигли ли нужного угла поворота
+      if (Quaternion.Angle(currentRotation, targetQuaternion) < 0.01f)
+      {
+        isCameraRotation = false;
+        cinemachineVirtual.transform.rotation = targetQuaternion;
+      }
+    }
 
     /// <summary>
     /// Завершен ли уровень
@@ -219,7 +279,7 @@ namespace Sokoban.LevelManagement
 
       IsNextLevelData?.Invoke(_currentLevelData);
 
-      ReloadLevel();
+      ReloadLevel(_currentLevelData);
     }
 
     /// <summary>
@@ -227,6 +287,7 @@ namespace Sokoban.LevelManagement
     /// </summary>
     public void ReloadLevel()
     {
+      isCameraRotation = true;
       IsReloadLevel?.Invoke();
       _gridLevel.CreatingLevelGrid();
 
@@ -236,11 +297,41 @@ namespace Sokoban.LevelManagement
     }
 
     /// <summary>
+    /// Перезагрузить уровень
+    /// </summary>
+    public void ReloadLevel(LevelData levelData)
+    {
+      _currentLevelData = levelData;
+
+      IsReloadLevel?.Invoke();
+      _gridLevel.CreatingLevelGrid();
+
+      TimeOnLevel = 0;
+      NumberMoves = 0;
+      LevelCompleted = false;
+
+      _pauseMenu.SetActive(true);
+      _levelCompleteMenu.SetActive(true);
+    }
+
+    /// <summary>
     /// Выход в меню
     /// </summary>
     public void ExitMenu()
     {
-      SceneManager.LoadScene($"MenuScene");
+      _gridLevel.DeletingLevelObjects();
+      _pauseMenu.SetActive(false);
+      _levelCompleteMenu.SetActive(false);
+
+      var targetObject = new GameObject("targetObject");
+      targetObject.transform.position = new Vector3(0, 0, 6.7f);
+      cinemachineVirtual.Follow = targetObject.transform;
+      isCameraRotation = true;
+
+      PanelController.Instance.CloseAllPanels();
+      PanelController.Instance.SetActivePanel(_menuPanel);
+
+      Destroy(targetObject, 5f);
     }
 
     /// <summary>

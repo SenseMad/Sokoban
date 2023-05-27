@@ -54,7 +54,7 @@ namespace Sokoban.UI
     protected override void OnSelected()
     {
       base.OnSelected();
-      _valueText.color = ColorsGame.SELECTED_COLOR;
+      _valueText.color = ColorsGame.STANDART_COLOR;
     }
 
     protected override void OnDeselected()

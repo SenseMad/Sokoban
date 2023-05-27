@@ -245,10 +245,18 @@ namespace Sokoban.UI
     {
       if (_listButtons.Count == 0)
         return;
+      
+      var listButtons = _listButtons[indexActiveButton];
 
-      var button = _listButtons[indexActiveButton].GetComponentInChildren<TextMeshProUGUI>();
+      var rectTransform = listButtons.GetComponent<RectTransform>();
+      rectTransform.localScale = new Vector3(1.1f, 1.1f, 1);
+
+      /*var button = listButtons.GetComponentInChildren<TextMeshProUGUI>();
       if (button != null)
-        button.color = ColorsGame.SELECTED_COLOR;
+        button.color = ColorsGame.SELECTED_COLOR;*/
+
+      if (listButtons.TryGetComponent<Image>(out var image))
+        image.enabled = true;
     }
 
     protected virtual void OnDeselected()
@@ -256,9 +264,17 @@ namespace Sokoban.UI
       if (_listButtons.Count == 0)
         return;
 
-      var button = _listButtons[indexActiveButton].GetComponentInChildren<TextMeshProUGUI>();
+      var listButtons = _listButtons[indexActiveButton];
+
+      var rectTransform = listButtons.GetComponent<RectTransform>();
+      rectTransform.localScale = new Vector3(1, 1, 1);
+
+      /*var button = listButtons.GetComponentInChildren<TextMeshProUGUI>();
       if (button != null)
-        button.color = ColorsGame.STANDART_COLOR;
+        button.color = ColorsGame.STANDART_COLOR;*/
+
+      if (listButtons.TryGetComponent<Image>(out var image))
+        image.enabled = false;
     }
 
     //======================================

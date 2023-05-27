@@ -95,6 +95,21 @@ namespace Sokoban.UI
       }
     }
 
+    /// <summary>
+    /// Закрыть все панели
+    /// </summary>
+    public void CloseAllPanels1()
+    {
+      for (int i = 0; i < listAllOpenPanels.Count; i++)
+      {
+        HidePanel(listAllOpenPanels[i]);
+        listAllOpenPanels.Remove(listAllOpenPanels[i]);
+      }
+
+      _currentActivePanel = null;
+      listAllOpenPanels.Clear();
+    }
+
     //======================================
   }
 }

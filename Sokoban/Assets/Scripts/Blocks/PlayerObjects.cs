@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
-using Cinemachine;
 
 using Sokoban.LevelManagement;
 using Sokoban.GridEditor;
@@ -21,8 +20,6 @@ public class PlayerObjects : Block
   private InputHandler inputHandler;
 
   private LevelManager levelManager;
-
-  private CinemachineVirtualCamera cinemachineVirtual;
 
   /// <summary>
   /// True, если можно двигаться
@@ -81,9 +78,6 @@ public class PlayerObjects : Block
     inputHandler = InputHandler.Instance;
 
     levelManager = LevelManager.Instance;
-
-    if (!GridEditor.GridEditorEnabled)
-      cinemachineVirtual = FindObjectOfType<CinemachineVirtualCamera>();
   }
 
   private void Start()
@@ -91,15 +85,12 @@ public class PlayerObjects : Block
     if (GridEditor.GridEditorEnabled)
       RemoveRigidbody();
 
-    if (cinemachineVirtual != null)
-      cinemachineVirtual.Follow = transform;
+    if (!GridEditor.GridEditorEnabled)
+      levelManager.CinemachineVirtual.Follow = transform;
   }
 
   private void OnEnable()
   {
-    /*if (levelManager)
-      levelManager.OnPauseEvent.AddListener(PossibleMove);*/
-
     if (!isRotating)
     {
       inputHandler.AI_Player.Camera.RotationLeft.performed += parValue => CameraRotation(90);
@@ -109,9 +100,6 @@ public class PlayerObjects : Block
 
   private void OnDisable()
   {
-    /*if (levelManager)
-      levelManager.OnPauseEvent.AddListener(PossibleMove);*/
-
     if (!isRotating)
     {
       inputHandler.AI_Player.Camera.RotationLeft.performed -= parValue => CameraRotation(90);
@@ -126,17 +114,17 @@ public class PlayerObjects : Block
 
     if (isRotating)
     {
-      Quaternion currentRotation = cinemachineVirtual.transform.rotation;
-      Quaternion targetQuaternion = Quaternion.Euler(42.0f, targetRotation, 0.0f);
+      Quaternion currentRotation = levelManager.CinemachineVirtual.transform.rotation;
+      Quaternion targetQuaternion = Quaternion.Euler(48.0f, targetRotation, 0.0f);
       Quaternion newRotation = Quaternion.Slerp(currentRotation, targetQuaternion, 3f * Time.deltaTime);
 
-      cinemachineVirtual.transform.rotation = newRotation;
+      levelManager.CinemachineVirtual.transform.rotation = newRotation;
 
       // Проверяем, достигли ли нужного угла поворота
       if (Quaternion.Angle(currentRotation, targetQuaternion) < 0.01f)
       {
         isRotating = false;
-        cinemachineVirtual.transform.rotation = targetQuaternion;
+        levelManager.CinemachineVirtual.transform.rotation = targetQuaternion;
       }
     }
 
@@ -166,7 +154,7 @@ public class PlayerObjects : Block
       if (Time.time > lastTime)
       {
         lastTime = Time.time + delayTimeNextButtonPress;
-        var cinemachineVirtualDirection = cinemachineVirtual.transform.TransformDirection(axisMovement);
+        var cinemachineVirtualDirection = levelManager.CinemachineVirtual.transform.TransformDirection(axisMovement);
         Vector3 direction = new Vector3(cinemachineVirtualDirection.x, 0.0f, cinemachineVirtualDirection.z);
         //Vector3 direction = new Vector3(axisMovement.x, 0.0f, axisMovement.y);
         Move(direction);
@@ -186,7 +174,7 @@ public class PlayerObjects : Block
     if (!isRotating)
     {
       // Вычисляем новый угол поворота камеры
-      targetRotation = cinemachineVirtual.transform.rotation.eulerAngles.y + parValue;
+      targetRotation = levelManager.CinemachineVirtual.transform.rotation.eulerAngles.y + parValue;
       isRotating = true;
     }
   }

@@ -32,7 +32,7 @@ namespace Sokoban.UI
       set
       {
         _enableLeft = value;
-        _leftArrow.color = _enableLeft ? ColorsGame.SELECTED_COLOR : ColorsGame.DISABLE_COLOR;
+        _leftArrow.color = _enableLeft ? ColorsGame.STANDART_COLOR : ColorsGame.DISABLE_COLOR;
       }
     }
 
@@ -42,7 +42,7 @@ namespace Sokoban.UI
       set
       {
         _enableRight = value;
-        _rightArrow.color = _enableRight ? ColorsGame.SELECTED_COLOR : ColorsGame.DISABLE_COLOR;
+        _rightArrow.color = _enableRight ? ColorsGame.STANDART_COLOR : ColorsGame.DISABLE_COLOR;
       }
     }
 
@@ -118,11 +118,11 @@ namespace Sokoban.UI
 
     protected virtual void OnSelected()
     {
-      _fieldNameText.color = ColorsGame.SELECTED_COLOR;
+      _fieldNameText.color = ColorsGame.STANDART_COLOR;
 
       if (_leftArrow == null && _rightArrow == null) { return; }
-      _leftArrow.color = _enableLeft ? ColorsGame.SELECTED_COLOR : ColorsGame.DISABLE_COLOR;
-      _rightArrow.color = _enableRight ? ColorsGame.SELECTED_COLOR : ColorsGame.DISABLE_COLOR;
+      _leftArrow.color = _enableLeft ? ColorsGame.STANDART_COLOR : ColorsGame.DISABLE_COLOR;
+      _rightArrow.color = _enableRight ? ColorsGame.STANDART_COLOR : ColorsGame.DISABLE_COLOR;
     }
 
     protected virtual void OnDeselected()

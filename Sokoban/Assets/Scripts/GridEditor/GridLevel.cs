@@ -242,6 +242,7 @@ namespace Sokoban.GridEditor
       FindAllDoorObjects();
       statesLevel = StatesLevel.Completed;
       OnLevelCreated?.Invoke();
+      levelManager.IsLevelStarted = true;
     }
 
     /// <summary>
@@ -249,6 +250,13 @@ namespace Sokoban.GridEditor
     /// </summary>
     private IEnumerator DeleteLevel()
     {
+      if (blockObjects == null)
+      {
+        myCoroutine = null;
+        yield break;
+      }
+
+      levelManager.IsLevelStarted = false;
       statesLevel = StatesLevel.Deleted;
       float timer = 0f;
 
@@ -294,6 +302,7 @@ namespace Sokoban.GridEditor
       }
 
       myCoroutine = null;
+      blockObjects = null;
     }
 
     /// <summary>
