@@ -2,8 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 using TMPro;
-using UnityEngine.TextCore.Text;
-using Unity.VisualScripting;
+using System;
 
 public class LocalisationSystem : SingletonInSceneNoInstance<LocalisationSystem>
 {
@@ -117,6 +116,33 @@ public class LocalisationSystem : SingletonInSceneNoInstance<LocalisationSystem>
     }
 
     return value;
+  }
+
+  /// <summary>
+  /// Получить названия всех языков
+  /// </summary>
+  public static Language[] GetNamesAllLanguage()
+  {
+    return (Language[])Enum.GetValues(typeof(Language));
+  }
+
+  /// <summary>
+  /// Получить название языка
+  /// </summary>
+  public static string GetNameLanguage(Language parLanguage)
+  {
+    return parLanguage switch
+    {
+      Language.Russian => "Русский",
+      Language.English => "English",
+      Language.French => "Français",
+      Language.Japan => "日本の",
+      Language.German => "Deutsch",
+      Language.Spanish => "Español",
+      Language.Portuguese => "Português",
+      Language.Chinese => "中国人",
+      _ => "English",
+    };
   }
 
   //======================================

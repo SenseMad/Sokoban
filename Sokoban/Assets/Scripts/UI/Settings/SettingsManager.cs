@@ -10,6 +10,7 @@ namespace Sokoban.UI
   {
     [SerializeField] private RangeSpinBox _musicValue;
     [SerializeField] private RangeSpinBox _soundValue;
+    [SerializeField] private SwitchSpinBox _languageValue;
 
     //--------------------------------------
 
@@ -31,9 +32,11 @@ namespace Sokoban.UI
 
       if (_musicValue) spinBoxBases.Add(_musicValue);
       if (_soundValue) spinBoxBases.Add(_soundValue);
+      if (_languageValue) spinBoxBases.Add(_languageValue);
 
       _musicValue.OnValueChanged += MusicValue_OnValueChanged;
       _soundValue.OnValueChanged += SoundValue_OnValueChanged;
+      _languageValue.OnValueChanged += LanguageValue_OnValueChanged;
     }
 
     private void Start()
@@ -54,12 +57,14 @@ namespace Sokoban.UI
 
       _musicValue.SetValueWithoutNotify(gameManager.SettingsData.MusicValue);
       _soundValue.SetValueWithoutNotify(gameManager.SettingsData.SoundVolume);
+      _languageValue.SetValueWithoutNotify((int)gameManager.SettingsData.CurrentLanguage);
     }
 
     private void OnDestroy()
     {
       _musicValue.OnValueChanged -= MusicValue_OnValueChanged;
       _soundValue.OnValueChanged -= SoundValue_OnValueChanged;
+      _languageValue.OnValueChanged -= LanguageValue_OnValueChanged;
     }
 
     //======================================
@@ -74,6 +79,29 @@ namespace Sokoban.UI
     {
       gameManager.SettingsData.SoundVolume = parValue;
       Sound();
+    }
+
+    private void LanguageValue_OnValueChanged(int parValue)
+    {
+      var localisationSystem = LocalisationSystem.GetNamesAllLanguage().Length - 1;
+      if (parValue > localisationSystem)
+      {
+        parValue = 0;
+        _languageValue.SetValueWithoutNotify(0);
+      }
+
+      if (parValue < 0)
+      {
+        parValue = localisationSystem;
+        _languageValue.SetValueWithoutNotify(localisationSystem);
+      }
+
+      gameManager.SettingsData.CurrentLanguage = (Language)parValue;
+      _languageValue.UpdateText(LocalisationSystem.GetNameLanguage(gameManager.SettingsData.CurrentLanguage));
+      Sound();
+      //gameManager.SettingsData.CurrentLanguage = (Language)parValue;
+      //_languageValue.UpdateText();
+      //();
     }
 
     //======================================
