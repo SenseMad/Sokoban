@@ -28,7 +28,7 @@ public class LocalisationSystem : SingletonInSceneNoInstance<LocalisationSystem>
   //======================================
 
   /// <summary>
-  /// Текущий язык
+  /// РўРµРєСѓС‰РёР№ СЏР·С‹Рє
   /// </summary>
   public static Language CurrentLanguage
   {
@@ -43,14 +43,14 @@ public class LocalisationSystem : SingletonInSceneNoInstance<LocalisationSystem>
   //======================================
 
   /// <summary>
-  /// Событие: Изменение текущего языка
+  /// РЎРѕР±С‹С‚РёРµ: РР·РјРµРЅРµРЅРёРµ С‚РµРєСѓС‰РµРіРѕ СЏР·С‹РєР°
   /// </summary>
   public static UnityEvent<Language> ChangeCurrentLanguage { get; } = new UnityEvent<Language>();
 
   //======================================
 
   /// <summary>
-  /// Получить шрифт
+  /// РџРѕР»СѓС‡РёС‚СЊ С€СЂРёС„С‚
   /// </summary>
   public TMP_FontAsset GetFont()
   {
@@ -58,7 +58,7 @@ public class LocalisationSystem : SingletonInSceneNoInstance<LocalisationSystem>
   }
 
   /// <summary>
-  /// Получить шрифт локализации
+  /// РџРѕР»СѓС‡РёС‚СЊ С€СЂРёС„С‚ Р»РѕРєР°Р»РёР·Р°С†РёРё
   /// </summary>
   public TMP_FontAsset GetLocalizationFont(Language parLanguage)
   {
@@ -125,35 +125,35 @@ public class LocalisationSystem : SingletonInSceneNoInstance<LocalisationSystem>
 public enum Language
 {
   /// <summary>
-  /// Китайский
+  /// РљРёС‚Р°Р№СЃРєРёР№
   /// </summary>
   Chinese,
   /// <summary>
-  /// Английский
+  /// РђРЅРіР»РёР№СЃРєРёР№
   /// </summary>
   English,
   /// <summary>
-  /// Французский
+  /// Р¤СЂР°РЅС†СѓР·СЃРєРёР№
   /// </summary>
   French,
   /// <summary>
-  /// Немецкий
+  /// РќРµРјРµС†РєРёР№
   /// </summary>
   German,
   /// <summary>
-  /// Японский
+  /// РЇРїРѕРЅСЃРєРёР№
   /// </summary>
   Japan,
   /// <summary>
-  /// Португальский
+  /// РџРѕСЂС‚СѓРіР°Р»СЊСЃРєРёР№
   /// </summary>
   Portuguese,
   /// <summary>
-  /// Русский
+  /// Р СѓСЃСЃРєРёР№
   /// </summary>
   Russian,
   /// <summary>
-  /// Испанский
+  /// РСЃРїР°РЅСЃРєРёР№
   /// </summary>
   Spanish,
 }

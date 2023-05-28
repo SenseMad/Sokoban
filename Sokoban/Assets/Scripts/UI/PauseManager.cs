@@ -93,6 +93,9 @@ namespace Sokoban.UI
 
     protected override void CloseMenu()
     {
+      if (!levelManager.GridLevel.IsLevelCreated)
+        return;
+
       if (!IsPause)
       {
         if (levelManager.LevelCompleted)

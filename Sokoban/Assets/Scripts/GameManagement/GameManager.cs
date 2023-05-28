@@ -21,6 +21,15 @@ namespace Sokoban.GameManagement
 
     //======================================
 
+    private new void Awake()
+    {
+      base.Awake();
+
+      Init();
+
+      SettingsData.CurrentLanguage = Language.Russian;
+    }
+
     private void Start()
     {
       Levels.GetFullNumberLevelsLocation();
@@ -28,7 +37,10 @@ namespace Sokoban.GameManagement
 
     //======================================
 
-
+    private void Init()
+    {
+      
+    }
 
     //======================================
 

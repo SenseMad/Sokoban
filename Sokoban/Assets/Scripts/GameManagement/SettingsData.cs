@@ -42,17 +42,32 @@ namespace Sokoban.GameManagement
       }
     }
 
+    public Language CurrentLanguage
+    {
+      get => LocalisationSystem.CurrentLanguage;
+      set
+      {
+        LocalisationSystem.CurrentLanguage = value;
+        ChangeLanguage?.Invoke(value);
+      }
+    }
+
     //======================================
 
     /// <summary>
-    /// ‘обытие: €зменение громкости музыки
+    /// Событие: Изменение громкости музыки
     /// </summary>
     public UnityEvent<int> ChangeMusicValue { get; } = new UnityEvent<int>();
 
     /// <summary>
-    /// ‘обытие: €зменение громкости звуков
+    /// Событие: Изменение громкости звуков
     /// </summary>
     public UnityEvent<int> ChangeSoundValue { get; } = new UnityEvent<int>();
+
+    /// <summary>
+    /// Событие: Изменение языка
+    /// </summary>
+    public UnityEvent<Language> ChangeLanguage { get; } = new UnityEvent<Language>();
 
     //======================================
   }

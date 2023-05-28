@@ -363,6 +363,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5163075131456862627}
   - component: {fileID: 1064260119151389731}
+  - component: {fileID: 8245302756711428986}
   - component: {fileID: 9088208732965018993}
   m_Layer: 5
   m_Name: Text_NumberLelevs
@@ -399,6 +400,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8866548014402355283}
   m_CullTransparentMesh: 1
+--- !u!114 &8245302756711428986
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8866548014402355283}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c21c68ae62b57d345baff5628f9265f8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &9088208732965018993
 MonoBehaviour:
   m_ObjectHideFlags: 0

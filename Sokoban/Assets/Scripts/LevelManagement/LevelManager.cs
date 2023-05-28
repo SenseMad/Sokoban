@@ -176,7 +176,7 @@ namespace Sokoban.LevelManagement
       if (LevelCompleted)
         return;
 
-      if (!IsLevelStarted)
+      if (!_gridLevel.IsLevelCreated)
         return;
       
       TimeOnLevel += Time.deltaTime;
@@ -278,6 +278,8 @@ namespace Sokoban.LevelManagement
         _currentLevelData = levelData;
 
       IsNextLevelData?.Invoke(_currentLevelData);
+
+      isCameraRotation = true;
 
       ReloadLevel(_currentLevelData);
     }

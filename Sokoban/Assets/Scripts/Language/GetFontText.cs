@@ -1,33 +1,48 @@
 using UnityEngine;
 using TMPro;
 
+using Sokoban.GameManagement;
+
 namespace Sokoban.UI
 {
   /// <summary>
-  /// Получить шрифт для текста
+  /// РџРѕР»СѓС‡РёС‚СЊ С€СЂРёС„С‚ РґР»СЏ С‚РµРєСЃС‚Р°
   /// </summary>
   public class GetFontText : MonoBehaviour
   {
     private TextMeshProUGUI textField;
+
+    //--------------------------------------
+
+    private GameManager gameManager;
 
     //======================================
 
     private void Awake()
     {
       textField = GetComponent<TextMeshProUGUI>();
+
+      gameManager = GameManager.Instance;
     }
 
     private void OnEnable()
     {
-      ChangeLanguage();
+      ChangeFont();
+
+      gameManager.SettingsData.ChangeLanguage.AddListener(parValue => ChangeFont());
+    }
+
+    private void OnDisable()
+    {
+      gameManager.SettingsData.ChangeLanguage.RemoveListener(parValue => ChangeFont());
     }
 
     //======================================
 
     /// <summary>
-    /// Сменить язык
+    /// РЎРјРµРЅРёС‚СЊ С€СЂРёС„С‚
     /// </summary>
-    private void ChangeLanguage()
+    private void ChangeFont()
     {
       textField.font = LocalisationSystem.Instance.GetFont();
     }

@@ -3,27 +3,27 @@ using TMPro;
 
 public class FontAsset : MonoBehaviour
 {
-  [SerializeField, Tooltip("Русский шрифт")]
+  [SerializeField, Tooltip("Р СѓСЃСЃРєРёР№ С€СЂРёС„С‚")]
   private TMP_FontAsset _russianFont;
-  [SerializeField, Tooltip("Английский шрифт")]
+  [SerializeField, Tooltip("РђРЅРіР»РёР№СЃРєРёР№ С€СЂРёС„С‚")]
   private TMP_FontAsset _englishFont;
-  [SerializeField, Tooltip("Французский шрифт")]
+  [SerializeField, Tooltip("Р¤СЂР°РЅС†СѓР·СЃРєРёР№ С€СЂРёС„С‚")]
   private TMP_FontAsset _frenchFont;
-  [SerializeField, Tooltip("Японский шрифт")]
+  [SerializeField, Tooltip("РЇРїРѕРЅСЃРєРёР№ С€СЂРёС„С‚")]
   private TMP_FontAsset _japanFont;
-  [SerializeField, Tooltip("Немецкий шрифт")]
+  [SerializeField, Tooltip("РќРµРјРµС†РєРёР№ С€СЂРёС„С‚")]
   private TMP_FontAsset _germanFont;
-  [SerializeField, Tooltip("Испанский шрифт")]
+  [SerializeField, Tooltip("РСЃРїР°РЅСЃРєРёР№ С€СЂРёС„С‚")]
   private TMP_FontAsset _spanishFont;
-  [SerializeField, Tooltip("Португальский шрифт")]
+  [SerializeField, Tooltip("РџРѕСЂС‚СѓРіР°Р»СЊСЃРєРёР№ С€СЂРёС„С‚")]
   private TMP_FontAsset _portugueseFont;
-  [SerializeField, Tooltip("Китайский шрифт")]
+  [SerializeField, Tooltip("РљРёС‚Р°Р№СЃРєРёР№ С€СЂРёС„С‚")]
   private TMP_FontAsset _chineseFont;
 
   //======================================
 
   /// <summary>
-  /// Получить шрифт для языка
+  /// РџРѕР»СѓС‡РёС‚СЊ С€СЂРёС„С‚ РґР»СЏ СЏР·С‹РєР°
   /// </summary>
   public TMP_FontAsset GetFont(Language language)
   {

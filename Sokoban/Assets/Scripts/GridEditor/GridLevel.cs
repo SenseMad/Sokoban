@@ -47,6 +47,15 @@ namespace Sokoban.GridEditor
     /// </summary>
     public Block[,,] GetBlockObjects() => blockObjects;
 
+    /// <summary>
+    /// True, если уровень создан
+    /// </summary>
+    public bool IsLevelCreated { get; private set; }
+    /// <summary>
+    /// True, если уровень удален
+    /// </summary>
+    public bool IsLevelDeleted { get; private set; } = true;
+
     //======================================
 
     /// <summary>
@@ -166,7 +175,7 @@ namespace Sokoban.GridEditor
     /// </summary>
     private IEnumerator CreateLevel()
     {
-      while (myCoroutine != null)
+      while (myCoroutine != null || !IsLevelDeleted)
       {
         yield return null;
       }
@@ -242,7 +251,8 @@ namespace Sokoban.GridEditor
       FindAllDoorObjects();
       statesLevel = StatesLevel.Completed;
       OnLevelCreated?.Invoke();
-      levelManager.IsLevelStarted = true;
+
+      IsLevelCreated = true;
     }
 
     /// <summary>
@@ -256,7 +266,8 @@ namespace Sokoban.GridEditor
         yield break;
       }
 
-      levelManager.IsLevelStarted = false;
+      IsLevelCreated = false;
+      IsLevelDeleted = false;
       statesLevel = StatesLevel.Deleted;
       float timer = 0f;
 
@@ -303,6 +314,8 @@ namespace Sokoban.GridEditor
 
       myCoroutine = null;
       blockObjects = null;
+
+      IsLevelDeleted = true;
     }
 
     /// <summary>

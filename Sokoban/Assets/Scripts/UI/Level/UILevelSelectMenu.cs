@@ -184,12 +184,16 @@ namespace Sokoban.UI
     private void SelectLevel(LevelData levelData)
     {
       //Levels.CurrentSelectedLevelData = levelData;
+      var levelManager = LevelManager.Instance;
+
+      if (!levelManager.GridLevel.IsLevelDeleted)
+        return;
 
       PanelController.Instance.CloseAllPanels1();
 
-      LevelManager.Instance.OnPauseEvent?.Invoke(false);
+      levelManager.OnPauseEvent?.Invoke(false);
 
-      LevelManager.Instance.ReloadLevel(levelData);
+      levelManager.ReloadLevel(levelData);
 
       //SceneManager.LoadScene($"GameScene");
     }
