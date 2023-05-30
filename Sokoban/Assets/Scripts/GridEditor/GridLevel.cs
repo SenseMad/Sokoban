@@ -180,6 +180,7 @@ namespace Sokoban.GridEditor
         yield return null;
       }
 
+      IsLevelDeleted = false;
       statesLevel = StatesLevel.Created;
       float timer = 0f;
 
@@ -253,6 +254,7 @@ namespace Sokoban.GridEditor
       OnLevelCreated?.Invoke();
 
       IsLevelCreated = true;
+      IsLevelDeleted = true;
     }
 
     /// <summary>

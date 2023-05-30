@@ -10,6 +10,24 @@ public class FoodObject : InteractiveObjects
   [SerializeField, Tooltip("Тип еды")]
   private TypesFood _typeFood;
 
+  //--------------------------------------
+
+  private Transform meshTransform;
+
+  //======================================
+
+  protected override void Awake()
+  {
+    base.Awake();
+
+    meshTransform = GetComponentInChildren<MeshFilter>().transform;
+  }
+
+  private void Update()
+  {
+    meshTransform.Rotate(new Vector3(0.0f, 30.0f * Time.deltaTime, 0.0f));
+  }
+
   //======================================
 
   /// <summary>

@@ -1,5 +1,7 @@
 "key","ru","en","fr","ja","ge","sp","po","ch"
 
+"BACK_KEY","НАЗАД","BACK","DOS","戻る","zurück","ATRÁS","ATRÁS","返回"
+
 "PLAY_KEY","ИГРАТЬ","PLAY","JOUER","遊ぶ","spielen","JUGAR","JOGAR","游戏"
 "SETTINGS_KEY","НАСТРОЙКИ","SETTINGS","PARAMÈTRES","設定","die Einstellungen","AJUSTES","SINTONIZAÇÃO","设置"
 "AUTHORS_KEY","АВТОРЫ","AUTHORS","AUTEURS","著者","AUTOREN","AUTORES","AUTOR","作者"
@@ -9,16 +11,16 @@
 "SOUND_VOLUME_KEY","ГРОМКОСТЬ ЗВУКА","SOUND VOLUME","VOLUME SONORE","音量","LAUTSTÄRKE","VOLUMEN","VOLUME DO SOM","音量"
 "LANGUAGE_KEY","ЯЗЫК","LANGUAGE","LANGUE","言語","Sprache","IDIOMA","IDIOMA","语言"
 
-"LOCATION_SELECTION_KEY","ВЫБОР ЛОКАЦИИ","LOCATION SELECTION","","","","","",""
-"LEVEL_SELECTION_KEY","ВЫБОР УРОВНЯ","LEVEL SELECTION","","","","","",""
+"LOCATION_SELECTION_KEY","ВЫБОР ЛОКАЦИИ","LOCATION SELECTION","SÉLECTION DE L'EMPLACEMENT","場所の選択","STANDORT AUSWÄHLEN","SELECCIÓN DE UBICACIÓN","SELEÇÃO DE LOCALIZAÇÃO","地点选择"
+"SELECT_LEVEL_KEY","ВЫБОР УРОВНЯ","SELECT LEVEL","SÉLECTION DE NIVEAU","レベル選択","EBENE AUSWÄHLEN","SELECCIÓN DE NIVEL","SELEÇÃO DE NÍVEL","级别选择"
 
-"PAUSE_KEY","ПАУЗА","PAUSE","","","","","",""
+"PAUSE_KEY","ПАУЗА","PAUSE","PAUSE","一時停止","PAUSE","PAUSA","PAUSA","暂停"
 "CONTINUE_KEY","ПРОДОЛЖИТЬ","CONTINUE","CONTINUER","履歴書","fortfahren","CONTINUAR","CONTINUAR","简历"
 "RESTART_KEY","ПЕРЕЗАПУСК","RESTART","REDÉMARRAGE","再起動","NEUSTART","REINICIAR","Reiniciar","重新启动"
 "EXIT_THE_MENU_KEY","ВЫЙТИ В МЕНЮ","EXIT THE MENU","QUITTER LE MENU","メニューを終了します","MENÜ VERLASSEN","SALIR EN EL MENÚ","IR PARA O MENU","退出菜单"
 
-"TIME_KEY","ВРЕМЯ","TIME","","","","","",""
-"MOVES_KEY","ХОДОВ","MOVES","","","","","",""
+"TIME_KEY","ВРЕМЯ","TIME","TEMPS","時間","ZEIT","TIEMPO","TEMPO","时间"
+"MOVES_KEY","ХОДОВ","MOVES","DÉPLACER","動く","UMZUG","MOVER","MOVER","移动"
 
 "LEVEL_COMPLETED_KEY","УРОВЕНЬ ЗАВЕРШЕН","LEVEL COMPLETED","NIVEAU TERMINÉ","レベル完了","LEVEL ABGESCHLOSSEN","NIVEL COMPLETADO","NÍVEL CONCLUÍDO","水平已完成"
 "NEXT_LEVEL_KEY","СЛЕДУЮЩИЙ УРОВЕНЬ","NEXT LEVEL","NIVEAU SUIVANT","次のレベル","NÄCHSTE STUFE","SIGUIENTE NIVEL","PRÓXIMO NÍVEL","下一阶段"

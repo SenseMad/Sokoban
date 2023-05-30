@@ -17,6 +17,14 @@ namespace Sokoban.UI
     [SerializeField, Tooltip("Текст количества ходов")]
     private TextMeshProUGUI _textNumberMoves;
 
+    [Header("ОБЪЕКТЫ")]
+    [SerializeField, Tooltip("Объект номера уровня")]
+    private GameObject _objectLevelNumber;
+    [SerializeField, Tooltip("Объект времени на уровне")]
+    private GameObject _objectTimeLevel;
+    [SerializeField, Tooltip("Объект количества ходов")]
+    private GameObject _objectNumberMoves;
+
     //--------------------------------------
 
     private LevelManager levelManager;
@@ -30,6 +38,10 @@ namespace Sokoban.UI
 
     private void OnEnable()
     {
+      levelManager.IsLevelCompleted.AddListener(() => SetObject(false));
+      levelManager.IsReloadLevel.AddListener(() => SetObject(true));
+      levelManager.IsMenu.AddListener(() => SetObject(false));
+
       levelManager.IsNextLevelData.AddListener(UpdateText);
       levelManager.ChangeTimeOnLevel.AddListener(UpdateTextTimeLevel);
       levelManager.ChangeNumberMoves.AddListener(UpdateTextNumberMoves);
@@ -37,6 +49,10 @@ namespace Sokoban.UI
 
     private void OnDisable()
     {
+      levelManager.IsLevelCompleted.RemoveListener(() => SetObject(false));
+      levelManager.IsReloadLevel.RemoveListener(() => SetObject(true));
+      levelManager.IsMenu.RemoveListener(() => SetObject(false));
+
       levelManager.IsNextLevelData.RemoveListener(UpdateText);
       levelManager.ChangeTimeOnLevel.RemoveListener(UpdateTextTimeLevel);
       levelManager.ChangeNumberMoves.RemoveListener(UpdateTextNumberMoves);
@@ -63,6 +79,13 @@ namespace Sokoban.UI
     private void UpdateTextNumberMoves(int parValue)
     {
       _textNumberMoves.text = $"{parValue}";
+    }
+
+    private void SetObject(bool parValue)
+    {
+      _objectLevelNumber.SetActive(parValue);
+      _objectTimeLevel.SetActive(parValue);
+      _objectNumberMoves.SetActive(parValue);
     }
 
     //======================================

@@ -19,7 +19,7 @@ namespace Sokoban.GameManagement
     public Dictionary<Location, int> tableNumberCompletedLevelsLocation = new Dictionary<Location, int>()
     {
       { Location.Summer, 0 },
-      //{ Location.Winter, 0 }
+      { Location.Winter, 0 }
     };
 
     /// <summary>

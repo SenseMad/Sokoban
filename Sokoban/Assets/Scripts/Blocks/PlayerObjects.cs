@@ -10,10 +10,13 @@ public class PlayerObjects : Block
 {
   [SerializeField, Tooltip("")]
   private float _speed = 2.0f;
+  [SerializeField, Tooltip("Скорость поворота")]
+  private float _speedRotaion = 7.0f;
+
+  [SerializeField, Tooltip("")]
+  private Transform _meshTransform;
 
   //--------------------------------------
-
-  public new Rigidbody rigidbody { get; private set; }
 
   private Animator animator;
 
@@ -29,6 +32,10 @@ public class PlayerObjects : Block
   /// True, если игрок движется
   /// </summary>
   private bool isMoving = false;
+  /// <summary>
+  /// True, если игрок поворачивается
+  /// </summary>
+  private bool isPlayerRotation = false;
 
   /// <summary>
   /// Новая позиция
@@ -53,10 +60,14 @@ public class PlayerObjects : Block
   /// <summary>
   /// True, если камера поворачивается
   /// </summary>
-  private bool isRotating = false;
+  private bool isCameraRotation = false;
   private float targetRotation;
 
   #endregion
+
+  //======================================
+
+  public new Rigidbody rigidbody { get; private set; }
 
   //======================================
 
@@ -91,7 +102,7 @@ public class PlayerObjects : Block
 
   private void OnEnable()
   {
-    if (!isRotating)
+    if (!isCameraRotation)
     {
       inputHandler.AI_Player.Camera.RotationLeft.performed += parValue => CameraRotation(90);
       inputHandler.AI_Player.Camera.RotationRight.performed += parValue => CameraRotation(-90);
@@ -100,7 +111,7 @@ public class PlayerObjects : Block
 
   private void OnDisable()
   {
-    if (!isRotating)
+    if (!isCameraRotation)
     {
       inputHandler.AI_Player.Camera.RotationLeft.performed -= parValue => CameraRotation(90);
       inputHandler.AI_Player.Camera.RotationRight.performed -= parValue => CameraRotation(-90);
@@ -112,23 +123,10 @@ public class PlayerObjects : Block
     if (GridEditor.GridEditorEnabled)
       return;
 
-    if (isRotating)
-    {
-      Quaternion currentRotation = levelManager.CinemachineVirtual.transform.rotation;
-      Quaternion targetQuaternion = Quaternion.Euler(48.0f, targetRotation, 0.0f);
-      Quaternion newRotation = Quaternion.Slerp(currentRotation, targetQuaternion, 3f * Time.deltaTime);
-
-      levelManager.CinemachineVirtual.transform.rotation = newRotation;
-
-      // Проверяем, достигли ли нужного угла поворота
-      if (Quaternion.Angle(currentRotation, targetQuaternion) < 0.01f)
-      {
-        isRotating = false;
-        levelManager.CinemachineVirtual.transform.rotation = targetQuaternion;
-      }
-    }
-
     PlayerMovement();
+
+    SmoothCameraRotation();
+    SmoothPlayerRotation();
 
     if (!isMoving)
       return;
@@ -167,25 +165,12 @@ public class PlayerObjects : Block
   }
 
   /// <summary>
-  /// Поворот камеры
-  /// </summary>
-  private void CameraRotation(float parValue)
-  {
-    if (!isRotating)
-    {
-      // Вычисляем новый угол поворота камеры
-      targetRotation = levelManager.CinemachineVirtual.transform.rotation.eulerAngles.y + parValue;
-      isRotating = true;
-    }
-  }
-
-  /// <summary>
   /// Движение
   /// </summary>
   /// <param name="parDirection">Направление движения</param>
   private bool Move(Vector3 parDirection)
   {
-    if (levelManager.LevelCompleted || levelManager.IsPause || isMoving || levelManager.GridLevel.GetStatesLevel())
+    if (levelManager.LevelCompleted || levelManager.IsPause || isMoving || levelManager.GridLevel.GetStatesLevel() || levelManager.IsLevelMenu)
       return false;
 
     if (Mathf.Abs(parDirection.x) < 0.5f)
@@ -199,11 +184,11 @@ public class PlayerObjects : Block
       return false;
 
     isMoving = true;
+    isPlayerRotation = true;
     direction = parDirection;
     lastPosition = transform.position;
 
     levelManager.NumberMoves++;
-    //transform.Translate(parDirection);
 
     animator.SetTrigger("Run");
     return true;
@@ -318,6 +303,60 @@ public class PlayerObjects : Block
     }
 
     return false;
+  }
+
+  #region Поворот камеры
+
+  /// <summary>
+  /// Поворот камеры
+  /// </summary>
+  private void CameraRotation(float parValue)
+  {
+    if (!isCameraRotation)
+    {
+      // Вычисляем новый угол поворота камеры
+      targetRotation = levelManager.CinemachineVirtual.transform.rotation.eulerAngles.y + parValue;
+      isCameraRotation = true;
+    }
+  }
+
+  /// <summary>
+  /// Плавный поворот камеры
+  /// </summary>
+  private void SmoothCameraRotation()
+  {
+    if (!isCameraRotation)
+      return;
+
+    Quaternion currentRotation = levelManager.CinemachineVirtual.transform.rotation;
+    Quaternion targetQuaternion = Quaternion.Euler(48.0f, targetRotation, 0.0f);
+    Quaternion newRotation = Quaternion.Slerp(currentRotation, targetQuaternion, 3f * Time.deltaTime);
+
+    levelManager.CinemachineVirtual.transform.rotation = newRotation;
+
+    // Проверяем, достигли ли нужного угла поворота
+    if (Quaternion.Angle(currentRotation, targetQuaternion) < 0.01f)
+    {
+      isCameraRotation = false;
+      levelManager.CinemachineVirtual.transform.rotation = targetQuaternion;
+    }
+  }
+
+  #endregion
+
+  /// <summary>
+  /// Плавный поворот игрока
+  /// </summary>
+  private void SmoothPlayerRotation()
+  {
+    if (!isPlayerRotation)
+      return;
+
+    Quaternion rotation = Quaternion.LookRotation(direction);
+    _meshTransform.rotation = Quaternion.Lerp(_meshTransform.rotation, rotation, _speedRotaion * Time.deltaTime);
+
+    if (_meshTransform.rotation == rotation)
+      isPlayerRotation = false;
   }
 
   /// <summary>
