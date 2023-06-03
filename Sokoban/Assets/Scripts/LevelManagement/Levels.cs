@@ -140,6 +140,19 @@ namespace Sokoban.LevelManagement
 
       LevelData[] listDataLevels = Resources.LoadAll<LevelData>(GetPathToStorageLevels(parLocation));
 
+      for (int i = 0; i < listDataLevels.Length - 1; i++)
+      {
+        for (int j = 0; j < listDataLevels.Length - i - 1; j++)
+        {
+          if (listDataLevels[j].LevelNumber > listDataLevels[j + 1].LevelNumber)
+          {
+            var temp = listDataLevels[j];
+            listDataLevels[j] = listDataLevels[j + 1];
+            listDataLevels[j + 1] = temp;
+          }
+        }
+      }
+
       for (int i = 0; i < listDataLevels.Length; i++)
       {
         retLevelData.Add(listDataLevels[i]);

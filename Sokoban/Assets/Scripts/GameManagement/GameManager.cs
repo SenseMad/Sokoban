@@ -26,8 +26,6 @@ namespace Sokoban.GameManagement
       base.Awake();
 
       Init();
-
-      SettingsData.CurrentLanguage = Language.Russian;
     }
 
     private void Start()
@@ -39,7 +37,7 @@ namespace Sokoban.GameManagement
 
     private void Init()
     {
-      
+      SettingsData.CurrentLanguage = Language.Russian;
     }
 
     //======================================

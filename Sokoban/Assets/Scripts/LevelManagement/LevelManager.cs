@@ -328,6 +328,8 @@ namespace Sokoban.LevelManagement
     {
       _currentLevelData = levelData;
 
+      IsNextLevelData?.Invoke(_currentLevelData);
+
       isCameraRotation = true;
 
       IsReloadLevel?.Invoke();

@@ -18,7 +18,7 @@ namespace Sokoban.GameManagement
     /// </summary>
     public Dictionary<Location, int> tableNumberCompletedLevelsLocation = new Dictionary<Location, int>()
     {
-      { Location.Summer, 0 },
+      { Location.Summer, 12 },
       { Location.Winter, 0 }
     };
 
@@ -28,6 +28,11 @@ namespace Sokoban.GameManagement
     public Dictionary<Location, Dictionary<int, LevelProgressData>> levelProgressData = new Dictionary<Location, Dictionary<int, LevelProgressData>>();
 
     #endregion
+
+    /// <summary>
+    /// Текущий индекс скина
+    /// </summary>
+    public int CurrentIndexSkin { get; set; } = 0;
 
     //======================================
 

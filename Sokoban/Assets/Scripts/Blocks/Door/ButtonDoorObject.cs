@@ -10,14 +10,19 @@ public class ButtonDoorObject : InteractiveObjects
   [SerializeField, Tooltip("Цвет кнопки двери")]
   private DoorColor _buttonDoorColor;
 
+  [SerializeField, Tooltip("")]
+  private GameObject _buttonGameObject;
+
   //--------------------------------------
 
   private LevelManager levelManager;
 
   //======================================
 
-  private void Awake()
+  protected override void Awake()
   {
+    base.Awake();
+
     levelManager = LevelManager.Instance;
   }
 
@@ -30,10 +35,14 @@ public class ButtonDoorObject : InteractiveObjects
       var listDoorObjects = levelManager.GridLevel.GetListDoorObjects();
       for (int i = 0; i < listDoorObjects.Count; i++)
       {
-        if (listDoorObjects[i].GetDoorColor() != _buttonDoorColor || !listDoorObjects[i].gameObject.activeSelf)
+        if (listDoorObjects[i].GetDoorColor() != _buttonDoorColor || !listDoorObjects[i].BoxCollider.enabled)
           continue;
 
-        listDoorObjects[i].gameObject.SetActive(false);
+        //listDoorObjects[i].gameObject.SetActive(false);
+        listDoorObjects[i].BoxCollider.enabled = false;
+        listDoorObjects[i].OpenDoorMesh.SetActive(false);
+        listDoorObjects[i].ClosedDoorMesh.SetActive(true);
+        _buttonGameObject.SetActive(false);
       }
     }
   }
@@ -43,10 +52,14 @@ public class ButtonDoorObject : InteractiveObjects
     var listDoorObjects = levelManager.GridLevel.GetListDoorObjects();
     for (int i = 0; i < listDoorObjects.Count; i++)
     {
-      if (listDoorObjects[i].GetDoorColor() != _buttonDoorColor || listDoorObjects[i].gameObject.activeSelf)
+      if (listDoorObjects[i].GetDoorColor() != _buttonDoorColor || listDoorObjects[i].BoxCollider.enabled)
         continue;
 
-      listDoorObjects[i].gameObject.SetActive(true);
+      //listDoorObjects[i].gameObject.SetActive(true);
+      listDoorObjects[i].BoxCollider.enabled = true;
+      listDoorObjects[i].OpenDoorMesh.SetActive(true);
+      listDoorObjects[i].ClosedDoorMesh.SetActive(false);
+      _buttonGameObject.SetActive(true);
     }
   }
 

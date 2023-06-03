@@ -8,5 +8,6 @@ public enum DoorColor
   red,
   green,
   blue,
-  alpha
+  alpha,
+  yellow
 }

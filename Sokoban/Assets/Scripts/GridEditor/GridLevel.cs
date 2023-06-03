@@ -1,9 +1,10 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
+using Sokoban.GameManagement;
 using Sokoban.LevelManagement;
-using System.Collections;
 
 namespace Sokoban.GridEditor
 {
@@ -22,6 +23,8 @@ namespace Sokoban.GridEditor
     private Coroutine myCoroutine;
 
     //======================================
+
+    private GameManager gameManager;
 
     private LevelManager levelManager;
 
@@ -72,6 +75,8 @@ namespace Sokoban.GridEditor
 
     private void Start()
     {
+      gameManager = GameManager.Instance;
+
       levelManager = LevelManager.Instance;
 
       transform.localPosition = new Vector3(0, -2, 0);
@@ -182,6 +187,8 @@ namespace Sokoban.GridEditor
 
       IsLevelDeleted = false;
       statesLevel = StatesLevel.Created;
+      //transform.position = new Vector3(0, -3, 0);
+
       float timer = 0f;
 
       LevelData levelData = levelManager.GetCurrentLevelData();
@@ -190,6 +197,22 @@ namespace Sokoban.GridEditor
       foreach (var levelObject in levelManager.GetCurrentLevelData().ListLevelObjects)
       {
         Block newBlockObject = Instantiate(_listBlockObjectTypes.GetBlockObject(levelObject.TypeObject, levelObject.IndexObject), transform);
+
+        #region Выбор скина
+
+        if (newBlockObject.GetComponent<PlayerObjects>() != null)
+        {
+          foreach (var skinData in ShopData.Instance.SkinDatas)
+          {
+            if (skinData.IndexSkin != gameManager.ProgressData.CurrentIndexSkin)
+              continue;
+
+            newBlockObject.GetComponentInChildren<MeshFilter>().sharedMesh = skinData.ObjectSkin.GetComponentInChildren<MeshFilter>().sharedMesh;
+            newBlockObject.GetComponentInChildren<MeshRenderer>().sharedMaterials[0] = skinData.GetMaterial();
+          }
+        }
+
+        #endregion
 
         if (newBlockObject.GetTypeObject() != TypeObject.staticObject)
           newBlockObject.transform.localScale = Vector3.zero;

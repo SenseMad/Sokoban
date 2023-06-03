@@ -36,6 +36,8 @@ namespace Sokoban.UI
 
     private Location currentLocation;
 
+    private float nextTimeMoveNextValue1;
+
     //======================================
 
     protected override void Awake()
@@ -48,6 +50,8 @@ namespace Sokoban.UI
     protected override void Update()
     {
       MoveMenuHorizontally();
+
+      MoveMenuVertically(11);
     }
 
     //======================================
@@ -63,11 +67,16 @@ namespace Sokoban.UI
 
         if (inputHandler.GetChangingValuesInput() > 0)
         {
+          /*if (indexActiveButton + 1 > _listButtons.Count - 1)
+            return;
+          if (gameManager.ProgressData.GetNumberLevelsCompleted(currentLocation) < indexActiveButton + 1)
+            return;*/
+
           IsSelected = false;
 
           listUILevelSelectButton[indexActiveButton].ChangeSprite(false);
-
           indexActiveButton++;
+          //listUILevelSelectButton[indexActiveButton].ChangeSprite(true);
 
           if (indexActiveButton > _listButtons.Count - 1) indexActiveButton = 0;
           if (gameManager.ProgressData.GetNumberLevelsCompleted(currentLocation) < indexActiveButton)
@@ -81,11 +90,14 @@ namespace Sokoban.UI
 
         if (inputHandler.GetChangingValuesInput() < 0)
         {
+          /*if (indexActiveButton - 1 < 0)
+            return;*/
+
           IsSelected = false;
 
           listUILevelSelectButton[indexActiveButton].ChangeSprite(false);
-
           indexActiveButton--;
+          //listUILevelSelectButton[indexActiveButton].ChangeSprite(true);
 
           if (indexActiveButton < 0) indexActiveButton = _listButtons.Count - 1;
           while (gameManager.ProgressData.GetNumberLevelsCompleted(currentLocation) < indexActiveButton)
@@ -101,6 +113,54 @@ namespace Sokoban.UI
       if (inputHandler.GetChangingValuesInput() == 0)
       {
         nextTimeMoveNextValue = Time.time;
+      }
+    }
+
+    protected override void MoveMenuVertically(int parValue)
+    {
+      if (_listButtons.Count == 0)
+        return;
+
+      if (Time.time > nextTimeMoveNextValue1)
+      {
+        nextTimeMoveNextValue1 = Time.time + timeMoveNextValue;
+
+        if (inputHandler.GetNavigationInput() > 0)
+        {
+          if (indexActiveButton - parValue < 0)
+            return;
+
+          IsSelected = false;
+
+          listUILevelSelectButton[indexActiveButton].ChangeSprite(false);
+          indexActiveButton -= parValue;
+          listUILevelSelectButton[indexActiveButton].ChangeSprite(true);
+
+          Sound();
+          IsSelected = true;
+        }
+
+        if (inputHandler.GetNavigationInput() < 0)
+        {
+          if (indexActiveButton + parValue > _listButtons.Count - 1)
+            return;
+          if (gameManager.ProgressData.GetNumberLevelsCompleted(currentLocation) < indexActiveButton + parValue)
+            return;
+
+          IsSelected = false;
+
+          listUILevelSelectButton[indexActiveButton].ChangeSprite(false);
+          indexActiveButton += parValue;
+          listUILevelSelectButton[indexActiveButton].ChangeSprite(true);
+
+          Sound();
+          IsSelected = true;
+        }
+      }
+
+      if (inputHandler.GetNavigationInput() == 0)
+      {
+        nextTimeMoveNextValue1 = Time.time;
       }
     }
 

@@ -19,13 +19,13 @@ public abstract class Block : MonoBehaviour
 
   //--------------------------------------
 
-  private BoxCollider boxCollider;
+  public BoxCollider BoxCollider { get; set; }
 
   //======================================
 
   protected virtual void Awake()
   {
-    boxCollider = GetComponent<BoxCollider>();
+    BoxCollider = GetComponent<BoxCollider>();
   }
 
   //======================================
@@ -58,7 +58,7 @@ public abstract class Block : MonoBehaviour
   /// <summary>
   /// Получить BoxCollider
   /// </summary>
-  public BoxCollider GetBoxCollider() => boxCollider;
+  public BoxCollider GetBoxCollider() => BoxCollider;
 
   //======================================
 
