@@ -8,6 +8,8 @@ public class DoorObject : StaticObjects
   [SerializeField, Tooltip("Цвет двери")]
   private DoorColor _doorColor;
 
+  [SerializeField] private GameObject _meshGameObject;
+
   [SerializeField, Tooltip("Открытая дверь")]
   private GameObject _openDoorMesh;
   [SerializeField, Tooltip("Закрытая дверь")]
@@ -29,14 +31,17 @@ public class DoorObject : StaticObjects
   /// </summary>
   public GameObject ClosedDoorMesh { get => _closedDoorMesh; private set => _closedDoorMesh = value; }
 
+  public GameObject MeshGameObject { get => _meshGameObject; private set => _meshGameObject = value; }
+
   //======================================
 
   protected override void Awake()
   {
     base.Awake();
 
-    OpenDoorMesh.SetActive(true);
-    ClosedDoorMesh.SetActive(false);
+    MeshGameObject.SetActive(true);
+    /*OpenDoorMesh.SetActive(true);
+    ClosedDoorMesh.SetActive(false);*/
   }
 
   //======================================

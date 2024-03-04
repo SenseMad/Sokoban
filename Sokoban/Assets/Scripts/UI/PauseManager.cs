@@ -18,9 +18,6 @@ namespace Sokoban.UI
 
     //======================================
 
-    /// <summary>
-    /// True, если игра остановлена
-    /// </summary>
     private bool IsPause
     {
       get => isPause;
@@ -140,9 +137,6 @@ namespace Sokoban.UI
 
     //======================================
 
-    /// <summary>
-    /// Кнопка продолжить
-    /// </summary>
     public void ContinueButton()
     {
       IsSelected = false;
@@ -153,29 +147,20 @@ namespace Sokoban.UI
       panelController.CloseAllPanels();
     }
 
-    /// <summary>
-    /// Кнопка перезагрузки
-    /// </summary>
     public void RestartButton()
     {
       ContinueButton();
       levelManager.ReloadLevel();
     }
 
-    /// <summary>
-    /// Кнопка выхода в меню
-    /// </summary>
     public void ExitMenuButton()
     {
       IsPause = false;
       levelManager.ExitMenu();
     }
 
-    //======================================
+    //======================================       
 
-    /// <summary>
-    /// Пауза
-    /// </summary>
     public void OnPause(InputAction.CallbackContext context)
     {
       SetIsPause();

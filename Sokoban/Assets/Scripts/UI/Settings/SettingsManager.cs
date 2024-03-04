@@ -56,7 +56,7 @@ namespace Sokoban.UI
       base.OnEnable();
 
       _musicValue.SetValueWithoutNotify(gameManager.SettingsData.MusicValue);
-      _soundValue.SetValueWithoutNotify(gameManager.SettingsData.SoundVolume);
+      _soundValue.SetValueWithoutNotify(gameManager.SettingsData.SoundValue);
       _languageValue.SetValueWithoutNotify((int)gameManager.SettingsData.CurrentLanguage);
     }
 
@@ -77,7 +77,7 @@ namespace Sokoban.UI
 
     private void SoundValue_OnValueChanged(int parValue)
     {
-      gameManager.SettingsData.SoundVolume = parValue;
+      gameManager.SettingsData.SoundValue = parValue;
       Sound();
     }
 

@@ -54,10 +54,6 @@ public class DynamicObjects : Block
 
   //======================================
 
-  /// <summary>
-  /// Движение объекта
-  /// </summary>
-  /// <param name="parDirection">Направление движения</param>
   public bool ObjectMove(Vector3 parDirection, float parSpeed)
   {
     if (IsBlocked(parDirection))
@@ -80,16 +76,14 @@ public class DynamicObjects : Block
     {
       if (hit.collider)
       {
+        if (hit.collider.TryGetComponent<DecoreObject>(out var decoreObject))
+          return decoreObject.IsEnableBoxCollider;
+
         if (hit.collider.GetComponent<DynamicObjects>() || hit.collider.GetComponent<StaticObjects>())
           return true;
 
         if (hit.collider.TryGetComponent(out SpikeObject spikeObject))
-        {
-          if (spikeObject.IsSpikeActivated)
-            return true;
-
-          return false;
-        }
+          return spikeObject.IsSpikeActivated;
 
         if (hit.collider.GetComponent<ButtonDoorObject>())
           return false;

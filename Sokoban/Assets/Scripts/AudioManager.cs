@@ -128,7 +128,7 @@ namespace Sokoban.GameManagement
 
       AudioSource tempAudioSource = objectAudio.AddComponent<AudioSource>();
       tempAudioSource.clip = parAudioClip;
-      tempAudioSource.volume = (float)gameManager.SettingsData.SoundVolume / 100;
+      tempAudioSource.volume = (float)gameManager.SettingsData.SoundValue / 100;
       tempAudioSource.Play();
       Destroy(objectAudio, parAudioClip.length);
 

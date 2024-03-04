@@ -37,6 +37,9 @@ namespace Sokoban.GridEditor
     [SerializeField, Tooltip("Выбранный номер уровня")]
     private int _selectedLevelNumber = 1;
 
+    [Space(15)]
+    [SerializeField] private bool _isRandom = false;
+
     //--------------------------------------
 
     private Block[,,] blockObjects;
@@ -153,7 +156,13 @@ namespace Sokoban.GridEditor
           {
             GetXYZ(hit.point, out Vector3Int position);
             RemoveObject(position);
-            AddObject(position, _listBlockObjectsTypes.GetBlockObject(_typeSelectedObject, _indexSelectedObject));
+            if (!_isRandom)
+              AddObject(position, _listBlockObjectsTypes.GetBlockObject(_typeSelectedObject, _indexSelectedObject));
+            else
+            {
+              int indexRandom = _listBlockObjectsTypes.GetRandomIndexBlockObject(_typeSelectedObject);
+              AddObject(position, _listBlockObjectsTypes.GetBlockObject(_typeSelectedObject, indexRandom));
+            }
           }
         }
       }

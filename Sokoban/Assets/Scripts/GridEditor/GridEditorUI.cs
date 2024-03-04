@@ -71,7 +71,7 @@ namespace Sokoban.GridEditor
     /// <summary>
     /// Список всех кнопок
     /// </summary>
-    private List<UIBlockTypeSelectButton> listBlocks = new List<UIBlockTypeSelectButton>();
+    private List<UIBlockTypeSelectButton> listBlocks = new();
 
     //======================================
 
@@ -235,6 +235,8 @@ namespace Sokoban.GridEditor
           return "Объекты дверей";
         case TypeObject.buttonDoorObject:
           return "Объекты кнопок дверей";
+        case TypeObject.decorObject:
+          return "Объекты декора";
       }
 
       return "";
@@ -263,6 +265,8 @@ namespace Sokoban.GridEditor
           return TypeObject.doorObject;
         case "Объекты кнопок дверей":
           return TypeObject.buttonDoorObject;
+        case "Объекты декора":
+          return TypeObject.decorObject;
       }
 
       return TypeObject.allObject;

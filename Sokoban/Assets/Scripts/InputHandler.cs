@@ -6,8 +6,10 @@ public class InputHandler : SingletonInGame<InputHandler>
 
   //======================================
 
-  private new void Awake()
+  protected override void Awake()
   {
+    base.Awake();
+
     AI_Player = new AI_Player();
   }
 

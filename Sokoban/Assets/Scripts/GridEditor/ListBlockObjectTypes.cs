@@ -32,6 +32,22 @@ namespace Sokoban.GridEditor
       return tempListBlock;
     }
 
+    public int GetRandomIndexBlockObject(TypeObject parTypeObject)
+    {
+      for (int i = 0; i < _listBlockObjectTypes.Count; i++)
+      {
+        if (_listBlockObjectTypes[i].GetTypeObjects != parTypeObject)
+          continue;
+
+        System.Random random = new System.Random();
+        int randomIndex = random.Next(0, _listBlockObjectTypes[i].GetListBlockObjects().Count);
+
+        return randomIndex;
+      }
+
+      return 0;
+    }
+
     /// <summary>
     /// Получить объект блока
     /// </summary>

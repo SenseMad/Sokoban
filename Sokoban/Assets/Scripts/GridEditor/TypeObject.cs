@@ -31,5 +31,7 @@ public enum TypeObject
   /// <summary>
   /// Объект кнопки для двери
   /// </summary>
-  buttonDoorObject
+  buttonDoorObject,
+  decorObject,
+  decorRandomObject
 }

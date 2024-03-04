@@ -139,9 +139,6 @@ public class PlayerObjects : Block
 
   //======================================
 
-  /// <summary>
-  /// Движение игрока
-  /// </summary>
   private void PlayerMovement()
   {
     Vector2 axisMovement = inputHandler.GetMove();
@@ -164,13 +161,9 @@ public class PlayerObjects : Block
     lastTime = Time.time;
   }
 
-  /// <summary>
-  /// Движение
-  /// </summary>
-  /// <param name="parDirection">Направление движения</param>
   private bool Move(Vector3 parDirection)
   {
-    if (levelManager.LevelCompleted || levelManager.IsPause || isMoving || levelManager.GridLevel.GetStatesLevel() || levelManager.IsLevelMenu)
+    if (levelManager.LevelCompleted || levelManager.IsPause || isMoving || levelManager.GridLevel.TryStatesLevel() || levelManager.IsLevelMenu)
       return false;
 
     if (Mathf.Abs(parDirection.x) < 0.5f)
@@ -210,7 +203,7 @@ public class PlayerObjects : Block
     {
       if (hit.collider)
       {
-        var block = hit.collider.GetComponent<Block>();
+        Block block = hit.collider.GetComponent<Block>();
         if (block.GetTypeObject() == TypeObject.staticObject)
           return true;
 
@@ -220,22 +213,14 @@ public class PlayerObjects : Block
         #region Проверка движущихся объектов
 
         if (hit.collider.TryGetComponent(out DynamicObjects dynamicObject))
-        {
           return !dynamicObject.ObjectMove(parDirection, _speed);
-        }
 
         #endregion
 
         #region Проверка шипов
 
         if (hit.collider.TryGetComponent(out SpikeObject spikeObject))
-        {
-          // Если шип активирован, возвращаем True
-          /*if (spikeObject.IsSpikeActivated)
-            return true;*/
-
-          return false;
-        }
+          return spikeObject.IsSpikeActivated;
 
         #endregion
 
@@ -249,10 +234,6 @@ public class PlayerObjects : Block
     return false;
   }
 
-  /// <summary>
-  /// True, если перед игроком есть земля
-  /// </summary>
-  /// <param name="direction">Направление движения</param>
   private bool CheckGroundPlayer(Vector3 direction)
   {
     // Проверяем позицию клетки впереди игрока
@@ -307,11 +288,11 @@ public class PlayerObjects : Block
 
   #region Поворот камеры
 
-  /// <summary>
-  /// Поворот камеры
-  /// </summary>
   private void CameraRotation(float parValue)
   {
+    if (levelManager.LevelCompleted || levelManager.IsPause || levelManager.GridLevel.TryStatesLevel() || levelManager.IsLevelMenu)
+      return;
+
     if (!isCameraRotation)
     {
       // Вычисляем новый угол поворота камеры
@@ -320,9 +301,6 @@ public class PlayerObjects : Block
     }
   }
 
-  /// <summary>
-  /// Плавный поворот камеры
-  /// </summary>
   private void SmoothCameraRotation()
   {
     if (!isCameraRotation)

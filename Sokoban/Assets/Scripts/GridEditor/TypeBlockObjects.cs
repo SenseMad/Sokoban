@@ -6,17 +6,12 @@ namespace Sokoban.GridEditor
   [CreateAssetMenu(fileName = "New Type Block Objects", menuName = "Data/Type Block Objects", order = 51)]
   public class TypeBlockObjects : ScriptableObject
   {
-    [SerializeField, Tooltip("Тип объектов из списка")]
-    private TypeObject _typeObjects;
+    [SerializeField] private TypeObject _typeObjects;
 
-    [SerializeField, Tooltip("Список блочных объектов")]
-    private List<Block> _listBlockObjects = new List<Block>();
+    [SerializeField] private List<Block> _listBlockObjects = new();
 
     //======================================
 
-    /// <summary>
-    /// Получить тип объектов из списка
-    /// </summary>
     public TypeObject GetTypeObjects => _typeObjects;
 
     public List<Block> GetListBlockObjects() => _listBlockObjects;

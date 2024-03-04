@@ -2,34 +2,20 @@ using UnityEngine;
 
 public class SpikeObject : InteractiveObjects
 {
-  [Header("СОСТОЯНИЯ")]
-  [SerializeField, Tooltip("Обычное состояние")]
-  private GameObject _normalState;
+  [SerializeField] private GameObject _normalState;
 
-  [SerializeField, Tooltip("Активированное состояние")]
-  private GameObject _activatedState;
+  [SerializeField] private GameObject _activatedState;
 
   //--------------------------------------
 
-  /// <summary>
-  /// True, если игрок стоит на шипах
-  /// </summary>
   private bool isPlayerStandsSpikes;
   
-  /// <summary>
-  /// Время задержки
-  /// </summary>
   private readonly float delayTime = 5.0f;
-  /// <summary>
-  /// Текущее время задержки
-  /// </summary>
+
   private float currentDelayTime;
 
   //======================================
 
-  /// <summary>
-  /// True, если шип активирован
-  /// </summary>
   public bool IsSpikeActivated { get; private set; }
 
   //======================================
@@ -45,7 +31,7 @@ public class SpikeObject : InteractiveObjects
 
       if (currentDelayTime >= delayTime)
       {
-        ActivateSpikes();
+        ActivateSpike();
       }
     }
   }
@@ -90,15 +76,12 @@ public class SpikeObject : InteractiveObjects
     if (other.GetComponent<Block>().GetTypeObject() != TypeObject.playerObject)
       return;
 
-    ActivateSpikes();
+    ActivateSpike();
   }
 
   //======================================
 
-  /// <summary>
-  /// Активировать шипы
-  /// </summary>
-  private void ActivateSpikes()
+  private void ActivateSpike()
   {
     isPlayerStandsSpikes = false;
     IsSpikeActivated = true;

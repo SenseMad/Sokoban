@@ -301,7 +301,7 @@ public partial class @AI_Player: IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""09370b60-10b4-42fe-a873-818b9c74811d"",
-                    ""path"": ""<Keyboard>/comma"",
+                    ""path"": ""<Keyboard>/q"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -312,7 +312,7 @@ public partial class @AI_Player: IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""5cccbd81-1800-4296-ad1c-172ca2027188"",
-                    ""path"": ""<Keyboard>/period"",
+                    ""path"": ""<Keyboard>/e"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",

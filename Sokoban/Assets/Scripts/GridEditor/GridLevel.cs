@@ -13,8 +13,7 @@ namespace Sokoban.GridEditor
     [SerializeField, Tooltip("Список типов блочных объектов")]
     private ListBlockObjectTypes _listBlockObjectTypes;
 
-    [SerializeField, Tooltip("")]
-    private AnimationCurve animationCurve;
+    [SerializeField] private AnimationCurve animationCurve;
 
     //--------------------------------------
 
@@ -28,47 +27,24 @@ namespace Sokoban.GridEditor
 
     private LevelManager levelManager;
 
-    /// <summary>
-    /// Объекты блоков
-    /// </summary>
     private Block[,,] blockObjects;
 
-    /// <summary>
-    /// Список объектов еды
-    /// </summary>
-    private List<FoodObject> listFoodObjects = new List<FoodObject>();
+    private List<FoodObject> listFoodObjects = new();
 
-    /// <summary>
-    /// Список объектов дверей
-    /// </summary>
-    private List<DoorObject> listDoorObjects = new List<DoorObject>();
+    private List<DoorObject> listDoorObjects = new();
 
     //======================================
 
-    /// <summary>
-    /// Получение объектов сетки
-    /// </summary>
-    public Block[,,] GetBlockObjects() => blockObjects;
+    public Block[,,] BlockObjects => blockObjects;
 
-    /// <summary>
-    /// True, если уровень создан
-    /// </summary>
     public bool IsLevelCreated { get; private set; }
-    /// <summary>
-    /// True, если уровень удален
-    /// </summary>
+
     public bool IsLevelDeleted { get; private set; } = true;
 
     //======================================
 
-    /// <summary>
-    /// Событие: Уровень создан
-    /// </summary>
     public UnityEvent OnLevelCreated { get; } = new UnityEvent();
 
-    /// <summary>
-    /// Событие: Уровень удален
-    /// </summary>
     public UnityEvent OnLevelDeleted { get; } = new UnityEvent();
 
     //======================================
@@ -86,9 +62,6 @@ namespace Sokoban.GridEditor
 
     #region Поиск еды на уровне
 
-    /// <summary>
-    /// Найти всю еду на уровне
-    /// </summary>
     private void FindAllFoodObjects()
     {
       if (blockObjects == null)
@@ -101,16 +74,13 @@ namespace Sokoban.GridEditor
         if (blockObject == null)
           continue;
 
-        if (!blockObject.TryGetComponent<FoodObject>(out var foodObject))
+        if (!blockObject.TryGetComponent(out FoodObject foodObject))
           continue;
 
         listFoodObjects.Add(foodObject);
       }
     }
 
-    /// <summary>
-    /// Получить список объектов еды на уровне
-    /// </summary>
     public List<FoodObject> GetListFoodObjects()
     {
       return listFoodObjects;
@@ -120,9 +90,6 @@ namespace Sokoban.GridEditor
 
     #region Поиск объектов дверей на уровне
     
-    /// <summary>
-    /// Найти все объекты дверей на уровне
-    /// </summary>
     private void FindAllDoorObjects()
     {
       if (blockObjects == null)
@@ -135,16 +102,13 @@ namespace Sokoban.GridEditor
         if (blockObject == null)
           continue;
 
-        if (!blockObject.TryGetComponent<DoorObject>(out var doorObject))
+        if (!blockObject.TryGetComponent(out DoorObject doorObject))
           continue;
 
         listDoorObjects.Add(doorObject);
       }
     }
 
-    /// <summary>
-    /// Получить список объектов дверей на уровне
-    /// </summary>
     public List<DoorObject> GetListDoorObjects()
     {
       return listDoorObjects;
@@ -154,9 +118,6 @@ namespace Sokoban.GridEditor
 
     //======================================
 
-    /// <summary>
-    /// Создание сетки уровня
-    /// </summary>
     public void CreatingLevelGrid()
     {
       DeletingLevelObjects();
@@ -164,9 +125,6 @@ namespace Sokoban.GridEditor
       StartCoroutine(CreateLevel());
     }
 
-    /// <summary>
-    /// Удаление объектов уровня
-    /// </summary>
     public void DeletingLevelObjects()
     {
       if (blockObjects == null)
@@ -175,9 +133,6 @@ namespace Sokoban.GridEditor
       myCoroutine = StartCoroutine(DeleteLevel());
     }
 
-    /// <summary>
-    /// Создание уровня
-    /// </summary>
     private IEnumerator CreateLevel()
     {
       while (myCoroutine != null || !IsLevelDeleted)
@@ -198,17 +153,18 @@ namespace Sokoban.GridEditor
       {
         Block newBlockObject = Instantiate(_listBlockObjectTypes.GetBlockObject(levelObject.TypeObject, levelObject.IndexObject), transform);
 
-        #region Выбор скина
+        #region Select Skin
 
         if (newBlockObject.GetComponent<PlayerObjects>() != null)
         {
           foreach (var skinData in ShopData.Instance.SkinDatas)
           {
-            if (skinData.IndexSkin != gameManager.ProgressData.CurrentIndexSkin)
+            if (skinData.IndexSkin != gameManager.ProgressData.CurrentActiveIndexSkin)
               continue;
 
-            newBlockObject.GetComponentInChildren<MeshFilter>().sharedMesh = skinData.ObjectSkin.GetComponentInChildren<MeshFilter>().sharedMesh;
-            newBlockObject.GetComponentInChildren<MeshRenderer>().sharedMaterials[0] = skinData.GetMaterial();
+            newBlockObject.GetComponentInChildren<MeshFilter>().sharedMesh = skinData.Mesh;
+            newBlockObject.GetComponentInChildren<MeshRenderer>().sharedMaterials[0] = skinData.Material;
+            break;
           }
         }
 
@@ -258,7 +214,12 @@ namespace Sokoban.GridEditor
         if (block == null)
           continue;
 
-        block.GetBoxCollider().enabled = true;
+        block.BoxCollider.enabled = true;
+        if (block.TryGetComponent(out DecoreObject decoreObject))
+        {
+          if (!decoreObject.IsEnableBoxCollider)
+            block.BoxCollider.enabled = false;
+        }
 
         if (block.TryGetComponent(out DynamicObjects dynamicObjects))
         {
@@ -280,9 +241,6 @@ namespace Sokoban.GridEditor
       IsLevelDeleted = true;
     }
 
-    /// <summary>
-    /// Удаление уровня
-    /// </summary>
     private IEnumerator DeleteLevel()
     {
       if (blockObjects == null)
@@ -343,32 +301,17 @@ namespace Sokoban.GridEditor
       IsLevelDeleted = true;
     }
 
-    /// <summary>
-    /// True, если уровень Создается/Удаляется
-    /// </summary>
-    public bool GetStatesLevel()
+    public bool TryStatesLevel()
     {
       return statesLevel == StatesLevel.Created || statesLevel == StatesLevel.Deleted;
     }
 
     //======================================
 
-    /// <summary>
-    /// Состояние уровня
-    /// </summary>
     public enum StatesLevel
     {
-      /// <summary>
-      /// Уровень создан
-      /// </summary>
       Completed,
-      /// <summary>
-      /// Уровень создается
-      /// </summary>
       Created,
-      /// <summary>
-      /// Уровень удаляется
-      /// </summary>
       Deleted
     }
 

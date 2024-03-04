@@ -64,6 +64,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Piggi
       objectReference: {fileID: 0}
+    - target: {fileID: 3884544150236789074, guid: bb208ec8e00244345a28d37fc6de9b7f, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: fcde7f836cfb8154f8e4952340707aee, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
