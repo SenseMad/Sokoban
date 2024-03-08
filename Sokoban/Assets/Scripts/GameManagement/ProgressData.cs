@@ -5,10 +5,9 @@ using Sokoban.LevelManagement;
 
 namespace Sokoban.GameManagement
 {
-  [System.Serializable]
   public sealed class ProgressData
   {
-    #region (Таблицы) Локаций/Уровней
+    #region (Tables) Locations/Levels
 
     public Dictionary<Location, int> NumberCompletedLevelsLocation = new()
     {
@@ -21,9 +20,11 @@ namespace Sokoban.GameManagement
 
     public int CurrentActiveIndexSkin { get; set; } = 0;
 
-    //======================================
+    public Location LocationLastLevelPlayed { get; set; } = Location.Summer;
 
-    #region (Функции) Локации/Уровни
+    public int IndexLastLevelPlayed { get; set; } = 1;
+
+    //======================================
 
     public bool OpenLocation(Location parLocation)
     {
@@ -111,8 +112,6 @@ namespace Sokoban.GameManagement
     {
       return NumberCompletedLevelsLocation.ContainsKey(parLocation);
     }
-
-    #endregion
 
     //======================================
   }

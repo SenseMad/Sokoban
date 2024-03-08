@@ -8,6 +8,8 @@ namespace Sokoban.UI
     [SerializeField, Tooltip("Текущая активная панель")]
     private Panel _currentActivePanel;
 
+    [SerializeField] private GameObject _topPanelObject;
+
     //--------------------------------------
 
     /// <summary>
@@ -35,6 +37,7 @@ namespace Sokoban.UI
       if (_currentActivePanel == null)
         return;
 
+      _topPanelObject.SetActive(true);
       _currentActivePanel.ShowPanel();
       listAllOpenPanels.Add(parPanel);
     }
@@ -77,6 +80,7 @@ namespace Sokoban.UI
       if (listAllOpenPanels.Count == 0)
       {
         _currentActivePanel = null;
+        _topPanelObject.SetActive(false);
         return;
       }
 
@@ -105,6 +109,8 @@ namespace Sokoban.UI
         HidePanel(listAllOpenPanels[i]);
         listAllOpenPanels.Remove(listAllOpenPanels[i]);
       }
+
+      _topPanelObject.SetActive(false);
 
       _currentActivePanel = null;
       listAllOpenPanels.Clear();

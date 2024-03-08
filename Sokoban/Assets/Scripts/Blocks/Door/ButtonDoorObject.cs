@@ -1,6 +1,7 @@
 using UnityEngine;
 
 using Sokoban.LevelManagement;
+using Sokoban.GameManagement;
 
 public class ButtonDoorObject : InteractiveObjects
 {
@@ -37,11 +38,14 @@ public class ButtonDoorObject : InteractiveObjects
         continue;
 
       doorObject.BoxCollider.enabled = false;
+
       doorObject.MeshGameObject.SetActive(false);
-      /*doorObject.OpenDoorMesh.SetActive(false);
-      doorObject.ClosedDoorMesh.SetActive(true);*/
+
       _buttonGameObject.SetActive(false);
     }
+
+    if (Sound != null)
+      AudioManager.Instance.OnPlaySound?.Invoke(Sound);
   }
 
   private void OnTriggerExit(Collider other)
@@ -52,11 +56,14 @@ public class ButtonDoorObject : InteractiveObjects
         continue;
 
       doorObject.BoxCollider.enabled = true;
+
       doorObject.MeshGameObject.SetActive(true);
-      /*doorObject.OpenDoorMesh.SetActive(true);
-      doorObject.ClosedDoorMesh.SetActive(false);*/
+
       _buttonGameObject.SetActive(true);
     }
+
+    if (Sound != null)
+      AudioManager.Instance.OnPlaySound?.Invoke(Sound);
   }
 
   //======================================

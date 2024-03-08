@@ -3,7 +3,6 @@ using UnityEngine;
 
 namespace Sokoban.LevelManagement
 {
-  [System.Serializable]
   public sealed class Levels
   {
     private readonly static Dictionary<Location, int> tableNumberLevelsLocation = new();

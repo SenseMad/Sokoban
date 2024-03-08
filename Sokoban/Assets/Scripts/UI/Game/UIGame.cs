@@ -38,20 +38,27 @@ namespace Sokoban.UI
 
     private void OnEnable()
     {
-      levelManager.IsLevelCompleted.AddListener(() => SetObject(false));
-      levelManager.IsReloadLevel.AddListener(() => SetObject(true));
-      levelManager.IsMenu.AddListener(() => SetObject(false));
+      levelManager.OnLevelCompleted += SetObjectFalse;
+
+      levelManager.IsReloadLevel.AddListener(SetObjectTrue);
+      levelManager.IsMenu.AddListener(SetObjectFalse);
 
       levelManager.IsNextLevelData.AddListener(UpdateText);
       levelManager.ChangeTimeOnLevel.AddListener(UpdateTextTimeLevel);
       levelManager.ChangeNumberMoves.AddListener(UpdateTextNumberMoves);
     }
 
+    private void LevelManager_OnLevelCompleted(bool t)
+    {
+      SetObject(false);
+    }
+
     private void OnDisable()
     {
-      levelManager.IsLevelCompleted.RemoveListener(() => SetObject(false));
-      levelManager.IsReloadLevel.RemoveListener(() => SetObject(true));
-      levelManager.IsMenu.RemoveListener(() => SetObject(false));
+      levelManager.OnLevelCompleted -= SetObjectFalse;
+
+      levelManager.IsReloadLevel.RemoveListener(SetObjectTrue);
+      levelManager.IsMenu.RemoveListener(SetObjectFalse);
 
       levelManager.IsNextLevelData.RemoveListener(UpdateText);
       levelManager.ChangeTimeOnLevel.RemoveListener(UpdateTextTimeLevel);
@@ -81,16 +88,15 @@ namespace Sokoban.UI
       _textNumberMoves.text = $"{parValue}";
     }
 
+    private void SetObjectTrue() => SetObject(true);
+    private void SetObjectFalse() => SetObject(false);
+
     private void SetObject(bool parValue)
     {
       _objectLevelNumber.SetActive(parValue);
       _objectTimeLevel.SetActive(parValue);
       _objectNumberMoves.SetActive(parValue);
     }
-
-    //======================================
-
-
 
     //======================================
   }

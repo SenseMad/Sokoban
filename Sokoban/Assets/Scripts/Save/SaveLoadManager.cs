@@ -82,13 +82,15 @@ namespace Sokoban.Save
 
       return new GameData()
       {
+        MusicValue = settingsData.MusicValue,
+        SoundValue = settingsData.SoundValue,
+        CurrentLanguage = settingsData.CurrentLanguage,
+
         NumberCompletedLevelsLocation = progressData.NumberCompletedLevelsLocation,
         LevelProgressData = progressData.LevelProgressData,
         CurrentActiveIndexSkin = progressData.CurrentActiveIndexSkin,
-
-        MusicValue = settingsData.MusicValue,
-        SoundValue = settingsData.SoundValue,
-        CurrentLanguage = settingsData.CurrentLanguage
+        LocationLastLevelPlayed = progressData.LocationLastLevelPlayed,
+        IndexLastLevelPlayed = progressData.IndexLastLevelPlayed
       };
     }
 
@@ -99,13 +101,15 @@ namespace Sokoban.Save
       ProgressData progressData = gameManager.ProgressData;
       SettingsData settingsData = gameManager.SettingsData;
 
-      progressData.NumberCompletedLevelsLocation = parData.NumberCompletedLevelsLocation ?? new Dictionary<Location, int>();
-      progressData.LevelProgressData = parData.LevelProgressData ?? new Dictionary<Location, Dictionary<int, LevelManagement.LevelProgressData>>();
-      progressData.CurrentActiveIndexSkin = parData.CurrentActiveIndexSkin;
-
       settingsData.MusicValue = parData.MusicValue;
       settingsData.SoundValue = parData.SoundValue;
       settingsData.CurrentLanguage = parData.CurrentLanguage;
+
+      progressData.NumberCompletedLevelsLocation = parData.NumberCompletedLevelsLocation;
+      progressData.LevelProgressData = parData.LevelProgressData ?? new Dictionary<Location, Dictionary<int, LevelManagement.LevelProgressData>>();
+      progressData.CurrentActiveIndexSkin = parData.CurrentActiveIndexSkin;
+      progressData.LocationLastLevelPlayed = parData.LocationLastLevelPlayed;
+      progressData.IndexLastLevelPlayed = parData.IndexLastLevelPlayed;
     }
 
     //======================================

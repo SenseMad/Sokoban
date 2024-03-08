@@ -3,20 +3,14 @@ using UnityEngine;
 
 namespace Sokoban.GridEditor
 {
-  /// <summary>
-  /// Список типов блочных объектов
-  /// </summary>
   [CreateAssetMenu(fileName = "New List Block Object Types", menuName = "Data/List Block Object Types")]
   public class ListBlockObjectTypes : ScriptableObject
   {
     [SerializeField, Tooltip("Список типов блочных объектов")]
-    private List<TypeBlockObjects> _listBlockObjectTypes = new List<TypeBlockObjects>();
+    private List<TypeBlockObjects> _listBlockObjectTypes = new();
 
     //======================================
 
-    /// <summary>
-    /// Получить список всех блоков
-    /// </summary>
     public List<Block> GetListAllBlock()
     {
       var tempListBlock = new List<Block>();
@@ -39,7 +33,7 @@ namespace Sokoban.GridEditor
         if (_listBlockObjectTypes[i].GetTypeObjects != parTypeObject)
           continue;
 
-        System.Random random = new System.Random();
+        System.Random random = new();
         int randomIndex = random.Next(0, _listBlockObjectTypes[i].GetListBlockObjects().Count);
 
         return randomIndex;

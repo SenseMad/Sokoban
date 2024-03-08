@@ -38,9 +38,6 @@ namespace Sokoban.UI
 
     //======================================
 
-    /// <summary>
-    /// Выйти из игры
-    /// </summary>
     public void ExitGame()
     {
       Application.Quit();

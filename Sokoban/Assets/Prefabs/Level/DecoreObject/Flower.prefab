@@ -49,8 +49,9 @@ MonoBehaviour:
   _typeObject: 8
   _indexObject: 0
   _objectPosition: {x: 0, y: 0, z: 0}
-  _nameObject: 
+  _nameObject: Flower
   _spriteObject: {fileID: 0}
+  _isEnableBoxCollider: 0
 --- !u!65 &4001734293871163822
 BoxCollider:
   m_ObjectHideFlags: 0

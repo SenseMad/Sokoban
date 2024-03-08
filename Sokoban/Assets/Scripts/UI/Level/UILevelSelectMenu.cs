@@ -51,7 +51,7 @@ namespace Sokoban.UI
     {
       MoveMenuHorizontally();
 
-      MoveMenuVertically(11);
+      MoveMenuVertically(5);
     }
 
     //======================================
@@ -252,6 +252,11 @@ namespace Sokoban.UI
       PanelController.Instance.CloseAllPanels1();
 
       levelManager.OnPauseEvent?.Invoke(false);
+
+      gameManager.ProgressData.LocationLastLevelPlayed = levelData.Location;
+      gameManager.ProgressData.IndexLastLevelPlayed = levelData.LevelNumber - 1;
+
+      gameManager.SaveData();
 
       levelManager.ReloadLevel(levelData);
 

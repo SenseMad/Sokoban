@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _levelNumber: 1
   _location: 1
-  _fieldSize: {x: 11, y: 2, z: 11}
+  _fieldSize: {x: 11, y: 5, z: 11}
   _listLevelObjects:
   - _typeObject: 3
     _indexObject: 0
@@ -34,6 +34,12 @@ MonoBehaviour:
   - _typeObject: 4
     _indexObject: 0
     _positionObject: {x: 2, y: 1, z: 5}
+  - _typeObject: 8
+    _indexObject: 4
+    _positionObject: {x: 2, y: 1, z: 6}
+  - _typeObject: 8
+    _indexObject: 4
+    _positionObject: {x: 2, y: 1, z: 8}
   - _typeObject: 3
     _indexObject: 0
     _positionObject: {x: 4, y: 0, z: 2}
@@ -97,9 +103,15 @@ MonoBehaviour:
   - _typeObject: 3
     _indexObject: 0
     _positionObject: {x: 6, y: 0, z: 8}
+  - _typeObject: 8
+    _indexObject: 4
+    _positionObject: {x: 6, y: 1, z: 2}
   - _typeObject: 2
     _indexObject: 0
     _positionObject: {x: 6, y: 1, z: 5}
+  - _typeObject: 8
+    _indexObject: 5
+    _positionObject: {x: 6, y: 1, z: 8}
   - _typeObject: 3
     _indexObject: 0
     _positionObject: {x: 8, y: 0, z: 2}
@@ -115,6 +127,15 @@ MonoBehaviour:
   - _typeObject: 3
     _indexObject: 0
     _positionObject: {x: 8, y: 0, z: 8}
+  - _typeObject: 8
+    _indexObject: 5
+    _positionObject: {x: 8, y: 1, z: 2}
+  - _typeObject: 8
+    _indexObject: 4
+    _positionObject: {x: 8, y: 1, z: 4}
   - _typeObject: 4
     _indexObject: 0
     _positionObject: {x: 8, y: 1, z: 5}
+  - _typeObject: 8
+    _indexObject: 4
+    _positionObject: {x: 8, y: 1, z: 8}

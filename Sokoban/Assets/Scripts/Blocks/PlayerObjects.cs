@@ -5,6 +5,7 @@ using UnityEngine.Events;
 
 using Sokoban.LevelManagement;
 using Sokoban.GridEditor;
+using Sokoban.GameManagement;
 
 public class PlayerObjects : Block
 {
@@ -15,6 +16,8 @@ public class PlayerObjects : Block
 
   [SerializeField, Tooltip("")]
   private Transform _meshTransform;
+
+  [SerializeField] private AudioClip _soundMove;
 
   //--------------------------------------
 
@@ -182,6 +185,9 @@ public class PlayerObjects : Block
     lastPosition = transform.position;
 
     levelManager.NumberMoves++;
+
+    if (_soundMove != null)
+      AudioManager.Instance.OnPlaySound?.Invoke(_soundMove);
 
     animator.SetTrigger("Run");
     return true;

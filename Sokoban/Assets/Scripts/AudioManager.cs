@@ -34,15 +34,9 @@ namespace Sokoban.GameManagement
 
     //======================================
 
-    /// <summary>
-    /// Событие: Проиграть звук интерфейса
-    /// </summary>
     public UnityEvent OnPlaySoundInterface { get; } = new UnityEvent();
 
-    /// <summary>
-    /// Событие: Проиграть звук
-    /// </summary>
-    public UnityEvent<AudioClip> OnPlaySFX { get; } = new UnityEvent<AudioClip>();
+    public UnityEvent<AudioClip> OnPlaySound { get; } = new UnityEvent<AudioClip>();
 
     //======================================
 
@@ -73,7 +67,8 @@ namespace Sokoban.GameManagement
       UpdateAudioSource(gameManager.SettingsData.MusicValue);
 
       OnPlaySoundInterface.AddListener(PlaySoundInterface);
-      OnPlaySFX.AddListener(PlaySFX);
+
+      OnPlaySound.AddListener(PlaySFX);
 
       gameManager.SettingsData.ChangeMusicValue.AddListener(UpdateAudioSource);
     }
@@ -81,7 +76,8 @@ namespace Sokoban.GameManagement
     private void OnDisable()
     {
       OnPlaySoundInterface.RemoveListener(PlaySoundInterface);
-      OnPlaySFX.RemoveListener(PlaySFX);
+
+      OnPlaySound.RemoveListener(PlaySFX);
 
       gameManager.SettingsData.ChangeMusicValue.RemoveListener(UpdateAudioSource);
     }
@@ -103,9 +99,20 @@ namespace Sokoban.GameManagement
 
     //======================================
 
-    /// <summary>
-    /// Рандомная музыка без повторов
-    /// </summary>
+    private AudioSource PlaySound(AudioClip parAudioClip)
+    {
+      GameObject objectAudio = new("SoundEffects");
+      objectAudio.transform.position = transform.position;
+
+      AudioSource tempAudioSource = objectAudio.AddComponent<AudioSource>();
+      tempAudioSource.clip = parAudioClip;
+      tempAudioSource.volume = (float)gameManager.SettingsData.SoundValue / 100;
+      tempAudioSource.Play();
+      Destroy(objectAudio, parAudioClip.length);
+
+      return tempAudioSource;
+    }
+
     private AudioClip GetRandomClip()
     {
       AudioClip clip;
@@ -118,36 +125,13 @@ namespace Sokoban.GameManagement
       return clip;
     }
 
-    /// <summary>
-    /// Воспроизвести звук
-    /// </summary>
-    private AudioSource PlaySound(AudioClip parAudioClip)
-    {
-      GameObject objectAudio = new GameObject("SoundEffects");
-      objectAudio.transform.position = transform.position;
-
-      AudioSource tempAudioSource = objectAudio.AddComponent<AudioSource>();
-      tempAudioSource.clip = parAudioClip;
-      tempAudioSource.volume = (float)gameManager.SettingsData.SoundValue / 100;
-      tempAudioSource.Play();
-      Destroy(objectAudio, parAudioClip.length);
-
-      return tempAudioSource;
-    }
-
     //======================================
 
-    /// <summary>
-    /// Проиграть звук интерфейса
-    /// </summary>
     private void PlaySoundInterface()
     {
       PlaySound(_interfaceSound);
     }
 
-    /// <summary>
-    /// Проиграть звук
-    /// </summary>
     private void PlaySFX(AudioClip parAudioClip)
     {
       PlaySound(parAudioClip);

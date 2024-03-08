@@ -11,6 +11,7 @@ namespace Sokoban.UI
     [Header("ПАНЕЛЬ")]
     [SerializeField, Tooltip("Панель пройденного уровн¤")]
     private Panel _levelCompletePanel;
+    [SerializeField] private GameObject _topPanelObjectMenu;
 
     [Header("ТЕКСТЫ")]
     [SerializeField, Tooltip("Текст времени прохождени¤ уровн¤")]
@@ -49,33 +50,40 @@ namespace Sokoban.UI
 
       //IsSelected = false;
 
-      //inputHandler.AI_Player.UI.Select.performed += OnSelect;
+      inputHandler.AI_Player.UI.Select.performed += OnSelect;
       inputHandler.AI_Player.UI.Reload.performed += OnReload;
-      //inputHandler.AI_Player.UI.Pause.performed += OnExitMenu;
+      inputHandler.AI_Player.UI.Pause.performed += OnExitMenu;
 
       levelManager.IsNextLevel.AddListener(panelController.CloseAllPanels);
-      levelManager.IsLevelCompleted.AddListener(UpdateText);
+
+      levelManager.OnLevelCompleted += UpdateText;
+    }
+
+    private void LevelManager_OnLevelCompleted()
+    {
+      
     }
 
     protected override void OnDisable()
     {
       base.OnDisable();
 
-      //inputHandler.AI_Player.UI.Select.performed -= OnSelect;
+      inputHandler.AI_Player.UI.Select.performed -= OnSelect;
       inputHandler.AI_Player.UI.Reload.performed -= OnReload;
-      //inputHandler.AI_Player.UI.Pause.performed -= OnExitMenu;
+      inputHandler.AI_Player.UI.Pause.performed -= OnExitMenu;
 
       levelManager.IsNextLevel.RemoveListener(panelController.CloseAllPanels);
-      levelManager.IsLevelCompleted.RemoveListener(UpdateText);
+
+      levelManager.OnLevelCompleted -= UpdateText;
     }
 
-    protected override void Update()
+    /*protected override void Update()
     {
       if (!levelManager.LevelCompleted)
         return;
 
       MoveMenuHorizontally();
-    }
+    }*/
 
     //======================================
 
@@ -89,6 +97,8 @@ namespace Sokoban.UI
       UpdateTextNumberMoves();
 
       panelController.ShowPanel(_levelCompletePanel);
+
+      _topPanelObjectMenu.SetActive(false);
     }
 
     /// <summary>
@@ -170,25 +180,16 @@ namespace Sokoban.UI
       IsSelected = true;
     }
 
-    /// <summary>
-    /// Следующий уровень
-    /// </summary>
     public void OnSelect(InputAction.CallbackContext context)
     {
       NextLevel();
     }
 
-    /// <summary>
-    /// Перезагрузка уровнЯ
-    /// </summary>
     public void OnReload(InputAction.CallbackContext context)
     {
       ReloadLevel();
     }
 
-    /// <summary>
-    /// Выход в меню
-    /// </summary>
     public void OnExitMenu(InputAction.CallbackContext context)
     {
       ExitMenu();

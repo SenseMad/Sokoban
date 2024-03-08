@@ -5,6 +5,12 @@ using UnityEngine.Events;
 
 using Sokoban.GameManagement;
 using Sokoban.LevelManagement;
+using UnityEngine.UIElements;
+using Unity.VisualScripting;
+using UnityEngine.SocialPlatforms;
+using System.Linq;
+using System;
+using UnityEngine.XR;
 
 namespace Sokoban.GridEditor
 {
@@ -14,6 +20,8 @@ namespace Sokoban.GridEditor
     private ListBlockObjectTypes _listBlockObjectTypes;
 
     [SerializeField] private AnimationCurve animationCurve;
+
+    public GameObject test;
 
     //--------------------------------------
 
@@ -26,6 +34,8 @@ namespace Sokoban.GridEditor
     private GameManager gameManager;
 
     private LevelManager levelManager;
+
+    private RandomGrassSpawn randomGrassSpawn;
 
     private Block[,,] blockObjects;
 
@@ -48,6 +58,11 @@ namespace Sokoban.GridEditor
     public UnityEvent OnLevelDeleted { get; } = new UnityEvent();
 
     //======================================
+
+    private void Awake()
+    {
+      randomGrassSpawn = GetComponent<RandomGrassSpawn>();
+    }
 
     private void Start()
     {
@@ -133,6 +148,67 @@ namespace Sokoban.GridEditor
       myCoroutine = StartCoroutine(DeleteLevel());
     }
 
+    private void SpawnGrass()
+    {
+      List<Vector3Int> emptyPositionsList = new();
+      List<Vector3Int> ignorePositonsList = new();
+
+      foreach (var block in blockObjects)
+      {
+        if (block == null)
+          continue;
+
+        if (!block.GetComponent<GroundObject>())
+          continue;
+
+        if (block.transform.position.y == 3)
+          break;
+
+        Vector3Int positionUpCurrentBlock = new((int)block.transform.position.x, (int)block.transform.position.y + 1, (int)block.transform.position.z);
+
+        emptyPositionsList.Add(positionUpCurrentBlock);
+
+        foreach (var blockUp in blockObjects)
+        {
+          if (blockUp == null)
+            continue;
+
+          if (blockUp.transform.position.y != 3)
+            continue;
+
+          if (blockUp.transform.position == positionUpCurrentBlock)
+          {
+            ignorePositonsList.Add(positionUpCurrentBlock);
+            break;
+          }
+        }
+      }
+
+      List<Vector3Int> positionsList = new();
+      for (int i = 0; i < emptyPositionsList.Count; i++)
+      {
+        if (ignorePositonsList.Contains(emptyPositionsList[i]))
+          continue;
+
+        positionsList.Add(emptyPositionsList[i]);
+      }
+
+      Vector3Int[] tempArray = new Vector3Int[positionsList.Count];
+      for (int i = 0; i < tempArray.Length; i++)
+        tempArray[i] = positionsList[i];
+
+      Vector3Int[] placeSpawn = randomGrassSpawn.CheckSpawn(tempArray);
+      for (int i = 0; i < placeSpawn.Length; i++)
+      {
+        Block newBlockObject = Instantiate(randomGrassSpawn.GetRandomTypeBlockObjects(), transform);
+
+        Vector3Int posPlaceSpawn = placeSpawn[i];
+        newBlockObject.transform.position = posPlaceSpawn;
+        newBlockObject.SetPositionObject(posPlaceSpawn);
+        blockObjects[posPlaceSpawn.x, posPlaceSpawn.y, posPlaceSpawn.z] = newBlockObject;
+      }
+    }
+
     private IEnumerator CreateLevel()
     {
       while (myCoroutine != null || !IsLevelDeleted)
@@ -143,8 +219,6 @@ namespace Sokoban.GridEditor
       IsLevelDeleted = false;
       statesLevel = StatesLevel.Created;
       //transform.position = new Vector3(0, -3, 0);
-
-      float timer = 0f;
 
       LevelData levelData = levelManager.GetCurrentLevelData();
       blockObjects = new Block[levelData.FieldSize.x, levelData.FieldSize.y, levelData.FieldSize.z];
@@ -170,13 +244,19 @@ namespace Sokoban.GridEditor
 
         #endregion
 
-        if (newBlockObject.GetTypeObject() != TypeObject.staticObject)
+        if (!newBlockObject.GetComponent<GroundObject>())
           newBlockObject.transform.localScale = Vector3.zero;
+        /*if (newBlockObject.GetTypeObject() != TypeObject.staticObject)
+          newBlockObject.transform.localScale = Vector3.zero;*/
 
         newBlockObject.transform.position = levelObject.PositionObject;
         newBlockObject.SetPositionObject(levelObject.PositionObject);
         blockObjects[levelObject.PositionObject.x, levelObject.PositionObject.y, levelObject.PositionObject.z] = newBlockObject;
       }
+
+      #region The appearance of the platform (Ground)
+
+      float timer = 0f;
 
       while (timer < 1)
       {
@@ -187,6 +267,42 @@ namespace Sokoban.GridEditor
 
         yield return null;
       }
+
+      #endregion
+
+      foreach (var block in blockObjects)
+      {
+        if (block == null)
+          continue;
+
+        block.BoxCollider.enabled = true;
+
+        if (block.TryGetComponent(out DynamicObjects dynamicObjects))
+          dynamicObjects.rigidbody.useGravity = true;
+
+        if (block.TryGetComponent(out PlayerObjects playerObjects))
+          playerObjects.rigidbody.useGravity = true;
+      }
+
+      #region Random Grass
+
+      SpawnGrass();
+
+      #endregion
+
+      foreach (var block in blockObjects)
+      {
+        if (block == null)
+          continue;
+
+        if (block.TryGetComponent(out DecoreObject decoreObject))
+        {
+          if (!decoreObject.IsEnableBoxCollider)
+            block.BoxCollider.enabled = false;
+        }
+      }
+
+      #region Animation of the appearance of all block except Ground
 
       timer = 0f;
 
@@ -200,8 +316,10 @@ namespace Sokoban.GridEditor
           if (block == null)
             continue;
 
-          if (block.GetTypeObject() == TypeObject.staticObject)
+          if (block.GetComponent<GroundObject>())
             continue;
+          /*if (block.GetTypeObject() == TypeObject.staticObject)
+            continue;*/
 
           block.transform.localScale = Vector3.one * animationCurve.Evaluate(t);
         }
@@ -209,28 +327,7 @@ namespace Sokoban.GridEditor
         yield return null;
       }
 
-      foreach (var block in blockObjects)
-      {
-        if (block == null)
-          continue;
-
-        block.BoxCollider.enabled = true;
-        if (block.TryGetComponent(out DecoreObject decoreObject))
-        {
-          if (!decoreObject.IsEnableBoxCollider)
-            block.BoxCollider.enabled = false;
-        }
-
-        if (block.TryGetComponent(out DynamicObjects dynamicObjects))
-        {
-          dynamicObjects.rigidbody.useGravity = true;
-        }
-
-        if (block.TryGetComponent(out PlayerObjects playerObjects))
-        {
-          playerObjects.rigidbody.useGravity = true;
-        }
-      }
+      #endregion
 
       FindAllFoodObjects();
       FindAllDoorObjects();
@@ -252,7 +349,10 @@ namespace Sokoban.GridEditor
       IsLevelCreated = false;
       IsLevelDeleted = false;
       statesLevel = StatesLevel.Deleted;
+
       float timer = 0f;
+
+      #region Animation of the appearance of all block except Ground
 
       while (timer < 1)
       {
@@ -264,8 +364,10 @@ namespace Sokoban.GridEditor
           if (block == null)
             continue;
 
-          if (block.GetTypeObject() == TypeObject.staticObject)
+          if (block.GetComponent<GroundObject>())
             continue;
+          /*if (block.GetTypeObject() == TypeObject.staticObject)
+            continue;*/
 
           if (block.GetTypeObject() == TypeObject.dynamicObject || block.GetTypeObject() == TypeObject.playerObject)
             block.RemoveRigidbody();
@@ -275,6 +377,10 @@ namespace Sokoban.GridEditor
 
         yield return null;
       }
+
+      #endregion
+
+      #region Platform Immersion (Ground)
 
       timer = 0;
 
@@ -286,6 +392,8 @@ namespace Sokoban.GridEditor
         transform.localPosition = new Vector3(0, -2, 0) * animationCurve.Evaluate(t);
         yield return null;
       }
+
+      #endregion
 
       foreach (var block in blockObjects)
       {

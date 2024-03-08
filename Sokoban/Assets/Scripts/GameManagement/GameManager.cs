@@ -43,7 +43,6 @@ namespace Sokoban.GameManagement
 
     private void LoadData()
     {
-      //Debug.Log($"{SaveLoadManager.Instance}");
       SaveLoadManager.Instance.LoadData();
     }
 

@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.Events;
 using Cinemachine;
@@ -12,7 +13,6 @@ namespace Sokoban.LevelManagement
   {
     [Header("ДАННЫЕ УРОВНЯ")]
     [SerializeField] private LevelData _currentLevelData;
-    [SerializeField] private LevelData _menuLevelData;
     [SerializeField] private LevelProgressData _currentLevelProgressData;
 
     [Header("СЕТКА УРОВНЯ")]
@@ -31,9 +31,11 @@ namespace Sokoban.LevelManagement
 
     private bool isCameraRotation;
 
-    //======================================
+    private AudioManager audioManager;
 
-    public bool IsLevelStarted { get; set; }
+    private LevelSounds levelSounds;
+
+    //======================================
 
     public bool LevelCompleted { get; set; }
 
@@ -57,7 +59,7 @@ namespace Sokoban.LevelManagement
 
     public UnityEvent<bool> OnPauseEvent { get; } = new UnityEvent<bool>();
 
-    public UnityEvent IsLevelCompleted { get; } = new UnityEvent();
+    public event Action OnLevelCompleted;
 
     public UnityEvent IsNextLevel { get; } = new UnityEvent();
 
@@ -102,6 +104,10 @@ namespace Sokoban.LevelManagement
       gameManager = GameManager.Instance;
 
       cinemachineVirtual = FindObjectOfType<CinemachineVirtualCamera>();
+
+      audioManager = AudioManager.Instance;
+
+      levelSounds = GetComponent<LevelSounds>();
     }
 
     private void Start()
@@ -131,6 +137,16 @@ namespace Sokoban.LevelManagement
         return;
       
       TimeOnLevel += Time.deltaTime;
+    }
+
+    private void OnEnable()
+    {
+      OnLevelCompleted += LevelManager_OnLevelCompleted;
+    }
+
+    private void OnDisable()
+    {
+      OnLevelCompleted -= LevelManager_OnLevelCompleted;
     }
 
     //======================================
@@ -163,17 +179,12 @@ namespace Sokoban.LevelManagement
       }
     }
 
-    private bool IsLevelComplete()
+    private void IsLevelComplete()
     {
       if (LevelCompleted)
-        return true;
+        return;
 
-      LevelCompleted = true;
-      IsLevelCompleted?.Invoke();
-
-      OpenNextLevel();      
-
-      return true;
+      OnLevelCompleted?.Invoke();
     }
 
     public bool IsFoodCollected()
@@ -193,6 +204,17 @@ namespace Sokoban.LevelManagement
     {
       IsPause = parValue;
       OnPauseEvent?.Invoke(parValue);
+    }
+
+    //======================================
+
+    private void LevelManager_OnLevelCompleted()
+    {
+      LevelCompleted = true;
+
+      audioManager.OnPlaySound?.Invoke(levelSounds.LevelComplete);
+
+      OpenNextLevel();
     }
 
     //======================================
@@ -218,7 +240,7 @@ namespace Sokoban.LevelManagement
     {
       IsNextLevel?.Invoke();
 
-      var levelData = GetNextLevelData();
+      var levelData = Levels.GetNextLevelData(_currentLevelData.Location, _currentLevelData.LevelNumber);
       if (levelData != null)
         _currentLevelData = levelData;
 
@@ -262,7 +284,9 @@ namespace Sokoban.LevelManagement
 
     public void MenuLevel()
     {
-      _currentLevelData = _menuLevelData;
+      ProgressData progress = gameManager.ProgressData;
+
+      _currentLevelData = Levels.GetLevelData(progress.LocationLastLevelPlayed, progress.IndexLastLevelPlayed + 1);
       _gridLevel.CreatingLevelGrid();
       LevelCompleted = true;
       IsLevelMenu = true;
@@ -288,11 +312,6 @@ namespace Sokoban.LevelManagement
       PanelController.Instance.SetActivePanel(_menuPanel);
 
       //Destroy(targetObject, 5f);
-    }
-
-    private LevelData GetNextLevelData()
-    {
-      return Levels.GetNextLevelData(_currentLevelData.Location, _currentLevelData.LevelNumber);
     }
 
     private bool OpenNextLevel()

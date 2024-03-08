@@ -187,6 +187,7 @@ MonoBehaviour:
   _speed: 2
   _speedRotaion: 7
   _meshTransform: {fileID: 1860893367400006754}
+  _soundMove: {fileID: 8300000, guid: 18a6e266f0a94c34aa8e6bc80dc87135, type: 3}
 --- !u!95 &3884544150236789074
 Animator:
   serializedVersion: 5
