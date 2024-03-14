@@ -21,3 +21,7 @@ MonoBehaviour:
       SpriteButton: {fileID: 4828457, guid: 50cf20fd60170cd4da9734414fc3ac5d, type: 3}
     - TypeButton: 2
       SpriteButton: {fileID: -1747753161, guid: 50cf20fd60170cd4da9734414fc3ac5d, type: 3}
+    - TypeButton: 3
+      SpriteButton: {fileID: -1062659340, guid: 1810025a29baf564faab24f7e3fe2c44, type: 3}
+    - TypeButton: 4
+      SpriteButton: {fileID: -1711339816, guid: 1810025a29baf564faab24f7e3fe2c44, type: 3}

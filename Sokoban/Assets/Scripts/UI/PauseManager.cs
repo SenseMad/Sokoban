@@ -25,7 +25,6 @@ namespace Sokoban.UI
       {
         isPause = value;
         levelManager.IsPause = isPause;
-        //levelManager.SetPause(value);
       }
     }
 
@@ -60,27 +59,6 @@ namespace Sokoban.UI
 
     //======================================
 
-    /// <summary>
-    /// Включить/Выключить паузу
-    /// </summary>
-    private void SetIsPause()
-    {
-      /*if (levelManager.LevelCompleted)
-        return;
-
-      if (!IsPause)
-      {
-        IsPause = true;
-        panelController.ShowPanel(_pausePanel);
-      }
-      else
-      {
-
-      }
-
-      Debug.Log(IsPause);*/
-    }
-
     private void OnPause(bool parValue)
     {
       IsPause = false;
@@ -114,9 +92,9 @@ namespace Sokoban.UI
 
       IsPause = false;
 
-      IsSelected = false;
+      IsSelectedButton = false;
       indexActiveButton = 0;
-      IsSelected = true;
+      IsSelectedButton = true;
     }
 
     protected override void ButtonClick()
@@ -139,9 +117,9 @@ namespace Sokoban.UI
 
     public void ContinueButton()
     {
-      IsSelected = false;
+      IsSelectedButton = false;
       indexActiveButton = 0;
-      IsSelected = true;
+      IsSelectedButton = true;
 
       IsPause = false;
       panelController.CloseAllPanels();
@@ -159,11 +137,11 @@ namespace Sokoban.UI
       levelManager.ExitMenu();
     }
 
-    //======================================       
+    //======================================
 
     public void OnPause(InputAction.CallbackContext context)
     {
-      SetIsPause();
+      
     }
 
     //======================================

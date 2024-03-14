@@ -22,9 +22,6 @@ public class FontAsset : MonoBehaviour
 
   //======================================
 
-  /// <summary>
-  /// Получить шрифт для языка
-  /// </summary>
   public TMP_FontAsset GetFont(Language language)
   {
     return language switch

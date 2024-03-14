@@ -13,14 +13,23 @@ namespace Sokoban.Save
     #region Settings
 
     public int MusicValue = 25;
-
     public int SoundValue = 25;
+#if !UNITY_PS4
+    public bool FullScreenValue = true;
+    public bool VSyncValue = true;
+#endif
 
     public Language CurrentLanguage = Language.English;
 
     #endregion
 
     public int CurrentActiveIndexSkin = 0;
+
+    public int AmountFoodCollected = 0;
+
+    public SortedSet<int> PurchasedSkins = new();
+
+    public int TotalNumberMoves = 0;
 
     #region Level
 

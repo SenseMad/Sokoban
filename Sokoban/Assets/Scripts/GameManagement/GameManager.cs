@@ -23,6 +23,23 @@ namespace Sokoban.GameManagement
     private void Start()
     {
       Levels.GetFullNumberLevelsLocation();
+
+#if UNITY_PS4
+      Screen.fullScreen = true;
+#else
+      SettingsData.CreateResolutions();
+
+      Screen.fullScreen = SettingsData.FullScreenValue;
+      Screen.SetResolution(SettingsData.Resolutions[SettingsData.CurrentSelectedResolution].width,
+        SettingsData.Resolutions[SettingsData.CurrentSelectedResolution].height, SettingsData.FullScreenValue, SettingsData.Resolutions[SettingsData.CurrentSelectedResolution].refreshRate);
+#endif
+    }
+
+    private void OnApplicationQuit()
+    {
+#if !UNITY_PS4
+      SaveData();
+#endif
     }
 
     //======================================
@@ -39,6 +56,11 @@ namespace Sokoban.GameManagement
     public void SaveData()
     {
       SaveLoadManager.Instance.SaveData();
+    }
+
+    public void ResetAndSaveFile()
+    {
+      SaveLoadManager.Instance.ResetAndSaveFile();
     }
 
     private void LoadData()

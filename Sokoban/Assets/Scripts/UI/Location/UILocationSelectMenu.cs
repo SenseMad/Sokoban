@@ -7,34 +7,22 @@ using Sokoban.GameManagement;
 
 namespace Sokoban.UI
 {
-  /// <summary>
-  /// Пользовательский интерфейс меню выбора локации
-  /// </summary>
   public class UILocationSelectMenu : MenuUI
   {
-    [SerializeField, Tooltip("Панель, куда будут создаваться кнопки")]
-    private RectTransform _locationSelectPanel;
+    [SerializeField] private RectTransform _locationSelectPanel;
 
-    [Header("ПРЕФАБ")]
-    [SerializeField, Tooltip("Префаб кнопки выбора локации")]
-    private UILocationSelectButton _prefabButtonLocationSelect;
+    [Space(10)]
+    [SerializeField] private UILocationSelectButton _prefabButtonLocationSelect;
 
-    [Header("ПАНЕЛЬ")]
-    [SerializeField, Tooltip("Панель выбора уровней")]
-    private Panel _panelLevelSelection;
+    [Space(10)]
+    [SerializeField] private Panel _panelLevelSelection;
 
     //--------------------------------------
 
     private GameManager gameManager;
 
-    /// <summary>
-    /// Меню выбора уровней
-    /// </summary>
     private UILevelSelectMenu uILevelSelectMenu;
 
-    /// <summary>
-    /// Список кнопок выбора локаций
-    /// </summary>
     private List<UILocationSelectButton> listUILocationSelectButton = new List<UILocationSelectButton>();
 
     //======================================
@@ -80,7 +68,7 @@ namespace Sokoban.UI
 
         if (inputHandler.GetChangingValuesInput() > 0)
         {
-          IsSelected = false;
+          IsSelectedButton = false;
 
           listUILocationSelectButton[indexActiveButton].ChangeSprite(false);
 
@@ -93,12 +81,12 @@ namespace Sokoban.UI
           listUILocationSelectButton[indexActiveButton].ChangeSprite(true);
 
           Sound();
-          IsSelected = true;
+          IsSelectedButton = true;
         }
 
         if (inputHandler.GetChangingValuesInput() < 0)
         {
-          IsSelected = false;
+          IsSelectedButton = false;
 
           listUILocationSelectButton[indexActiveButton].ChangeSprite(false);
 
@@ -111,7 +99,7 @@ namespace Sokoban.UI
           listUILocationSelectButton[indexActiveButton].ChangeSprite(true);
 
           Sound();
-          IsSelected = true;
+          IsSelectedButton = true;
         }
       }
 
@@ -123,9 +111,6 @@ namespace Sokoban.UI
 
     //======================================
 
-    /// <summary>
-    /// Отобразить кнопки выбора локации в интерфейсе
-    /// </summary>
     private void DisplayLocationSelectionButtonsUI()
     {
       if (_listButtons.Count != 0)
@@ -159,9 +144,6 @@ namespace Sokoban.UI
       listUILocationSelectButton[indexActiveButton].ChangeSprite(true);
     }
 
-    /// <summary>
-    /// Очистить список
-    /// </summary>
     public void ClearButtonsUI()
     {
       for (int i = 0; i < listUILocationSelectButton.Count; i++)
@@ -197,10 +179,6 @@ namespace Sokoban.UI
 
     //======================================
 
-    /// <summary>
-    /// Выбрать локацию
-    /// </summary>
-    /// <param name="parLocation">Локация</param>
     private void SelectLocation(Location parLocation)
     {
       panelController.SetActivePanel(_panelLevelSelection);

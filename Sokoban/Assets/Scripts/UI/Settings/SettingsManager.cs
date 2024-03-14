@@ -1,8 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using TMPro;
 
 using Sokoban.GameManagement;
+using Sokoban.LevelManagement;
 
 namespace Sokoban.UI
 {
@@ -10,17 +13,31 @@ namespace Sokoban.UI
   {
     [SerializeField] private RangeSpinBox _musicValue;
     [SerializeField] private RangeSpinBox _soundValue;
-    [SerializeField] private SwitchSpinBox _languageValue;
+
+    [SerializeField] private RectTransform _videoTitle;
+    [SerializeField] private ToggleSpinBox _fullscreenValue;
+    [SerializeField] private SwitchSpinBox _resolutionValue;
+    [SerializeField] private ToggleSpinBox _vSyncValue;
+
+    [SerializeField] private RectTransform _languageTitle;
+    [SerializeField] private ButtonSpinBox _languageButton;
+    [SerializeField] private RectTransform _deleteSavesTitle;
+    [SerializeField] private ButtonSpinBox _deleteSavesButton;
+
+    [Space(10)]
+    [SerializeField] private UILanguageMenu _languageMenu;
+    [SerializeField] private Image _iconSelectedLanguage;
+    [SerializeField] private TextMeshProUGUI _textLanguage;
 
     //--------------------------------------
 
     private GameManager gameManager;
 
-    private List<SpinBoxBase> spinBoxBases = new List<SpinBoxBase>();
+    private LevelManager levelManager;
 
-    //======================================
+    private List<SpinBoxBase> spinBoxBases = new();
 
-
+    private bool isGameRunning = false;
 
     //======================================
 
@@ -30,17 +47,34 @@ namespace Sokoban.UI
 
       gameManager = GameManager.Instance;
 
-      if (_musicValue) spinBoxBases.Add(_musicValue);
-      if (_soundValue) spinBoxBases.Add(_soundValue);
-      if (_languageValue) spinBoxBases.Add(_languageValue);
+      levelManager = LevelManager.Instance;
 
       _musicValue.OnValueChanged += MusicValue_OnValueChanged;
       _soundValue.OnValueChanged += SoundValue_OnValueChanged;
-      _languageValue.OnValueChanged += LanguageValue_OnValueChanged;
+#if !UNITY_PS4
+      _fullscreenValue.OnValueChanged += FullscreenValue_OnValueChanged;
+      _resolutionValue.OnValueChanged += ResolutionValue_OnValueChanged;
+      _vSyncValue.OnValueChanged += VSyncValue_OnValueChanged;
+#else
+      _fullscreenValue.gameObject.SetActive(false);
+      _resolutionValue.gameObject.SetActive(false);
+      _vSyncValue.gameObject.SetActive(false);
+#endif
     }
 
     private void Start()
     {
+      if (_musicValue) spinBoxBases.Add(_musicValue);
+      if (_soundValue) spinBoxBases.Add(_soundValue);
+#if !UNITY_PS4
+      if (_fullscreenValue) spinBoxBases.Add(_fullscreenValue);
+      if (_resolutionValue) spinBoxBases.Add(_resolutionValue);
+      if (_vSyncValue) spinBoxBases.Add(_vSyncValue);
+#endif
+      if (_languageButton) spinBoxBases.Add(_languageButton);
+      if (_deleteSavesButton) spinBoxBases.Add(_deleteSavesButton);
+      isGameRunning = true;
+
       foreach (var spinBoxBase in spinBoxBases)
       {
         spinBoxBase.IsSelected = false;
@@ -51,20 +85,75 @@ namespace Sokoban.UI
 
     protected override void OnEnable()
     {
+      spinBoxBases.Remove(_languageButton);
+      spinBoxBases.Remove(_deleteSavesButton);
+
+      if (levelManager.IsLevelRunning)
+      {
+        _languageButton.gameObject.SetActive(false);
+        _deleteSavesButton.gameObject.SetActive(false);
+        _languageTitle.gameObject.SetActive(false);
+        _deleteSavesTitle.gameObject.SetActive(false);
+      }
+      else
+      {
+        if (isGameRunning)
+        {
+          spinBoxBases.Add(_languageButton);
+          spinBoxBases.Add(_deleteSavesButton);
+        }
+
+        _languageButton.gameObject.SetActive(true);
+        _deleteSavesButton.gameObject.SetActive(true);
+        _languageTitle.gameObject.SetActive(true);
+        _deleteSavesTitle.gameObject.SetActive(true);
+      }
+
+      Button[] buttons = GetComponentsInChildren<Button>(false);
+      foreach (var button in buttons)
+        _listButtons.Add(button);
+
       indexActiveButton = 0;
 
       base.OnEnable();
 
+      if (_languageMenu != null)
+      {
+        foreach (var language in _languageMenu.ListLanguagesData)
+        {
+          if (gameManager.SettingsData.CurrentLanguage != language.Language)
+            continue;
+
+          ChangeIconSelectedLanguage(language.LanguageSprite, language.LanguageName.ToUpper());
+        }
+      }
+
       _musicValue.SetValueWithoutNotify(gameManager.SettingsData.MusicValue);
       _soundValue.SetValueWithoutNotify(gameManager.SettingsData.SoundValue);
-      _languageValue.SetValueWithoutNotify((int)gameManager.SettingsData.CurrentLanguage);
+#if !UNITY_PS4
+      _fullscreenValue.SetValueWithoutNotify(gameManager.SettingsData.FullScreenValue);
+      _resolutionValue.SetValueWithoutNotify(gameManager.SettingsData.CurrentSelectedResolution);
+      _resolutionValue.UpdateText(UpdateResolutionText());
+      _vSyncValue.SetValueWithoutNotify(gameManager.SettingsData.VSyncValue);
+#endif
+    }
+
+    protected override void OnDisable()
+    {
+      base.OnDisable();
+
+      _listButtons = new List<Button>();
     }
 
     private void OnDestroy()
     {
       _musicValue.OnValueChanged -= MusicValue_OnValueChanged;
       _soundValue.OnValueChanged -= SoundValue_OnValueChanged;
-      _languageValue.OnValueChanged -= LanguageValue_OnValueChanged;
+#if !UNITY_PS4
+      _fullscreenValue.OnValueChanged -= FullscreenValue_OnValueChanged;
+      _resolutionValue.OnValueChanged -= ResolutionValue_OnValueChanged;
+      _vSyncValue.OnValueChanged -= VSyncValue_OnValueChanged;
+#endif
     }
 
     //======================================
@@ -81,27 +170,55 @@ namespace Sokoban.UI
       Sound();
     }
 
-    private void LanguageValue_OnValueChanged(int parValue)
+#if !UNITY_PS4
+    private void FullscreenValue_OnValueChanged(bool parValue)
     {
-      var localisationSystem = LocalisationSystem.GetNamesAllLanguage().Length - 1;
-      if (parValue > localisationSystem)
+      gameManager.SettingsData.FullScreenValue = parValue;
+      Screen.fullScreen = parValue;
+
+      Sound();
+    }
+
+    private void ResolutionValue_OnValueChanged(int parValue)
+    {
+      List<Resolution> resolutions = gameManager.SettingsData.Resolutions;
+      if (parValue > resolutions.Count - 1)
       {
         parValue = 0;
-        _languageValue.SetValueWithoutNotify(0);
+        _resolutionValue.SetValueWithoutNotify(0);
       }
 
       if (parValue < 0)
       {
-        parValue = localisationSystem;
-        _languageValue.SetValueWithoutNotify(localisationSystem);
+        parValue = resolutions.Count - 1;
+        _resolutionValue.SetValueWithoutNotify(resolutions.Count - 1);
       }
 
-      gameManager.SettingsData.CurrentLanguage = (Language)parValue;
-      _languageValue.UpdateText(LocalisationSystem.GetNameLanguage(gameManager.SettingsData.CurrentLanguage));
+      gameManager.SettingsData.CurrentSelectedResolution = parValue;
+      _resolutionValue.UpdateText(UpdateResolutionText());
+      Screen.SetResolution(resolutions[parValue].width, resolutions[parValue].height, gameManager.SettingsData.FullScreenValue);
       Sound();
-      //gameManager.SettingsData.CurrentLanguage = (Language)parValue;
-      //_languageValue.UpdateText();
-      //();
+    }
+
+    private string UpdateResolutionText()
+    {
+      List<Resolution> resolutions = gameManager.SettingsData.Resolutions;
+
+      return $"{resolutions[gameManager.SettingsData.CurrentSelectedResolution].width} X " +
+        $"{resolutions[gameManager.SettingsData.CurrentSelectedResolution].height} ";
+    }
+
+    private void VSyncValue_OnValueChanged(bool parValue)
+    {
+      gameManager.SettingsData.VSyncValue = parValue;
+      Sound();
+    }
+#endif
+
+    private void ChangeIconSelectedLanguage(Sprite parSprite, string parText)
+    {
+      _iconSelectedLanguage.sprite = parSprite;
+      _textLanguage.text = parText;
     }
 
     //======================================

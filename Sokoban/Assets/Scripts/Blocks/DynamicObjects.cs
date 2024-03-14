@@ -1,25 +1,13 @@
 using UnityEngine;
 
-/// <summary>
-/// Класс динамических объектов, которые можно двигать
-/// </summary>
 public class DynamicObjects : Block
 {
-  /// <summary>
-  /// True, если объект движется
-  /// </summary>
   private bool isMoving = false;
-  /// <summary>
-  /// Скорость объекта
-  /// </summary>
+
   private float speed = 2.0f;
-  /// <summary>
-  /// Новая позиция
-  /// </summary>
+
   private Vector3 lastPosition;
-  /// <summary>
-  /// Направление движения
-  /// </summary>
+
   private Vector3 direction;
 
   //--------------------------------------

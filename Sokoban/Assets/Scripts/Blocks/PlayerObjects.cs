@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -9,13 +7,10 @@ using Sokoban.GameManagement;
 
 public class PlayerObjects : Block
 {
-  [SerializeField, Tooltip("")]
-  private float _speed = 2.0f;
-  [SerializeField, Tooltip("Скорость поворота")]
-  private float _speedRotaion = 7.0f;
+  [SerializeField] private float _speed = 2.0f;
+  [SerializeField] private float _speedRotaion = 7.0f;
 
-  [SerializeField, Tooltip("")]
-  private Transform _meshTransform;
+  [SerializeField] private Transform _meshTransform;
 
   [SerializeField] private AudioClip _soundMove;
 
@@ -185,6 +180,7 @@ public class PlayerObjects : Block
     lastPosition = transform.position;
 
     levelManager.NumberMoves++;
+    GameManager.Instance.ProgressData.TotalNumberMoves++;
 
     if (_soundMove != null)
       AudioManager.Instance.OnPlaySound?.Invoke(_soundMove);
@@ -299,12 +295,15 @@ public class PlayerObjects : Block
     if (levelManager.LevelCompleted || levelManager.IsPause || levelManager.GridLevel.TryStatesLevel() || levelManager.IsLevelMenu)
       return;
 
-    if (!isCameraRotation)
+    targetRotation += parValue;
+    isCameraRotation = true;
+
+    /*if (!isCameraRotation)
     {
       // Вычисляем новый угол поворота камеры
       targetRotation = levelManager.CinemachineVirtual.transform.rotation.eulerAngles.y + parValue;
       isCameraRotation = true;
-    }
+    }*/
   }
 
   private void SmoothCameraRotation()

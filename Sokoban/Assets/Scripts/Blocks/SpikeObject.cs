@@ -20,21 +20,21 @@ public class SpikeObject : InteractiveObjects
 
   //======================================
 
-  private void Update()
+  /*private void Update()
   {
     if (IsSpikeActivated)
       return;
 
-    if (isPlayerStandsSpikes)
-    {
-      currentDelayTime += Time.deltaTime;
+    if (!isPlayerStandsSpikes)
+      return;
 
-      if (currentDelayTime >= delayTime)
-      {
-        ActivateSpike();
-      }
+    currentDelayTime += Time.deltaTime;
+
+    if (currentDelayTime >= delayTime)
+    {
+      ActivateSpike();
     }
-  }
+  }*/
 
   //======================================
 

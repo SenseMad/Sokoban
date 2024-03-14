@@ -5,12 +5,6 @@ using UnityEngine.Events;
 
 using Sokoban.GameManagement;
 using Sokoban.LevelManagement;
-using UnityEngine.UIElements;
-using Unity.VisualScripting;
-using UnityEngine.SocialPlatforms;
-using System.Linq;
-using System;
-using UnityEngine.XR;
 
 namespace Sokoban.GridEditor
 {
@@ -20,8 +14,6 @@ namespace Sokoban.GridEditor
     private ListBlockObjectTypes _listBlockObjectTypes;
 
     [SerializeField] private AnimationCurve animationCurve;
-
-    public GameObject test;
 
     //--------------------------------------
 
@@ -209,6 +201,30 @@ namespace Sokoban.GridEditor
       }
     }
 
+    public void SkinReplace()
+    {
+      foreach (var block in blockObjects)
+      {
+        if (block == null)
+          continue;
+
+        if (!block.GetComponent<PlayerObjects>())
+          continue;
+
+        foreach (var skinData in ShopData.Instance.SkinDatas)
+        {
+          if (skinData.IndexSkin != gameManager.ProgressData.CurrentActiveIndexSkin)
+            continue;
+
+          block.GetComponentInChildren<MeshFilter>().sharedMesh = skinData.ObjectSkin.GetComponentInChildren<MeshFilter>().sharedMesh;
+          block.GetComponentInChildren<MeshRenderer>().sharedMaterial = skinData.ObjectSkin.GetComponentInChildren<Renderer>().sharedMaterial;
+          break;
+        }
+
+        break;
+      }
+    }
+
     private IEnumerator CreateLevel()
     {
       while (myCoroutine != null || !IsLevelDeleted)
@@ -236,8 +252,8 @@ namespace Sokoban.GridEditor
             if (skinData.IndexSkin != gameManager.ProgressData.CurrentActiveIndexSkin)
               continue;
 
-            newBlockObject.GetComponentInChildren<MeshFilter>().sharedMesh = skinData.Mesh;
-            newBlockObject.GetComponentInChildren<MeshRenderer>().sharedMaterials[0] = skinData.Material;
+            newBlockObject.GetComponentInChildren<MeshFilter>().sharedMesh = skinData.ObjectSkin.GetComponentInChildren<MeshFilter>().sharedMesh;
+            newBlockObject.GetComponentInChildren<MeshRenderer>().sharedMaterial = skinData.ObjectSkin.GetComponentInChildren<Renderer>().sharedMaterial;
             break;
           }
         }

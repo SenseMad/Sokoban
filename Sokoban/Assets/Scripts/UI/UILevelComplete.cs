@@ -23,32 +23,23 @@ namespace Sokoban.UI
 
     //--------------------------------------
 
-    //private InputHandler inputHandler;
-
     private LevelManager levelManager;
-
-    //private PanelController panelController;
 
     //======================================
 
     protected override void Awake()
     {
       base.Awake();
-      //inputHandler = InputHandler.Instance;
 
       levelManager = LevelManager.Instance;
-
-      //panelController = PanelController.Instance;
     }
 
     protected override void OnEnable()
     {
-      IsSelected = false;
+      IsSelectedButton = false;
       indexActiveButton = _listButtons.Count - 1;
 
       base.OnEnable();
-
-      //IsSelected = false;
 
       inputHandler.AI_Player.UI.Select.performed += OnSelect;
       inputHandler.AI_Player.UI.Reload.performed += OnReload;
@@ -57,11 +48,6 @@ namespace Sokoban.UI
       levelManager.IsNextLevel.AddListener(panelController.CloseAllPanels);
 
       levelManager.OnLevelCompleted += UpdateText;
-    }
-
-    private void LevelManager_OnLevelCompleted()
-    {
-      
     }
 
     protected override void OnDisable()
@@ -76,14 +62,6 @@ namespace Sokoban.UI
 
       levelManager.OnLevelCompleted -= UpdateText;
     }
-
-    /*protected override void Update()
-    {
-      if (!levelManager.LevelCompleted)
-        return;
-
-      MoveMenuHorizontally();
-    }*/
 
     //======================================
 
@@ -101,25 +79,16 @@ namespace Sokoban.UI
       _topPanelObjectMenu.SetActive(false);
     }
 
-    /// <summary>
-    /// Обновить текст времени на уровне
-    /// </summary>
     private void UpdateTextTimeLevel()
     {
       _textLevelCompletedTime.text = $"{levelManager.UpdateTextTimeLevel()}";
     }
 
-    /// <summary>
-    /// Обновить текст номера уровня
-    /// </summary>
     private void UpdateTextLevelNumber()
     {
       _textLevelNumber.text = $"Level {levelManager.GetCurrentLevelData().LevelNumber}";
     }
 
-    /// <summary>
-    /// Обновить текст количества ходов
-    /// </summary>
     private void UpdateTextNumberMoves()
     {
       _textNumberMoves.text = $"{levelManager.NumberMoves}";
@@ -134,9 +103,6 @@ namespace Sokoban.UI
 
     //======================================
 
-    /// <summary>
-    /// Следующий уровень
-    /// </summary>
     public void NextLevel()
     {
       if (!levelManager.LevelCompleted)
@@ -144,14 +110,11 @@ namespace Sokoban.UI
 
       levelManager.UploadNewLevel();
 
-      IsSelected = false;
+      IsSelectedButton = false;
       indexActiveButton = _listButtons.Count - 1;
-      IsSelected = true;
+      IsSelectedButton = true;
     }
 
-    /// <summary>
-    /// Перезапуск уровня
-    /// </summary>
     public void ReloadLevel()
     {
       if (!levelManager.LevelCompleted)
@@ -160,14 +123,11 @@ namespace Sokoban.UI
       panelController.CloseAllPanels();
       levelManager.ReloadLevel();
 
-      IsSelected = false;
+      IsSelectedButton = false;
       indexActiveButton = _listButtons.Count - 1;
-      IsSelected = true;
+      IsSelectedButton = true;
     }
 
-    /// <summary>
-    /// Выход в меню
-    /// </summary>
     public void ExitMenu()
     {
       if (!levelManager.LevelCompleted)
@@ -175,9 +135,9 @@ namespace Sokoban.UI
 
       levelManager.ExitMenu();
 
-      IsSelected = false;
+      IsSelectedButton = false;
       indexActiveButton = _listButtons.Count - 1;
-      IsSelected = true;
+      IsSelectedButton = true;
     }
 
     public void OnSelect(InputAction.CallbackContext context)

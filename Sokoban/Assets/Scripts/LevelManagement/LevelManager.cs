@@ -35,6 +35,8 @@ namespace Sokoban.LevelManagement
 
     private LevelSounds levelSounds;
 
+    private int tempAmountFoodCollected = 0;
+
     //======================================
 
     public bool LevelCompleted { get; set; }
@@ -50,6 +52,8 @@ namespace Sokoban.LevelManagement
       get => cinemachineVirtual;
       set => cinemachineVirtual = value;
     }
+
+    public bool IsLevelRunning { get; set; } = false;
 
     //======================================
 
@@ -190,6 +194,7 @@ namespace Sokoban.LevelManagement
     public bool IsFoodCollected()
     {
       var foodObjects = _gridLevel.GetListFoodObjects();
+      tempAmountFoodCollected++;
       for (int i = 0; i < foodObjects.Count; i++)
       {
         if (!foodObjects[i].IsFoodCollected)
@@ -212,6 +217,9 @@ namespace Sokoban.LevelManagement
     {
       LevelCompleted = true;
 
+      GameManager.Instance.ProgressData.AmountFoodCollected += tempAmountFoodCollected;
+      tempAmountFoodCollected = 0;
+
       audioManager.OnPlaySound?.Invoke(levelSounds.LevelComplete);
 
       OpenNextLevel();
@@ -230,7 +238,7 @@ namespace Sokoban.LevelManagement
       else if (minutes > 0)
         return $"{minutes:00}:{seconds:00}";
       else
-        return $"{seconds:00}";
+        return $"{minutes:00}:{seconds:00}";
     }
 
     /// <summary>
@@ -260,6 +268,8 @@ namespace Sokoban.LevelManagement
       TimeOnLevel = 0;
       NumberMoves = 0;
       LevelCompleted = false;
+
+      tempAmountFoodCollected = 0;
     }
 
     public void ReloadLevel(LevelData levelData)
@@ -280,6 +290,8 @@ namespace Sokoban.LevelManagement
 
       _pauseMenu.SetActive(true);
       _levelCompleteMenu.SetActive(true);
+
+      tempAmountFoodCollected = 0;
     }
 
     public void MenuLevel()
@@ -290,6 +302,11 @@ namespace Sokoban.LevelManagement
       _gridLevel.CreatingLevelGrid();
       LevelCompleted = true;
       IsLevelMenu = true;
+    }
+
+    public void SkinReplace()
+    {
+      _gridLevel.SkinReplace();
     }
 
     public void ExitMenu()
@@ -311,18 +328,18 @@ namespace Sokoban.LevelManagement
       PanelController.Instance.CloseAllPanels();
       PanelController.Instance.SetActivePanel(_menuPanel);
 
+      IsLevelRunning = false;
+
       //Destroy(targetObject, 5f);
     }
 
-    private bool OpenNextLevel()
+    private void OpenNextLevel()
     {
       gameManager.ProgressData.SaveProgressLevelData(_currentLevelProgressData, _currentLevelData.Location, _currentLevelData.LevelNumber);
 
       gameManager.ProgressData.OpenNextLevel(_currentLevelData.Location, _currentLevelData.LevelNumber);
 
       gameManager.SaveData();
-
-      return true;
     }
 
     //======================================

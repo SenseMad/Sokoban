@@ -54,7 +54,9 @@ namespace Sokoban.UI
   {
     Select,
     Back,
-    Reload
+    Reload,
+    Q,
+    E
   }
 
   //======================================

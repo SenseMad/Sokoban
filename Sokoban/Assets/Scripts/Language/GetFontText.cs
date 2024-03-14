@@ -5,9 +5,6 @@ using Sokoban.GameManagement;
 
 namespace Sokoban.UI
 {
-  /// <summary>
-  /// Получить шрифт для текста
-  /// </summary>
   public class GetFontText : MonoBehaviour
   {
     private TextMeshProUGUI textField;
@@ -39,9 +36,6 @@ namespace Sokoban.UI
 
     //======================================
 
-    /// <summary>
-    /// Сменить шрифт
-    /// </summary>
     private void ChangeFont()
     {
       textField.font = LocalisationSystem.Instance.GetFont();

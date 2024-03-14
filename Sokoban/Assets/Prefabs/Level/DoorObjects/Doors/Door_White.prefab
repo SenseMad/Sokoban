@@ -16,7 +16,7 @@ GameObject:
   m_TagString: Obstacles
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &6477405371023894020
 Transform:
@@ -76,8 +76,6 @@ MonoBehaviour:
   _spriteObject: {fileID: 0}
   _doorColor: 0
   _meshGameObject: {fileID: 2414728463467398953}
-  _openDoorMesh: {fileID: 6477405371046548371}
-  _closedDoorMesh: {fileID: 7562579355807040176}
 --- !u!1 &6477405371046548371
 GameObject:
   m_ObjectHideFlags: 0
@@ -94,7 +92,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 0
 --- !u!4 &6477405371046548370
 Transform:
@@ -177,7 +175,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 0
 --- !u!4 &4646412832181853731
 Transform:
@@ -311,6 +309,14 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: b66a564dba9137f49acaf8d98a26c029, type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: b66a564dba9137f49acaf8d98a26c029, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
+    - target: {fileID: 8164078558771037576, guid: b66a564dba9137f49acaf8d98a26c029, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

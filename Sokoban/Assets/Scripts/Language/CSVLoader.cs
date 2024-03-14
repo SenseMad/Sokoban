@@ -31,7 +31,7 @@ public class CSVLoader : MonoBehaviour
       }
     }
 
-    Regex CSVParser = new Regex(",(?=(?:[^\"]*\"[^\"]*\")*(?![^\"]*\"))");
+    Regex CSVParser = new(",(?=(?:[^\"]*\"[^\"]*\")*(?![^\"]*\"))");
 
     for (int i = 1; i < lines.Length; i++)
     {

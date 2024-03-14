@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 using Sokoban.LevelManagement;
 
@@ -7,6 +8,10 @@ namespace Sokoban.GameManagement
 {
   public sealed class ProgressData
   {
+    private int amountFoodCollected = 0;
+
+    //======================================
+
     #region (Tables) Locations/Levels
 
     public Dictionary<Location, int> NumberCompletedLevelsLocation = new()
@@ -23,6 +28,24 @@ namespace Sokoban.GameManagement
     public Location LocationLastLevelPlayed { get; set; } = Location.Summer;
 
     public int IndexLastLevelPlayed { get; set; } = 1;
+
+    public int AmountFoodCollected
+    {
+      get => amountFoodCollected;
+      set
+      {
+        amountFoodCollected = value;
+        OnAmountFoodCollected?.Invoke(value);
+      }
+    }
+
+    public SortedSet<int> PurchasedSkins { get; set; } = new();
+
+    public int TotalNumberMoves { get; set; } = 0;
+
+    //======================================
+
+    public event Action<int> OnAmountFoodCollected;
 
     //======================================
 
@@ -43,19 +66,17 @@ namespace Sokoban.GameManagement
 
     public bool OpenNextLocation(Location parCurrentLocation, int parCurrentLevel)
     {
-      if (parCurrentLevel >= Levels.GetNumberLevelsLocation(parCurrentLocation))
-      {
-        if ((int)parCurrentLocation + 1 <= GetLocation.GetNamesAllLocation().Length - 1)
-        {
-          if (OpenLocation(parCurrentLocation + 1))
-          {
-            Debug.Log($"Локация {parCurrentLocation + 1} открыта!");
-            return true;
-          }
-        }
-      }
+      if (parCurrentLevel < Levels.GetNumberLevelsLocation(parCurrentLocation))
+        return false;
 
-      return false;
+      if ((int)parCurrentLocation + 1 > GetLocation.GetNamesAllLocation().Length - 1)
+        return false;
+
+      if (!OpenLocation(parCurrentLocation + 1))
+        return false;
+
+      Debug.Log($"Локация {parCurrentLocation + 1} открыта!");
+      return true;
     }
 
     public bool OpenNextLevel(Location parCurrentLocation, int parCurrentLevel)
@@ -67,22 +88,22 @@ namespace Sokoban.GameManagement
       }
 
       int currentNumberLevel = GetNumberLevelsCompleted(parCurrentLocation);
-      if (parCurrentLevel >= currentNumberLevel)
+      if (parCurrentLevel <= currentNumberLevel)
+        return false;
+
+      currentNumberLevel++;
+
+      if (currentNumberLevel >= Levels.GetNumberLevelsLocation(parCurrentLocation))
       {
-        currentNumberLevel++;
-        if (currentNumberLevel >= Levels.GetNumberLevelsLocation(parCurrentLocation))
-        {
-          OpenNextLocation(parCurrentLocation, parCurrentLevel);
-          return true;
-        }
-
+        OpenNextLocation(parCurrentLocation, parCurrentLevel);
         NumberCompletedLevelsLocation[parCurrentLocation] = currentNumberLevel;
-
-        Debug.Log($"Уровень {parCurrentLevel + 1} открыт!");
         return true;
       }
 
-      return false;
+      NumberCompletedLevelsLocation[parCurrentLocation] = currentNumberLevel;
+
+      Debug.Log($"Уровень {parCurrentLevel + 1} открыт!");
+      return true;
     }
 
     public int GetNumberLevelsCompleted(Location parLocation)

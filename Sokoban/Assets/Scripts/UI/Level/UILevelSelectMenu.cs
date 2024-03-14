@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.SceneManagement;
 
 using Sokoban.LevelManagement;
 using Sokoban.GameManagement;
@@ -9,30 +8,24 @@ using TMPro;
 
 namespace Sokoban.UI
 {
-  /// <summary>
-  /// Пользовательский интерфейс меню выбора уровня
-  /// </summary>
   public class UILevelSelectMenu : MenuUI
   {
-    [SerializeField, Tooltip("Панель, куда будут создаваться кнопки")]
-    private RectTransform _levelSelectPanel;
+    [SerializeField] private RectTransform _levelSelectPanel;
 
-    [Header("ПРЕФАБ")]
-    [SerializeField, Tooltip("Префаб кнопки выбора уровня")]
-    private UILevelSelectButton _prefabButtonLevelSelect;
+    [Space(10)]
+    [SerializeField] private UILevelSelectButton _prefabButtonLevelSelect;
 
-    [Header("ТЕКСТ")]
-    [SerializeField, Tooltip("Текст количества пройденных уровней")]
-    private TextMeshProUGUI _textNumberCompletedLevels;
+    [Space(10)]
+    [SerializeField] private TextMeshProUGUI _textNumberCompletedLevels;
+
+    [Space(10)]
+    [SerializeField] private List<GameObject> _listDisabledObjects = new();
 
     //--------------------------------------
 
     private GameManager gameManager;
 
-    /// <summary>
-    /// Список кнопок выбора уровней
-    /// </summary>
-    private List<UILevelSelectButton> listUILevelSelectButton = new List<UILevelSelectButton>();
+    private List<UILevelSelectButton> listUILevelSelectButton = new();
 
     private Location currentLocation;
 
@@ -67,16 +60,10 @@ namespace Sokoban.UI
 
         if (inputHandler.GetChangingValuesInput() > 0)
         {
-          /*if (indexActiveButton + 1 > _listButtons.Count - 1)
-            return;
-          if (gameManager.ProgressData.GetNumberLevelsCompleted(currentLocation) < indexActiveButton + 1)
-            return;*/
-
-          IsSelected = false;
+          IsSelectedButton = false;
 
           listUILevelSelectButton[indexActiveButton].ChangeSprite(false);
           indexActiveButton++;
-          //listUILevelSelectButton[indexActiveButton].ChangeSprite(true);
 
           if (indexActiveButton > _listButtons.Count - 1) indexActiveButton = 0;
           if (gameManager.ProgressData.GetNumberLevelsCompleted(currentLocation) < indexActiveButton)
@@ -85,19 +72,15 @@ namespace Sokoban.UI
           listUILevelSelectButton[indexActiveButton].ChangeSprite(true);
 
           Sound();
-          IsSelected = true;
+          IsSelectedButton = true;
         }
 
         if (inputHandler.GetChangingValuesInput() < 0)
         {
-          /*if (indexActiveButton - 1 < 0)
-            return;*/
-
-          IsSelected = false;
+          IsSelectedButton = false;
 
           listUILevelSelectButton[indexActiveButton].ChangeSprite(false);
           indexActiveButton--;
-          //listUILevelSelectButton[indexActiveButton].ChangeSprite(true);
 
           if (indexActiveButton < 0) indexActiveButton = _listButtons.Count - 1;
           while (gameManager.ProgressData.GetNumberLevelsCompleted(currentLocation) < indexActiveButton)
@@ -106,7 +89,7 @@ namespace Sokoban.UI
           listUILevelSelectButton[indexActiveButton].ChangeSprite(true);
 
           Sound();
-          IsSelected = true;
+          IsSelectedButton = true;
         }
       }
 
@@ -130,14 +113,14 @@ namespace Sokoban.UI
           if (indexActiveButton - parValue < 0)
             return;
 
-          IsSelected = false;
+          IsSelectedButton = false;
 
           listUILevelSelectButton[indexActiveButton].ChangeSprite(false);
           indexActiveButton -= parValue;
           listUILevelSelectButton[indexActiveButton].ChangeSprite(true);
 
           Sound();
-          IsSelected = true;
+          IsSelectedButton = true;
         }
 
         if (inputHandler.GetNavigationInput() < 0)
@@ -147,14 +130,14 @@ namespace Sokoban.UI
           if (gameManager.ProgressData.GetNumberLevelsCompleted(currentLocation) < indexActiveButton + parValue)
             return;
 
-          IsSelected = false;
+          IsSelectedButton = false;
 
           listUILevelSelectButton[indexActiveButton].ChangeSprite(false);
           indexActiveButton += parValue;
           listUILevelSelectButton[indexActiveButton].ChangeSprite(true);
 
           Sound();
-          IsSelected = true;
+          IsSelectedButton = true;
         }
       }
 
@@ -164,9 +147,6 @@ namespace Sokoban.UI
       }
     }
 
-    /// <summary>
-    /// Отобразить кнопки выбора уровня в интерфейсе
-    /// </summary>
     public void DisplayLevelSelectionButtonsUI(Location parLocation)
     {
       ClearButtonsUI();
@@ -200,9 +180,6 @@ namespace Sokoban.UI
       base.OnEnable();
     }
 
-    /// <summary>
-    /// Очистить список кнопок
-    /// </summary>
     private void ClearButtonsUI()
     {
       for (int i = 0; i < listUILevelSelectButton.Count; i++)
@@ -230,20 +207,16 @@ namespace Sokoban.UI
       if (_listButtons.Count == 0)
         return;
 
-      var listButtons = _listButtons[indexActiveButton];
+      Button listButtons = _listButtons[indexActiveButton];
 
-      var rectTransform = listButtons.GetComponent<RectTransform>();
+      RectTransform rectTransform = listButtons.GetComponent<RectTransform>();
       rectTransform.localScale = new Vector3(1, 1, 1);
     }
 
     //======================================
 
-    /// <summary>
-    /// Выбрать уровень
-    /// </summary>
     private void SelectLevel(LevelData levelData)
     {
-      //Levels.CurrentSelectedLevelData = levelData;
       var levelManager = LevelManager.Instance;
 
       if (!levelManager.GridLevel.IsLevelDeleted)
@@ -260,7 +233,7 @@ namespace Sokoban.UI
 
       levelManager.ReloadLevel(levelData);
 
-      //SceneManager.LoadScene($"GameScene");
+      levelManager.IsLevelRunning = true;
     }
 
     //======================================

@@ -52,7 +52,7 @@ namespace Sokoban.UI
     protected override void OnSelected()
     {
       base.OnSelected();
-      _valueText.color = ColorsGame.STANDART_COLOR;
+      _valueText.color = ColorsGame.SELECTED_COLOR;
     }
 
     protected override void OnDeselected()
@@ -78,9 +78,6 @@ namespace Sokoban.UI
       }
     }
 
-    /// <summary>
-    /// ”становить значение без оповещени¤
-    /// </summary>
     public void SetValueWithoutNotify(int parValue)
     {
       SetValue(parValue, false);

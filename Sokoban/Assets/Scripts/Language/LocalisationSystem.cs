@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Events;
 using TMPro;
 using System;
 
@@ -26,9 +25,6 @@ public class LocalisationSystem : SingletonInSceneNoInstance<LocalisationSystem>
 
   //======================================
 
-  /// <summary>
-  /// Текущий язык
-  /// </summary>
   public static Language CurrentLanguage
   {
     get => _currentLanguage;
@@ -41,16 +37,10 @@ public class LocalisationSystem : SingletonInSceneNoInstance<LocalisationSystem>
 
   //======================================
 
-  /// <summary>
-  /// Событие: Изменение текущего языка
-  /// </summary>
-  public static UnityEvent<Language> ChangeCurrentLanguage { get; } = new UnityEvent<Language>();
+  public static event Action<Language> ChangeCurrentLanguage;
 
   //======================================
 
-  /// <summary>
-  /// Получить шрифт
-  /// </summary>
   public TMP_FontAsset GetFont()
   {
     return _fontAsset.GetFont(_currentLanguage);
@@ -118,17 +108,11 @@ public class LocalisationSystem : SingletonInSceneNoInstance<LocalisationSystem>
     return value;
   }
 
-  /// <summary>
-  /// Получить названия всех языков
-  /// </summary>
   public static Language[] GetNamesAllLanguage()
   {
     return (Language[])Enum.GetValues(typeof(Language));
   }
 
-  /// <summary>
-  /// Получить название языка
-  /// </summary>
   public static string GetNameLanguage(Language parLanguage)
   {
     return parLanguage switch
@@ -146,40 +130,4 @@ public class LocalisationSystem : SingletonInSceneNoInstance<LocalisationSystem>
   }
 
   //======================================
-}
-
-public enum Language
-{
-  /// <summary>
-  /// Китайский
-  /// </summary>
-  Chinese,
-  /// <summary>
-  /// Английский
-  /// </summary>
-  English,
-  /// <summary>
-  /// Французский
-  /// </summary>
-  French,
-  /// <summary>
-  /// Немецкий
-  /// </summary>
-  German,
-  /// <summary>
-  /// Японский
-  /// </summary>
-  Japan,
-  /// <summary>
-  /// Португальский
-  /// </summary>
-  Portuguese,
-  /// <summary>
-  /// Русский
-  /// </summary>
-  Russian,
-  /// <summary>
-  /// Испанский
-  /// </summary>
-  Spanish,
 }

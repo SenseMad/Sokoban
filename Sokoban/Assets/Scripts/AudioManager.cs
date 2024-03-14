@@ -10,11 +10,9 @@ namespace Sokoban.GameManagement
 
     //======================================
 
-    [SerializeField, Tooltip("Игровые музыкальные клипы")]
-    private List<AudioClip> _gameMusicClips;
+    [SerializeField] private List<AudioClip> _gameMusicClips;
 
-    [SerializeField, Tooltip("Звук интерфейса")]
-    private AudioClip _interfaceSound;
+    [SerializeField] private AudioClip _interfaceSound;
 
     //--------------------------------------
 

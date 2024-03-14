@@ -84,13 +84,18 @@ namespace Sokoban.Save
       {
         MusicValue = settingsData.MusicValue,
         SoundValue = settingsData.SoundValue,
+        FullScreenValue = settingsData.FullScreenValue,
+        VSyncValue = settingsData.VSyncValue,
         CurrentLanguage = settingsData.CurrentLanguage,
 
         NumberCompletedLevelsLocation = progressData.NumberCompletedLevelsLocation,
         LevelProgressData = progressData.LevelProgressData,
         CurrentActiveIndexSkin = progressData.CurrentActiveIndexSkin,
         LocationLastLevelPlayed = progressData.LocationLastLevelPlayed,
-        IndexLastLevelPlayed = progressData.IndexLastLevelPlayed
+        IndexLastLevelPlayed = progressData.IndexLastLevelPlayed,
+        AmountFoodCollected = progressData.AmountFoodCollected,
+        PurchasedSkins = progressData.PurchasedSkins,
+        TotalNumberMoves = progressData.TotalNumberMoves
       };
     }
 
@@ -103,6 +108,8 @@ namespace Sokoban.Save
 
       settingsData.MusicValue = parData.MusicValue;
       settingsData.SoundValue = parData.SoundValue;
+      settingsData.FullScreenValue = parData.FullScreenValue;
+      settingsData.VSyncValue = parData.VSyncValue;
       settingsData.CurrentLanguage = parData.CurrentLanguage;
 
       progressData.NumberCompletedLevelsLocation = parData.NumberCompletedLevelsLocation;
@@ -110,6 +117,9 @@ namespace Sokoban.Save
       progressData.CurrentActiveIndexSkin = parData.CurrentActiveIndexSkin;
       progressData.LocationLastLevelPlayed = parData.LocationLastLevelPlayed;
       progressData.IndexLastLevelPlayed = parData.IndexLastLevelPlayed;
+      progressData.AmountFoodCollected = parData.AmountFoodCollected;
+      progressData.PurchasedSkins = parData.PurchasedSkins;
+      progressData.TotalNumberMoves = parData.TotalNumberMoves;
     }
 
     //======================================

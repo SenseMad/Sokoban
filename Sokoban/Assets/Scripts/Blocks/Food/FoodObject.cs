@@ -27,8 +27,6 @@ public class FoodObject : InteractiveObjects
 
   //======================================
 
-  public TypesFood GetTypeFood() => _typeFood;
-
   public bool IsFoodCollected { get; private set; }
 
   //======================================
@@ -44,6 +42,7 @@ public class FoodObject : InteractiveObjects
       AudioManager.Instance.OnPlaySound?.Invoke(Sound);
 
     LevelManager.Instance.IsFoodCollected();
+
     gameObject.SetActive(false);
   }
 

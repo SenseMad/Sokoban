@@ -25,6 +25,9 @@ namespace Sokoban.UI
     [SerializeField, Tooltip("Объект количества ходов")]
     private GameObject _objectNumberMoves;
 
+    [Space(10)]
+    [SerializeField] private GameObject _topCameraRotate;
+
     //--------------------------------------
 
     private LevelManager levelManager;
@@ -48,11 +51,6 @@ namespace Sokoban.UI
       levelManager.ChangeNumberMoves.AddListener(UpdateTextNumberMoves);
     }
 
-    private void LevelManager_OnLevelCompleted(bool t)
-    {
-      SetObject(false);
-    }
-
     private void OnDisable()
     {
       levelManager.OnLevelCompleted -= SetObjectFalse;
@@ -69,22 +67,25 @@ namespace Sokoban.UI
 
     private void UpdateText(LevelData parLevelData)
     {
+      if (_textLevelNumber == null)
+        return;
+
       _textLevelNumber.text = $"LEVEL {parLevelData.LevelNumber}";
     }
 
-    /// <summary>
-    /// Обновить текст времени на уровне
-    /// </summary>
     private void UpdateTextTimeLevel(float parValue)
     {
+      if (_textTimeLevel == null)
+        return;
+
       _textTimeLevel.text = $"{levelManager.UpdateTextTimeLevel()}";
     }
 
-    /// <summary>
-    /// Обновить текст количества ходов
-    /// </summary>
     private void UpdateTextNumberMoves(int parValue)
     {
+      if (_textNumberMoves == null)
+        return;
+
       _textNumberMoves.text = $"{parValue}";
     }
 
@@ -93,9 +94,11 @@ namespace Sokoban.UI
 
     private void SetObject(bool parValue)
     {
-      _objectLevelNumber.SetActive(parValue);
+      //_objectLevelNumber.SetActive(parValue);
       _objectTimeLevel.SetActive(parValue);
-      _objectNumberMoves.SetActive(parValue);
+      _topCameraRotate.SetActive(parValue);
+
+      //_objectNumberMoves.SetActive(parValue);
     }
 
     //======================================

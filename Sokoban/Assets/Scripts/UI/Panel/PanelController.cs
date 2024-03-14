@@ -5,31 +5,20 @@ namespace Sokoban.UI
 {
   public class PanelController : SingletonInSceneNoInstance<PanelController>
   {
-    [SerializeField, Tooltip("Текущая активная панель")]
-    private Panel _currentActivePanel;
+    [SerializeField] private Panel _currentActivePanel;
 
     [SerializeField] private GameObject _topPanelObject;
 
     //--------------------------------------
 
-    /// <summary>
-    /// Список всех открытых панелей
-    /// </summary>
-    public List<Panel> listAllOpenPanels = new List<Panel>();
+    public List<Panel> listAllOpenPanels = new();
 
     //======================================
 
-    /// <summary>
-    /// Получить текущую активную панель
-    /// </summary>
     public Panel GetCurrentActivePanel() => _currentActivePanel;
 
     //======================================
 
-    /// <summary>
-    /// Показать панель
-    /// </summary>
-    /// <param name="parPanel">Панель которую нужно показать</param>
     public void ShowPanel(Panel parPanel)
     {
       _currentActivePanel = parPanel;
@@ -42,10 +31,6 @@ namespace Sokoban.UI
       listAllOpenPanels.Add(parPanel);
     }
 
-    /// <summary>
-    /// Скрыть панель
-    /// </summary>
-    /// <param name="parPanel">Панель которую нужно скрыть</param>
     public void HidePanel(Panel parPanel)
     {
       if (parPanel == null)
@@ -54,9 +39,6 @@ namespace Sokoban.UI
       parPanel.HidePanel();
     }
 
-    /// <summary>
-    /// Скрыть старую и открыть новую панель
-    /// </summary>
     public void SetActivePanel(Panel parPanel)
     {
       HidePanel(_currentActivePanel);
@@ -66,9 +48,6 @@ namespace Sokoban.UI
 
     //======================================
 
-    /// <summary>
-    /// Закрытие панелей по порядку
-    /// </summary>
     public void ClosePanel()
     {
       if (listAllOpenPanels.Count == 0 || _currentActivePanel == null)
@@ -88,9 +67,6 @@ namespace Sokoban.UI
       _currentActivePanel.ShowPanel();
     }
 
-    /// <summary>
-    /// Закрыть все панели
-    /// </summary>
     public void CloseAllPanels()
     {
       for (int i = 0; i < listAllOpenPanels.Count; i++)

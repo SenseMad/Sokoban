@@ -22,9 +22,13 @@ namespace Sokoban.UI
     [SerializeField, Tooltip("Спрайт выделения")]
     private Sprite _spriteSelected;
 
+    [SerializeField] private GameObject _selectImage;
+
     //--------------------------------------
 
     private Image imageButton;
+
+    //private Animator animator;
 
     //======================================
 
@@ -40,6 +44,8 @@ namespace Sokoban.UI
     private void Awake()
     {
       imageButton = GetComponent<Image>();
+
+      //animator = GetComponent<Animator>();
     }
 
     //======================================
@@ -59,19 +65,20 @@ namespace Sokoban.UI
     public void ChangeColor()
     {
       _textLevelName.color = ColorsGame.STANDART_COLOR;
-      imageButton.color = ColorsGame.SELECTED_COLOR_BLACK;
+      //imageButton.color = ColorsGame.SELECTED_COLOR_BLACK;
 
       //IsLevelOpen = true;
       _imageLock.gameObject.SetActive(false);
       _textLevelName.gameObject.SetActive(true);
     }
 
-    /// <summary>
-    /// Изменить спрайт
-    /// </summary>
     public void ChangeSprite(bool parValue)
     {
       imageButton.sprite = parValue ? _spriteSelected : _spriteStandart;
+
+      _selectImage.SetActive(parValue);
+
+      //animator.enabled = parValue;
     }
 
     //======================================

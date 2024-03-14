@@ -16,7 +16,7 @@ GameObject:
   m_TagString: Obstacles
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &6477405371023894020
 Transform:
@@ -90,7 +90,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 0
 --- !u!4 &6477405371046548370
 Transform:
@@ -220,6 +220,14 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: f493fec1ba9f32d439917cdf1cb1669c, type: 3}
       propertyPath: m_Name
       value: Ground_Summer
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: f493fec1ba9f32d439917cdf1cb1669c, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
+    - target: {fileID: 8164078558771037576, guid: f493fec1ba9f32d439917cdf1cb1669c, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
