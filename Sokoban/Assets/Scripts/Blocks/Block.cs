@@ -45,10 +45,7 @@ public abstract class Block : MonoBehaviour
   /// </summary>
   public Vector3Int GetObjectPosition() => _objectPosition;
 
-  /// <summary>
-  /// Получить название объекта
-  /// </summary>
-  public string GetNameObject() => _nameObject;
+  public string NameObject => _nameObject;
 
   /// <summary>
   /// Получить спрайт объекта

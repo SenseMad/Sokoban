@@ -22,12 +22,11 @@ namespace Sokoban.Save
     public Language CurrentLanguage = Language.English;
 
     #endregion
+    public int AmountFoodCollected = 0;
 
     public int CurrentActiveIndexSkin = 0;
 
-    public int AmountFoodCollected = 0;
-
-    public SortedSet<int> PurchasedSkins = new();
+    public SortedSet<int> PurchasedSkins = new() { 0 };
 
     public int TotalNumberMoves = 0;
 
@@ -35,7 +34,7 @@ namespace Sokoban.Save
 
     public Location LocationLastLevelPlayed = Location.Summer;
 
-    public int IndexLastLevelPlayed = 0;
+    public int IndexLastLevelPlayed = 1;
 
     public Dictionary<Location, int> NumberCompletedLevelsLocation = new()
     {

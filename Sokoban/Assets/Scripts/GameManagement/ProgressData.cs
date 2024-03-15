@@ -23,8 +23,6 @@ namespace Sokoban.GameManagement
 
     #endregion
 
-    public int CurrentActiveIndexSkin { get; set; } = 0;
-
     public Location LocationLastLevelPlayed { get; set; } = Location.Summer;
 
     public int IndexLastLevelPlayed { get; set; } = 1;
@@ -39,7 +37,9 @@ namespace Sokoban.GameManagement
       }
     }
 
-    public SortedSet<int> PurchasedSkins { get; set; } = new();
+    public int CurrentActiveIndexSkin { get; set; } = 0;
+
+    public SortedSet<int> PurchasedSkins { get; set; } = new() { 0 };
 
     public int TotalNumberMoves { get; set; } = 0;
 

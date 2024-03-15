@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 using Sokoban.LevelManagement;
@@ -6,6 +7,8 @@ using Sokoban.GameManagement;
 public class FoodObject : InteractiveObjects
 {
   [SerializeField] private TypesFood _typeFood;
+
+  [SerializeField] private List<GameObject> _listFoods = new();
 
   //--------------------------------------
 
@@ -18,6 +21,8 @@ public class FoodObject : InteractiveObjects
     base.Awake();
 
     meshTransform = GetComponentInChildren<MeshFilter>().transform;
+
+    RandomFood();
   }
 
   private void Update()
@@ -44,6 +49,18 @@ public class FoodObject : InteractiveObjects
     LevelManager.Instance.IsFoodCollected();
 
     gameObject.SetActive(false);
+  }
+
+  //======================================
+
+  private void RandomFood()
+  {
+    System.Random random = new System.Random();
+
+    GameObject objectFood = _listFoods[random.Next(0, _listFoods.Count)];
+
+    transform.GetComponentInChildren<MeshFilter>().sharedMesh = objectFood.GetComponentInChildren<MeshFilter>().sharedMesh;
+    transform.GetComponentInChildren<MeshRenderer>().sharedMaterial = objectFood.GetComponentInChildren<Renderer>().sharedMaterial;
   }
 
   //======================================

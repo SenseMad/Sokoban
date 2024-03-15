@@ -96,7 +96,7 @@ namespace Sokoban.GridEditor
     #endregion
 
     #region Поиск объектов дверей на уровне
-    
+
     private void FindAllDoorObjects()
     {
       if (blockObjects == null)
@@ -139,6 +139,60 @@ namespace Sokoban.GridEditor
 
       myCoroutine = StartCoroutine(DeleteLevel());
     }
+
+    public void SkinReplace()
+    {
+      foreach (var block in blockObjects)
+      {
+        if (block == null)
+          continue;
+
+        if (!block.GetComponent<PlayerObjects>())
+          continue;
+
+        foreach (var skinData in ShopData.Instance.SkinDatas)
+        {
+          if (skinData.IndexSkin != gameManager.ProgressData.CurrentActiveIndexSkin)
+            continue;
+
+          block.GetComponentInChildren<MeshFilter>().sharedMesh = skinData.ObjectSkin.GetComponentInChildren<MeshFilter>().sharedMesh;
+          block.GetComponentInChildren<MeshRenderer>().sharedMaterial = skinData.ObjectSkin.GetComponentInChildren<Renderer>().sharedMaterial;
+          break;
+        }
+
+        break;
+      }
+    }
+
+    /*private Vector3Int[] SearchTrees()
+    {
+      List<Vector3Int> foundTrees = new();
+
+      foreach (var block in blockObjects)
+      {
+        if (block == null)
+          continue;
+
+        if (!block.TryGetComponent(out DecoreObject parDecoreObject))
+          continue;
+
+        if (parDecoreObject.NameObject != "Tree")
+          continue;
+
+        if (block.transform.position.y == 3)
+          break;
+
+        Vector3Int positionUpCurrentBlock = new((int)block.transform.position.x, (int)block.transform.position.y + 1, (int)block.transform.position.z);
+
+        foundTrees.Add(positionUpCurrentBlock);
+      }
+
+      Vector3Int[] retFoundTrees = new Vector3Int[foundTrees.Count];
+      for (int i = 0; i < retFoundTrees.Length; i++)
+        retFoundTrees[i] = foundTrees[i];
+
+      return retFoundTrees;
+    }*/
 
     private void SpawnGrass()
     {
@@ -198,30 +252,6 @@ namespace Sokoban.GridEditor
         newBlockObject.transform.position = posPlaceSpawn;
         newBlockObject.SetPositionObject(posPlaceSpawn);
         blockObjects[posPlaceSpawn.x, posPlaceSpawn.y, posPlaceSpawn.z] = newBlockObject;
-      }
-    }
-
-    public void SkinReplace()
-    {
-      foreach (var block in blockObjects)
-      {
-        if (block == null)
-          continue;
-
-        if (!block.GetComponent<PlayerObjects>())
-          continue;
-
-        foreach (var skinData in ShopData.Instance.SkinDatas)
-        {
-          if (skinData.IndexSkin != gameManager.ProgressData.CurrentActiveIndexSkin)
-            continue;
-
-          block.GetComponentInChildren<MeshFilter>().sharedMesh = skinData.ObjectSkin.GetComponentInChildren<MeshFilter>().sharedMesh;
-          block.GetComponentInChildren<MeshRenderer>().sharedMaterial = skinData.ObjectSkin.GetComponentInChildren<Renderer>().sharedMaterial;
-          break;
-        }
-
-        break;
       }
     }
 

@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028334, g: 0.22571328, b: 0.3069217, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -3411,7 +3411,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 8a374e150a8599b4c90505f172bda4f1, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 4881ce3fcb8de4f4d8ebc0fd2c5a58c9, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -6357,9 +6357,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _skinDatas:
-  - {fileID: 11400000, guid: 6d2d1d2868fcc0b41b104d37e8db26f0, type: 2}
-  - {fileID: 11400000, guid: 10a6e48a8b9143d4f9d4292caeb1d68e, type: 2}
   - {fileID: 11400000, guid: 5a736e6351f64854eae8baa04eafc592, type: 2}
+  - {fileID: 11400000, guid: 10a6e48a8b9143d4f9d4292caeb1d68e, type: 2}
+  - {fileID: 11400000, guid: 6d2d1d2868fcc0b41b104d37e8db26f0, type: 2}
   - {fileID: 11400000, guid: f6f1ad187f0163e4f8ca2b357ab09aa2, type: 2}
   - {fileID: 11400000, guid: 61590bdd92d849d45bc6399d08d11ed2, type: 2}
 --- !u!4 &669721038
@@ -16594,7 +16594,7 @@ MonoBehaviour:
   _content: {fileID: 1009595527}
   _prefabShopButton: {fileID: 6269155312796621460, guid: 5f6a74d8608269f41be6109773e67d74, type: 3}
   _panel: {fileID: 1617666057}
-  _arrowLeft: {fileID: 386714989}
+  _arrowLeft: {fileID: 985029826}
   _arrowRight: {fileID: 2102759088}
   _foodCollected: {fileID: 2049644068}
 --- !u!1 &1622277191
