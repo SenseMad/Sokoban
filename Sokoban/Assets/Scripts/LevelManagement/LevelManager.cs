@@ -11,17 +11,20 @@ namespace Sokoban.LevelManagement
 {
   public sealed class LevelManager : SingletonInSceneNoInstance<LevelManager>
   {
-    [Header("ДАННЫЕ УРОВНЯ")]
     [SerializeField] private LevelData _currentLevelData;
     [SerializeField] private LevelProgressData _currentLevelProgressData;
 
-    [Header("СЕТКА УРОВНЯ")]
+    [Space(10)]
     [SerializeField] private GridLevel _gridLevel;
 
-    [Header("ПАНЕЛИ")]
+    [Space(10)]
     [SerializeField] private GameObject _pauseMenu;
     [SerializeField] private GameObject _levelCompleteMenu;
+    [SerializeField] private GameObject _levelFailedMenu;
     [SerializeField] private Panel _menuPanel;
+
+    [Space(10)]
+    [SerializeField] private TypeDifficultyGame _currentTypeDifficultyGame;
 
     //--------------------------------------
 
@@ -37,9 +40,13 @@ namespace Sokoban.LevelManagement
 
     private int tempAmountFoodCollected = 0;
 
+    private DifficultyGame difficultyGame;
+
     //======================================
 
     public bool LevelCompleted { get; set; }
+
+    public bool LevelFailed { get; set; }
 
     public bool IsPause { get; set; }
 
@@ -60,6 +67,8 @@ namespace Sokoban.LevelManagement
     public UnityEvent<float> ChangeTimeOnLevel { get; } = new UnityEvent<float>();
 
     public UnityEvent<int> ChangeNumberMoves { get; } = new UnityEvent<int>();
+
+    public event Action ChangeDifficultyGame;
 
     public UnityEvent<bool> OnPauseEvent { get; } = new UnityEvent<bool>();
 
@@ -101,6 +110,8 @@ namespace Sokoban.LevelManagement
       }
     }
 
+    public TypeDifficultyGame CurrentTypeDifficultyGame { get => _currentTypeDifficultyGame; set => _currentTypeDifficultyGame = value; }
+
     //======================================
 
     private new void Awake()
@@ -112,6 +123,8 @@ namespace Sokoban.LevelManagement
       audioManager = AudioManager.Instance;
 
       levelSounds = GetComponent<LevelSounds>();
+
+      difficultyGame = new DifficultyGame();
     }
 
     private void Start()
@@ -141,16 +154,23 @@ namespace Sokoban.LevelManagement
         return;
       
       TimeOnLevel += Time.deltaTime;
+
+      /*if (_currentTypeDifficultyGame == TypeDifficultyGame.Easy)
+        return;
+
+      difficultyGame.IsLevelFailedTime();*/
     }
 
     private void OnEnable()
     {
       OnLevelCompleted += LevelManager_OnLevelCompleted;
+      difficultyGame.OnLevelFailed += DifficultyGame_OnLevelFailed;
     }
 
     private void OnDisable()
     {
       OnLevelCompleted -= LevelManager_OnLevelCompleted;
+      difficultyGame.OnLevelFailed -= DifficultyGame_OnLevelFailed;
     }
 
     //======================================
@@ -216,6 +236,13 @@ namespace Sokoban.LevelManagement
     private void LevelManager_OnLevelCompleted()
     {
       LevelCompleted = true;
+      /*LevelFailed = false;
+
+      if (LevelFailed)
+      {
+        tempAmountFoodCollected = 0;
+        return;
+      }*/
 
       GameManager.Instance.ProgressData.AmountFoodCollected += tempAmountFoodCollected;
       tempAmountFoodCollected = 0;
@@ -223,6 +250,13 @@ namespace Sokoban.LevelManagement
       audioManager.OnPlaySound?.Invoke(levelSounds.LevelComplete);
 
       OpenNextLevel();
+    }
+
+    private void DifficultyGame_OnLevelFailed()
+    {
+      LevelFailed = true;
+
+      //OnLevelCompleted?.Invoke();
     }
 
     //======================================

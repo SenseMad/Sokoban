@@ -6,8 +6,6 @@ using Sokoban.GameManagement;
 
 public class FoodObject : InteractiveObjects
 {
-  [SerializeField] private TypesFood _typeFood;
-
   [SerializeField] private List<GameObject> _listFoods = new();
 
   //--------------------------------------
@@ -64,10 +62,4 @@ public class FoodObject : InteractiveObjects
   }
 
   //======================================
-}
-
-public enum TypesFood
-{
-  Hamburger,
-  HotDog
 }

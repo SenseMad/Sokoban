@@ -22,6 +22,7 @@ namespace Sokoban.Save
     public Language CurrentLanguage = Language.English;
 
     #endregion
+
     public int AmountFoodCollected = 0;
 
     public int CurrentActiveIndexSkin = 0;

@@ -1,4 +1,7 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using System.Collections;
+using System;
 
 using Sokoban.LevelManagement;
 using Sokoban.Save;
@@ -7,6 +10,10 @@ namespace Sokoban.GameManagement
 {
   public sealed class GameManager : SingletonInGame<GameManager>
   {
+    private TransitionBetweenScenes transitionBetweenScenes;
+
+    //======================================
+
     public ProgressData ProgressData { get; set; } = new ProgressData();
 
     public SettingsData SettingsData { get; set; } = new SettingsData();
@@ -17,7 +24,9 @@ namespace Sokoban.GameManagement
     {
       base.Awake();
 
-      Init();
+      transitionBetweenScenes = FindAnyObjectByType<TransitionBetweenScenes>();
+
+      StartCoroutine(Init());
     }
 
     private void Start()
@@ -30,8 +39,8 @@ namespace Sokoban.GameManagement
       SettingsData.CreateResolutions();
 
       Screen.fullScreen = SettingsData.FullScreenValue;
-      Screen.SetResolution(SettingsData.Resolutions[SettingsData.CurrentSelectedResolution].width,
-        SettingsData.Resolutions[SettingsData.CurrentSelectedResolution].height, SettingsData.FullScreenValue, SettingsData.Resolutions[SettingsData.CurrentSelectedResolution].refreshRate);
+
+      SettingsData.ApplyResolution();
 #endif
     }
 
@@ -44,12 +53,30 @@ namespace Sokoban.GameManagement
 
     //======================================
 
-    private void Init()
+    private IEnumerator Init()
+    {
+      bool initScene = SceneManager.GetActiveScene().name == "InitScene";
+
+      yield return new WaitForSeconds(2f);
+
+      SettingsData.CurrentLanguage = Language.Russian;
+
+      LoadData();
+
+      yield return new WaitForSeconds(2f);
+
+      if (initScene)
+      {
+        transitionBetweenScenes.StartSceneChange("GameScene");
+      }
+    }
+
+    /*private void Init()
     {
       SettingsData.CurrentLanguage = Language.Russian;
 
       LoadData();
-    }
+    }*/
 
     //======================================
 

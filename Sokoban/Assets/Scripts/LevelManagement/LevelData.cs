@@ -15,6 +15,10 @@ namespace Sokoban.LevelManagement
 
     [SerializeField] private List<GridData> _listLevelObjects;
 
+    [SerializeField] private int _maximumNumberSteps;
+
+    [SerializeField] private float _maxTimeOnLevel;
+
     //======================================
 
     public int LevelNumber { get => _levelNumber; set => _levelNumber = value; }
@@ -24,6 +28,10 @@ namespace Sokoban.LevelManagement
     public List<GridData> ListLevelObjects { get => _listLevelObjects; set => _listLevelObjects = value; }
 
     public Vector3Int FieldSize { get => _fieldSize; set => _fieldSize = value; }
+
+    public int MaximumNumberMoves { get => _maximumNumberSteps; set => _maximumNumberSteps = value; }
+
+    public float MaxTimeOnLevel { get => _maxTimeOnLevel; set => _maxTimeOnLevel = value; }
 
     //======================================
 

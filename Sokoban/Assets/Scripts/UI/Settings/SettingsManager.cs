@@ -196,21 +196,22 @@ namespace Sokoban.UI
 
       gameManager.SettingsData.CurrentSelectedResolution = parValue;
       _resolutionValue.UpdateText(UpdateResolutionText());
-      Screen.SetResolution(resolutions[parValue].width, resolutions[parValue].height, gameManager.SettingsData.FullScreenValue);
+
+      gameManager.SettingsData.ApplyResolution();
       Sound();
     }
 
     private string UpdateResolutionText()
     {
-      List<Resolution> resolutions = gameManager.SettingsData.Resolutions;
-
-      return $"{resolutions[gameManager.SettingsData.CurrentSelectedResolution].width} X " +
-        $"{resolutions[gameManager.SettingsData.CurrentSelectedResolution].height} ";
+      return $"{gameManager.SettingsData.GetResolution().width} X {gameManager.SettingsData.GetResolution().height}";
     }
 
     private void VSyncValue_OnValueChanged(bool parValue)
     {
       gameManager.SettingsData.VSyncValue = parValue;
+
+      gameManager.SettingsData.ApplyResolution();
+
       Sound();
     }
 #endif

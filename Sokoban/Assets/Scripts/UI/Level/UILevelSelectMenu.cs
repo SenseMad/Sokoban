@@ -234,6 +234,11 @@ namespace Sokoban.UI
       levelManager.ReloadLevel(levelData);
 
       levelManager.IsLevelRunning = true;
+
+      /*if (gameManager.ProgressData.LevelProgressData.ContainsKey(levelData.Location))
+      {
+        Debug.Log($"{gameManager.ProgressData.LevelProgressData[levelData.Location][levelData.LevelNumber].TimeOnLevel}");
+      }*/
     }
 
     //======================================

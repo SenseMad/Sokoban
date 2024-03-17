@@ -82,20 +82,29 @@ namespace Sokoban.Save
 
       return new GameData()
       {
+        #region Settings
+
         MusicValue = settingsData.MusicValue,
         SoundValue = settingsData.SoundValue,
         FullScreenValue = settingsData.FullScreenValue,
         VSyncValue = settingsData.VSyncValue,
         CurrentLanguage = settingsData.CurrentLanguage,
 
+        #endregion
+
+        #region ProgressData
+
         NumberCompletedLevelsLocation = progressData.NumberCompletedLevelsLocation,
         LevelProgressData = progressData.LevelProgressData,
+
         CurrentActiveIndexSkin = progressData.CurrentActiveIndexSkin,
         LocationLastLevelPlayed = progressData.LocationLastLevelPlayed,
         IndexLastLevelPlayed = progressData.IndexLastLevelPlayed,
         AmountFoodCollected = progressData.AmountFoodCollected,
         PurchasedSkins = progressData.PurchasedSkins,
         TotalNumberMoves = progressData.TotalNumberMoves
+
+        #endregion
       };
     }
 
@@ -106,20 +115,29 @@ namespace Sokoban.Save
       ProgressData progressData = gameManager.ProgressData;
       SettingsData settingsData = gameManager.SettingsData;
 
+      #region Settings
+
       settingsData.MusicValue = parData.MusicValue;
       settingsData.SoundValue = parData.SoundValue;
       settingsData.FullScreenValue = parData.FullScreenValue;
       settingsData.VSyncValue = parData.VSyncValue;
       settingsData.CurrentLanguage = parData.CurrentLanguage;
 
+      #endregion
+
+      #region ProgressData
+
       progressData.NumberCompletedLevelsLocation = parData.NumberCompletedLevelsLocation;
       progressData.LevelProgressData = parData.LevelProgressData ?? new Dictionary<Location, Dictionary<int, LevelManagement.LevelProgressData>>();
+      
       progressData.CurrentActiveIndexSkin = parData.CurrentActiveIndexSkin;
       progressData.LocationLastLevelPlayed = parData.LocationLastLevelPlayed;
       progressData.IndexLastLevelPlayed = parData.IndexLastLevelPlayed;
       progressData.AmountFoodCollected = parData.AmountFoodCollected;
       progressData.PurchasedSkins = parData.PurchasedSkins;
       progressData.TotalNumberMoves = parData.TotalNumberMoves;
+
+      #endregion
     }
 
     //======================================

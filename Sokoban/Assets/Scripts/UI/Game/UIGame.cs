@@ -86,7 +86,10 @@ namespace Sokoban.UI
       if (_textNumberMoves == null)
         return;
 
-      _textNumberMoves.text = $"{parValue}";
+      if (levelManager.CurrentTypeDifficultyGame == TypeDifficultyGame.Easy)
+        _textNumberMoves.text = $"{parValue}";
+      else
+        _textNumberMoves.text = $"{parValue} / {levelManager.GetCurrentLevelData().MaximumNumberMoves}";
     }
 
     private void SetObjectTrue() => SetObject(true);
@@ -94,11 +97,11 @@ namespace Sokoban.UI
 
     private void SetObject(bool parValue)
     {
-      //_objectLevelNumber.SetActive(parValue);
+      _objectLevelNumber.SetActive(parValue);
       _objectTimeLevel.SetActive(parValue);
-      _topCameraRotate.SetActive(parValue);
+      _objectNumberMoves.SetActive(parValue);
 
-      //_objectNumberMoves.SetActive(parValue);
+      _topCameraRotate.SetActive(parValue);
     }
 
     //======================================

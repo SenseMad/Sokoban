@@ -53,7 +53,6 @@ MonoBehaviour:
   _nameObject: 
   _spriteObject: {fileID: 0}
   _sound: {fileID: 8300000, guid: bc9476e742993b74abc79e7b7625bffa, type: 3}
-  _typeFood: 0
   _listFoods:
   - {fileID: 919132149155446097, guid: c13bbd058804d8a48bd132a1059f5c9a, type: 3}
   - {fileID: 919132149155446097, guid: 994161cae52f5c249b66908711dfd6dd, type: 3}
@@ -61,7 +60,6 @@ MonoBehaviour:
   - {fileID: 919132149155446097, guid: fb6e7f2dafaa11341865395dfdee1e30, type: 3}
   - {fileID: 919132149155446097, guid: 74765cfefa51750428227c477053db1a, type: 3}
   - {fileID: 919132149155446097, guid: c31a59f87e805f941bab6a316218fb15, type: 3}
-  - {fileID: 919132149155446097, guid: cad2838f0899e004689723bfd96b1bfd, type: 3}
   - {fileID: 919132149155446097, guid: 79b09d2b34e66be4e9669e378ad786ee, type: 3}
   - {fileID: 919132149155446097, guid: 7be0e7de806f2f74bb99905aea044790, type: 3}
   - {fileID: 919132149155446097, guid: d079cebccf0c49443bcc8ebf144d59bf, type: 3}

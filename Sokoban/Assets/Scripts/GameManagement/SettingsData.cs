@@ -136,6 +136,44 @@ namespace Sokoban.GameManagement
         }
       }
     }
+    
+    public void ApplyResolution()
+    {
+      int width = GetResolution().width;
+      int height = GetResolution().height;
+      FullScreenMode fullScreenMode = GetFullScreenMode();
+      RefreshRate refreshRate = GetRefreshRate();
+      //RefreshRate refreshRate = GetResolution().refreshRateRatio;
+
+      Screen.SetResolution(width, height, fullScreenMode, refreshRate);
+    }
+
+    public Resolution GetResolution()
+    {
+      return Resolutions[CurrentSelectedResolution];
+    }
+
+    public FullScreenMode GetFullScreenMode()
+    {
+      switch (_fullScreenValue)
+      {
+        case true:
+          return FullScreenMode.FullScreenWindow;
+        case false:
+          return FullScreenMode.Windowed;
+      }
+    }
+
+    public RefreshRate GetRefreshRate()
+    {
+      switch (_vSyncValue)
+      {
+        case true:
+          return new RefreshRate() { numerator = 0 };
+        case false:
+          return new RefreshRate() { numerator = 1 };
+      }
+    }
 
     //======================================
   }

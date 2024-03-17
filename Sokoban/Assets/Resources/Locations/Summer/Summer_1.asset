@@ -421,3 +421,5 @@ MonoBehaviour:
   - _typeObject: 3
     _indexObject: 0
     _positionObject: {x: 18, y: 0, z: 8}
+  _maximumNumberSteps: 26
+  _maxTimeOnLevel: 0

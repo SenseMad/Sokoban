@@ -164,36 +164,6 @@ namespace Sokoban.GridEditor
       }
     }
 
-    /*private Vector3Int[] SearchTrees()
-    {
-      List<Vector3Int> foundTrees = new();
-
-      foreach (var block in blockObjects)
-      {
-        if (block == null)
-          continue;
-
-        if (!block.TryGetComponent(out DecoreObject parDecoreObject))
-          continue;
-
-        if (parDecoreObject.NameObject != "Tree")
-          continue;
-
-        if (block.transform.position.y == 3)
-          break;
-
-        Vector3Int positionUpCurrentBlock = new((int)block.transform.position.x, (int)block.transform.position.y + 1, (int)block.transform.position.z);
-
-        foundTrees.Add(positionUpCurrentBlock);
-      }
-
-      Vector3Int[] retFoundTrees = new Vector3Int[foundTrees.Count];
-      for (int i = 0; i < retFoundTrees.Length; i++)
-        retFoundTrees[i] = foundTrees[i];
-
-      return retFoundTrees;
-    }*/
-
     private void SpawnGrass()
     {
       List<Vector3Int> emptyPositionsList = new();
@@ -211,7 +181,6 @@ namespace Sokoban.GridEditor
           break;
 
         Vector3Int positionUpCurrentBlock = new((int)block.transform.position.x, (int)block.transform.position.y + 1, (int)block.transform.position.z);
-
         emptyPositionsList.Add(positionUpCurrentBlock);
 
         foreach (var blockUp in blockObjects)

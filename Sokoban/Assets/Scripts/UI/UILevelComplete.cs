@@ -9,17 +9,13 @@ namespace Sokoban.UI
   public class UILevelComplete : MenuUI
   {
     [Header("ПАНЕЛЬ")]
-    [SerializeField, Tooltip("Панель пройденного уровн¤")]
-    private Panel _levelCompletePanel;
+    [SerializeField] private Panel _levelCompletePanel;
     [SerializeField] private GameObject _topPanelObjectMenu;
 
     [Header("ТЕКСТЫ")]
-    [SerializeField, Tooltip("Текст времени прохождени¤ уровн¤")]
-    private TextMeshProUGUI _textLevelCompletedTime;
-    [SerializeField, Tooltip("Текст номера уровня")]
-    private TextMeshProUGUI _textLevelNumber;
-    [SerializeField, Tooltip("Текст количества ходов")]
-    private TextMeshProUGUI _textNumberMoves;
+    [SerializeField] private TextMeshProUGUI _textLevelCompletedTime;
+    [SerializeField] private TextMeshProUGUI _textLevelNumber;
+    [SerializeField] private TextMeshProUGUI _textNumberMoves;
 
     //--------------------------------------
 
@@ -70,6 +66,9 @@ namespace Sokoban.UI
     /// </summary>
     private void UpdateText()
     {
+      if (levelManager.LevelFailed)
+        return;
+
       UpdateTextTimeLevel();
       UpdateTextLevelNumber();
       UpdateTextNumberMoves();
