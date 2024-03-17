@@ -6352,9 +6352,14 @@ MonoBehaviour:
   _skinDatas:
   - {fileID: 11400000, guid: 5a736e6351f64854eae8baa04eafc592, type: 2}
   - {fileID: 11400000, guid: 10a6e48a8b9143d4f9d4292caeb1d68e, type: 2}
+  - {fileID: 11400000, guid: ec7c90f447c15934e8562b8bf21ef076, type: 2}
+  - {fileID: 11400000, guid: b3a610bd92f641d4eb18183bb46a1275, type: 2}
+  - {fileID: 11400000, guid: cd089eb52f7b33b4c9d6eb505db66bfe, type: 2}
+  - {fileID: 11400000, guid: 61590bdd92d849d45bc6399d08d11ed2, type: 2}
+  - {fileID: 11400000, guid: 56ebcfa7184e62d41ac407a0e253f36c, type: 2}
   - {fileID: 11400000, guid: 6d2d1d2868fcc0b41b104d37e8db26f0, type: 2}
   - {fileID: 11400000, guid: f6f1ad187f0163e4f8ca2b357ab09aa2, type: 2}
-  - {fileID: 11400000, guid: 61590bdd92d849d45bc6399d08d11ed2, type: 2}
+  - {fileID: 11400000, guid: d220d823508c96a4380b0f7e1659fc6f, type: 2}
 --- !u!4 &669721038
 Transform:
   m_ObjectHideFlags: 0

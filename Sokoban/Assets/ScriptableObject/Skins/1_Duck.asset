@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: 1_Duck
   m_EditorClassIdentifier: 
   _indexSkin: 1
-  _priceSkin: 0
+  _priceSkin: 5
   _skinSprite: {fileID: 21300000, guid: 18ffd864b42b62b43ac633181635712b, type: 3}
   _objectSkin: {fileID: 919132149155446097, guid: 65b0197ca64589c4b9708b816337fb1f, type: 3}
