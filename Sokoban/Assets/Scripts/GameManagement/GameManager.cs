@@ -38,8 +38,6 @@ namespace Sokoban.GameManagement
 #else
       SettingsData.CreateResolutions();
 
-      Screen.fullScreen = SettingsData.FullScreenValue;
-
       SettingsData.ApplyResolution();
 #endif
     }
@@ -57,9 +55,7 @@ namespace Sokoban.GameManagement
     {
       bool initScene = SceneManager.GetActiveScene().name == "InitScene";
 
-      yield return new WaitForSeconds(2f);
-
-      SettingsData.CurrentLanguage = Language.Russian;
+      SettingsData.CurrentLanguage = Language.English;
 
       LoadData();
 

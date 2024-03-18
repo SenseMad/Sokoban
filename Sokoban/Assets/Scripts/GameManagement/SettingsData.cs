@@ -94,8 +94,8 @@ namespace Sokoban.GameManagement
     public void CreateResolutions()
     {
       Resolution[] resolutions = Screen.resolutions;
-      HashSet<Tuple<int, int>> newResolutions = new HashSet<Tuple<int, int>>();
-      Dictionary<Tuple<int, int>, int> maxRefreshRates = new Dictionary<Tuple<int, int>, int>();
+      HashSet<Tuple<int, int>> newResolutions = new();
+      Dictionary<Tuple<int, int>, int> maxRefreshRates = new();
 
       for (int i = 0; i < resolutions.Length; i++)
       {
@@ -133,8 +133,11 @@ namespace Sokoban.GameManagement
         if (Resolutions[i].width == Screen.width & Resolutions[i].height == Screen.height)
         {
           CurrentSelectedResolution = i;
+          break;
         }
       }
+
+      Screen.fullScreen = _fullScreenValue;
     }
     
     public void ApplyResolution()
@@ -143,7 +146,6 @@ namespace Sokoban.GameManagement
       int height = GetResolution().height;
       FullScreenMode fullScreenMode = GetFullScreenMode();
       RefreshRate refreshRate = GetRefreshRate();
-      //RefreshRate refreshRate = GetResolution().refreshRateRatio;
 
       Screen.SetResolution(width, height, fullScreenMode, refreshRate);
     }

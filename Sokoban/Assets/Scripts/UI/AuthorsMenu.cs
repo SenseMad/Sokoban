@@ -2,17 +2,12 @@ using UnityEngine;
 
 namespace Sokoban.UI
 {
-  /// <summary>
-  /// Меню авторов
-  /// </summary>
   public class AuthorsMenu : MenuUI
   {
     [Header("Настройки")]
-    [SerializeField, Tooltip("Скорость прокрутки")]
-    private float _scrollSpeed = 5;
+    [SerializeField] private float _scrollSpeed = 5;
 
-    [SerializeField, Tooltip("Объект который нужно прокручивать")]
-    private RectTransform _content;
+    [SerializeField] private RectTransform _content;
 
     [SerializeField, Tooltip("True, если титры запущены")]
     private bool _isCreditsRunning = false;

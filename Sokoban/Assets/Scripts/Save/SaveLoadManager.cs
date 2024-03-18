@@ -66,9 +66,22 @@ namespace Sokoban.Save
       SaveData();
     }
 
-    public static void ResetGameData()
+    private void ResetGameData()
     {
-      SetGameData(new GameData());
+      GameManager gameManager = GameManager.Instance;
+
+      SettingsData settingsData = gameManager.SettingsData;
+
+      GameData gameData = new()
+      {
+        MusicValue = settingsData.MusicValue,
+        SoundValue = settingsData.SoundValue,
+        FullScreenValue = settingsData.FullScreenValue,
+        VSyncValue = settingsData.VSyncValue,
+        CurrentLanguage = settingsData.CurrentLanguage
+      };
+
+      SetGameData(gameData);
     }
 
     //======================================

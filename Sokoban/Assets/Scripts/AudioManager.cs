@@ -44,6 +44,8 @@ namespace Sokoban.GameManagement
 
       gameManager = GameManager.Instance;
 
+      UpdateAudioSource(gameManager.SettingsData.MusicValue);
+
       if (_instance != null && _instance != this)
       {
         Destroy(gameObject);
@@ -62,8 +64,6 @@ namespace Sokoban.GameManagement
 
     private void OnEnable()
     {
-      UpdateAudioSource(gameManager.SettingsData.MusicValue);
-
       OnPlaySoundInterface.AddListener(PlaySoundInterface);
 
       OnPlaySound.AddListener(PlaySFX);
